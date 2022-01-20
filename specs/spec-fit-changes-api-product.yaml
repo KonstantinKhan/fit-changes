@@ -1,0 +1,97 @@
+openapi: 3.0.3
+info:
+  title: Product
+  description: 'Description of the transport model of the product'
+  version: 0.0.1
+paths:
+  /create:
+    post:
+      tags:
+        - product
+      summary: Create a new product
+      operationId: createProduct
+      requestBody:
+        description: The request object to create a new product
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateProductRequest'
+        required: true
+      responses:
+        200:
+          description: All responses
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateProductResponse'
+
+components:
+  schemas:
+
+    CreatableProduct:
+      type: object
+      description: The structure with data about the product to request about creation
+      properties:
+        productName:
+          type: string
+          description: Product name
+        caloriesPerHundredGrams:
+          type: number
+          description: Product calorie content
+        proteinsPerHundredGrams:
+          type: number
+          description: Product protein content
+        fatsPerHundredGrams:
+          type: number
+          description: Product fat content
+        carbohydratePerHundredGrams:
+          type: number
+          description: Product carbohydrate content
+
+    UpdatableProduct:
+      description: Structure for a data about the product in request to update
+      allOf:
+        - $ref: '#/components/schemas/CreatableProduct'
+        - type: object
+          properties:
+            id:
+              type: string
+
+    CreateProductRequest:
+      allOf:
+        - $ref: './spec-fit-changes-api.yaml#/components/schemas/BaseMessage'
+        - $ref: './spec-fit-changes-api.yaml#/components/schemas/BaseRequest'
+        - type: object
+          properties:
+            createProduct:
+              $ref: '#/components/schemas/CreatableProduct'
+            debug:
+              type: object
+              properties:
+                stub:
+                  type: string
+                  enum:
+                    - success
+                    - error
+
+    CreateProductResponse:
+      description: The structure to respond to a request about the declaration an exercise
+      allOf:
+        - $ref: './spec-fit-changes-api.yaml#/components/schemas/BaseMessage'
+        - $ref: './spec-fit-changes-api.yaml#/components/schemas/BaseResponse'
+        - type: object
+        properties:
+          createdExercise:
+            $ref: '#/components/schemas/ResponseProduct'
+
+    ResponseProduct:
+      description: The structure describing the product in the response
+      allOf:
+        - $ref: '#/components/schemas/UpdatableProduct'
+        - type: object
+          properties:
+            permissions:
+              type: array
+              uniqueItems: true
+              items:
+                $ref: './spec-fit-changes-api.yaml#/components/schemas/Permissions'

@@ -1,0 +1,73 @@
+openapi: 3.0.3
+info:
+  title: Fit chanes app
+  description: 'This application for control of your changes'
+  contact:
+    email: khan366kos@gmail.com
+  version: 0.0.1
+servers:
+  - url: https://localhost
+tags:
+  - name: product
+    description: CRUDS for an product
+paths:
+  /product/create:
+    $ref: './spec-fit-changes-api-product.yaml#/paths/~1create'
+
+components:
+  schemas:
+
+    BaseMessage:
+      type: object
+      description: Base class to requests and responses
+      properties:
+        messageType:
+          description: A discriminator containing the message class type and used to deserialization
+          type: string
+          title: Discriminator
+          example: CreateProductRequest
+      discriminator:
+        propertyName: messageType
+
+    BaseRequest:
+      type: object
+      description: Base class to all requests
+      properties:
+        requestId:
+          type: string
+          description: The id of request entity
+          example: "id:000001"
+
+    BaseResponse:
+      type: object
+      description: Base class to all responses
+      properties:
+        requestId:
+          type: string
+        result:
+          type: string
+          enum:
+            - success
+            - error
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/RequestError'
+
+    RequestError:
+      type: object
+      description: Description of request processing error
+      properties:
+        message:
+          type: string
+        field:
+          type: string
+
+    Permissions:
+      type: string
+      enum:
+        - create
+        - read
+        - update
+        - delete
+        - send
