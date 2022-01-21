@@ -1,6 +1,6 @@
 openapi: 3.0.3
 info:
-  title: Fit chanes app
+  title: Fit changes app
   description: 'This application for control of your changes'
   contact:
     email: khan366kos@gmail.com
@@ -12,7 +12,10 @@ tags:
     description: CRUDS for an product
 paths:
   /product/create:
-    $ref: './spec-fit-changes-api-product.yaml#/paths/~1create'
+    $ref: 'spec-fit-changes-api-product.yaml#/paths/~1create'
+  /product/read:
+    $ref: 'spec-fit-changes-api-product.yaml#/paths/~1read'
+
 
 components:
   schemas:
@@ -62,6 +65,22 @@ components:
           type: string
         field:
           type: string
+
+    BaseDebugRequest:
+      type: object
+      properties:
+        mode:
+          type: string
+          default: prod
+          enum:
+            - prod
+            - test
+            - stub
+        stubCase:
+          type: string
+          enum:
+            - success
+            - database_error
 
     Permissions:
       type: string
