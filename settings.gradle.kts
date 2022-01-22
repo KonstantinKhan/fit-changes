@@ -11,3 +11,4 @@ pluginManagement {
 }
 
 include("fitChanges-be-transport-openapi")
+include("fitChanges-be-common")
