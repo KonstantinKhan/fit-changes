@@ -1,9 +1,7 @@
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.fasterxml.jackson.module.kotlin.readValue
 import ru.fitChanges.openapi.models.BaseMessage
 import ru.fitChanges.openapi.models.CreatableProduct
 import ru.fitChanges.openapi.models.CreateProductRequest
-import ru.fitChanges.openapi.models.ResponseProduct
 import kotlin.test.Test
 import kotlin.test.assertContains
 import kotlin.test.assertEquals
@@ -11,15 +9,6 @@ import kotlin.test.assertEquals
 class SerializationTest {
 
     private val requestId = "rID:0001"
-
-    // Test example of a ResponseProduct
-    private val beef = ResponseProduct(
-        productName = "Говядина",
-        caloriesPerHundredGrams = 187.0,
-        proteinsPerHundredGrams = 18.9,
-        fatsPerHundredGrams = 12.4,
-        carbohydratePerHundredGrams = 0.0
-    )
 
     // Test example of a CreateProductRequest
     private val createBeef = CreateProductRequest(
@@ -34,7 +23,6 @@ class SerializationTest {
     )
 
     private val om = ObjectMapper()
-
     private val json = om.writeValueAsString(createBeef)
 
     @Test
