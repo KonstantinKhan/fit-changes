@@ -80,8 +80,8 @@ components:
 
     CreateProductRequest:
       allOf:
-        - $ref: './spec-fit-changes-api.yaml#/components/schemas/BaseMessage'
-        - $ref: './spec-fit-changes-api.yaml#/components/schemas/BaseRequest'
+        - $ref: './spec-fitChanges-api.yaml#/components/schemas/BaseMessage'
+        - $ref: './spec-fitChanges-api.yaml#/components/schemas/BaseRequest'
         - type: object
           properties:
             createProduct:
@@ -98,8 +98,8 @@ components:
     CreateProductResponse:
       description: The structure to respond to a request about the declaration an product
       allOf:
-        - $ref: './spec-fit-changes-api.yaml#/components/schemas/BaseMessage'
-        - $ref: './spec-fit-changes-api.yaml#/components/schemas/BaseResponse'
+        - $ref: './spec-fitChanges-api.yaml#/components/schemas/BaseMessage'
+        - $ref: './spec-fitChanges-api.yaml#/components/schemas/BaseResponse'
         - type: object
           properties:
             createProduct:
@@ -115,20 +115,20 @@ components:
               type: array
               uniqueItems: true
               items:
-                $ref: './spec-fit-changes-api.yaml#/components/schemas/Permissions'
+                $ref: './spec-fitChanges-api.yaml#/components/schemas/Permissions'
 
     ReadProductRequest:
       description: The structure to get product
       allOf:
-        - $ref: './spec-fit-changes-api.yaml#/components/schemas/BaseMessage'
-        - $ref: './spec-fit-changes-api.yaml#/components/schemas/BaseRequest'
+        - $ref: './spec-fitChanges-api.yaml#/components/schemas/BaseMessage'
+        - $ref: './spec-fitChanges-api.yaml#/components/schemas/BaseRequest'
         - type: object
           properties:
             readProductId:
               type: string
             debug:
               allOf:
-                - $ref: './spec-fit-changes-api.yaml#/components/schemas/BaseDebugRequest'
+                - $ref: './spec-fitChanges-api.yaml#/components/schemas/BaseDebugRequest'
                 - type: object
                   properties:
                     stub:
@@ -140,8 +140,8 @@ components:
     ReadProductResponse:
       description: The structure to respond to a request with an product information
       allOf:
-        - $ref: './spec-fit-changes-api.yaml#/components/schemas/BaseMessage'
-        - $ref: './spec-fit-changes-api.yaml#/components/schemas/BaseResponse'
+        - $ref: './spec-fitChanges-api.yaml#/components/schemas/BaseMessage'
+        - $ref: './spec-fitChanges-api.yaml#/components/schemas/BaseResponse'
         - type: object
           properties:
             readProduct:

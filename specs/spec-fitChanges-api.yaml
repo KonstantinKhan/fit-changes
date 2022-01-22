@@ -12,9 +12,9 @@ tags:
     description: CRUDS for an product
 paths:
   /product/create:
-    $ref: 'spec-fit-changes-api-product.yaml#/paths/~1create'
+    $ref: 'spec-fitChanges-api-product.yaml#/paths/~1create'
   /product/read:
-    $ref: 'spec-fit-changes-api-product.yaml#/paths/~1read'
+    $ref: 'spec-fitChanges-api-product.yaml#/paths/~1read'
 
 
 components:

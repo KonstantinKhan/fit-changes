@@ -1,14 +1,15 @@
 plugins {
-    kotlin("jvm") version "1.6.10"
+    kotlin("jvm") apply false
+    id("org.openapi.generator") apply false
 }
 
-group = "org.example"
-version = "1.0-SNAPSHOT"
+group = "ru.fitChanges"
+version = "0.0.1"
 
-repositories {
-    mavenCentral()
-}
-
-dependencies {
-    implementation(kotlin("stdlib"))
+subprojects {
+    group = rootProject.group
+    version = rootProject.version
+    repositories {
+        mavenCentral()
+    }
 }
