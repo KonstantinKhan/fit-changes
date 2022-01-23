@@ -7,6 +7,7 @@ import ru.fitChanges.backend.common.product.models.ProductModel
 data class BeContext(
     var requestId: String = "",
     var requestProduct: ProductModel = ProductModel(),
+    var responseProduct: ProductModel = ProductModel(),
     var errors: MutableSet<IError> = mutableSetOf()
 ) {
     fun addError(field: String) {

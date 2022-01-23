@@ -78,7 +78,7 @@ components:
         - $ref: '#/components/schemas/CreatableProduct'
         - type: object
           properties:
-            id:
+            productId:
               type: string
               description: ID of the updated object
 

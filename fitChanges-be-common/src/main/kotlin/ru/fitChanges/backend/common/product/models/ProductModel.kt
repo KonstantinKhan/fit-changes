@@ -6,6 +6,6 @@ data class ProductModel(
     var proteinsPerHundredGrams: Double = 0.0,
     var fatsPerHundredGrams: Double = 0.0,
     var carbohydratePerHundredGrams: Double = 0.0,
-    var idProduct: ProductIdModel = ProductIdModel.NONE,
+    var productId: ProductIdModel = ProductIdModel.NONE,
     var permissions: MutableSet<ProductPermissions> = mutableSetOf()
 )

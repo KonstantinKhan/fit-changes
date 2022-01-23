@@ -1,23 +1,26 @@
 import ru.fitChanges.backend.common.product.context.BeContext
 import ru.fitChanges.backend.mapping.product.setQuery
-import ru.fitChanges.backend.utils.product.BEEF_FILLED
-import ru.fitChanges.backend.utils.product.BEEF_NOT_FILLED
-import ru.fitChanges.backend.utils.product.REQUEST_ID_0001
+import ru.fitChanges.backend.mapping.product.toCreateProductResponse
+import ru.fitChanges.backend.utils.product.*
 import ru.fitChanges.openapi.models.CreateProductRequest
+import ru.fitChanges.openapi.models.CreateProductResponse
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
 class MappingTest {
 
-    private val beContext = BeContext()
+    private val beContext = BeContext(
+        responseProduct = BEEF_FILLED_MODEL,
+        requestId = REQUEST_ID_0001
+    )
 
     @Test
     fun createBeefRequestSuccess() {
         beContext.setQuery(
             CreateProductRequest(
                 requestId = REQUEST_ID_0001,
-                createProduct = BEEF_FILLED
+                createProduct = BEEF_FILLED_CREATABLE_PRODUCT
             )
         )
 
@@ -36,9 +39,26 @@ class MappingTest {
         beContext.setQuery(
             CreateProductRequest(
                 requestId = REQUEST_ID_0001,
-                createProduct = BEEF_NOT_FILLED
+                createProduct = BEEF_NOT_FILLED_CREATABLE_PRODUCT
             )
         )
         println(beContext)
+    }
+
+    @Test
+    fun createBeefResponseTest() {
+        val response = beContext.toCreateProductResponse()
+        println(response)
+        assertEquals(response::class.java.simpleName, response.messageType)
+        assertEquals(REQUEST_ID_0001, response.requestId)
+        assertEquals(CreateProductResponse.Result.SUCCESS, response.result)
+        assertTrue(response.errors.isNullOrEmpty())
+        assertTrue(response.createProduct?.productName?.isNotBlank() ?: false)
+        assertEquals(187.0, response.createProduct?.caloriesPerHundredGrams)
+        assertEquals(18.9, response.createProduct?.proteinsPerHundredGrams)
+        assertEquals(12.4, response.createProduct?.fatsPerHundredGrams)
+        assertEquals(0.0, response.createProduct?.carbohydratePerHundredGrams)
+        assertEquals(PRODUCT_ID_0001, response.createProduct?.productId)
+        assertTrue(response.createProduct?.permissions?.isNotEmpty() ?: false)
     }
 }
