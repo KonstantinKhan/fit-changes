@@ -7,10 +7,8 @@ plugins {
     kotlin("jvm")
 }
 
-group = "ru.fitChange"
-version = "0.0.1"
 application {
-    mainClass.set("ru.fitChange.ApplicationKt")
+    mainClass.set("io.ktor.server.netty.EngineMain")
 }
 
 dependencies {
