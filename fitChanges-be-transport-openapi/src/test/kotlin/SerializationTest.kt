@@ -1,6 +1,6 @@
 import com.fasterxml.jackson.databind.ObjectMapper
+import ru.fitChanges.backend.utils.product.BEEF_FILLED
 import ru.fitChanges.openapi.models.BaseMessage
-import ru.fitChanges.openapi.models.CreatableProduct
 import ru.fitChanges.openapi.models.CreateProductRequest
 import kotlin.test.Test
 import kotlin.test.assertContains
@@ -13,13 +13,7 @@ class SerializationTest {
     // Test example of a CreateProductRequest
     private val createBeef = CreateProductRequest(
         requestId = requestId,
-        createProduct = CreatableProduct(
-            productName = "Говядина",
-            caloriesPerHundredGrams = 187.0,
-            proteinsPerHundredGrams = 18.9,
-            fatsPerHundredGrams = 12.4,
-            carbohydratePerHundredGrams = 0.0
-        )
+        createProduct = BEEF_FILLED
     )
 
     private val om = ObjectMapper()

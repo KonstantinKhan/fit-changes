@@ -1,4 +1,4 @@
-package common.models
+package ru.fitChanges.backend.common.product.models
 
 @JvmInline
 value class ProductIdModel(private val id: String) {

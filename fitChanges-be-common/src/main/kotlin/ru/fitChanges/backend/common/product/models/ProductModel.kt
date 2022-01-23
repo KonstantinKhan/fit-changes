@@ -1,4 +1,4 @@
-package common.models
+package ru.fitChanges.backend.common.product.models
 
 data class ProductModel(
     var productName: String = "",

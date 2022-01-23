@@ -12,3 +12,5 @@ pluginManagement {
 
 include("fitChanges-be-transport-openapi")
 include("fitChanges-be-common")
+include("fitChanges-be-mapping")
+include("fitChanges-be-utils")
