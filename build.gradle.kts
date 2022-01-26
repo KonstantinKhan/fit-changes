@@ -1,6 +1,7 @@
 plugins {
     kotlin("jvm") apply false
     id("org.openapi.generator") apply false
+    id("com.bmuschko.docker-java-application") apply false
 }
 
 group = "ru.fitChanges"
