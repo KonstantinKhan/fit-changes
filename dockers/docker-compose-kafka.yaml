@@ -35,6 +35,7 @@ services:
       KAFKA_HOSTS: kafka:9092
       KAFKA_TOPICS_IN: product-in
       KAFKA_TOPICS_OUT: product-out
+      KAFKA_GROUP_ID: products
 
   appKafkaTest:
     image: test_kafka:0.0.1
