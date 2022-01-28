@@ -9,5 +9,5 @@ dependencies {
     implementation(kotlin("stdlib"))
 
     implementation(project(":fitChanges-be-transport-openapi"))
-    implementation(project(":fitChanges-be-common"))
+    implementation(project(":fit_changes-be-common"))
 }

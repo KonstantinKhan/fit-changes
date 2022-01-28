@@ -14,7 +14,7 @@ pluginManagement {
 }
 
 include("fitChanges-be-transport-openapi")
-include("fitChanges-be-common")
+include("fit_changes-be-common")
 include("fitChanges-be-mapping")
 include("fitChanges-be-utils")
 include("fit_changes-be-ktor-product")
