@@ -1,4 +1,4 @@
-package ru.fitChanges.backend.common.product.models
+package ru.fit_changes.backend.common.product.models
 
 enum class ProductPermissions {
     CREATE,

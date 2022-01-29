@@ -1,8 +1,8 @@
 package ru.fitChanges.backend.utils.product
 
-import ru.fitChanges.backend.common.product.models.ProductIdModel
-import ru.fitChanges.backend.common.product.models.ProductModel
-import ru.fitChanges.backend.common.product.models.ProductPermissions
+import ru.fit_changes.backend.common.product.models.ProductIdModel
+import ru.fit_changes.backend.common.product.models.ProductModel
+import ru.fit_changes.backend.common.product.models.ProductPermissions
 import ru.fitChanges.openapi.models.CreatableProduct
 
 const val REQUEST_ID_0001 = "requestID:0001"
@@ -33,3 +33,9 @@ val BEEF_FILLED_MODEL = ProductModel(
     productId = ProductIdModel(PRODUCT_ID_0001),
     permissions = mutableSetOf(ProductPermissions.CREATE)
 )
+
+val BEEF_FILLED_MODEL_WITHOUT_PRODUCT_ID =
+    BEEF_FILLED_MODEL.copy(
+        productId = ProductIdModel.NONE,
+        permissions = mutableSetOf()
+    )

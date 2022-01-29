@@ -1,4 +1,4 @@
-package common.models
+package ru.fit_changes.backend.common.models
 
 interface IError {
     val field: String
