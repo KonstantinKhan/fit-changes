@@ -43,5 +43,5 @@ dependencies {
 
     implementation("org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion")
 
-    testImplementation(project(":fitChanges-be-utils"))
+    testImplementation(project(":fit_changes-be-utils"))
 }
