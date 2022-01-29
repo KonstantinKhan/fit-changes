@@ -1,9 +1,10 @@
-import ru.fitChanges.backend.common.product.context.BeContext
+import ru.fit_changes.backend.common.context.BeContext
 import ru.fitChanges.backend.mapping.product.setQuery
 import ru.fitChanges.backend.mapping.product.toCreateProductResponse
 import ru.fitChanges.backend.utils.product.*
 import ru.fitChanges.openapi.models.CreateProductRequest
 import ru.fitChanges.openapi.models.CreateProductResponse
+import ru.fit_changes.backend.common.context.Operations
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
@@ -11,8 +12,9 @@ import kotlin.test.assertTrue
 class MappingTest {
 
     private val beContext = BeContext(
+        requestId = REQUEST_ID_0001,
         responseProduct = BEEF_FILLED_MODEL,
-        requestId = REQUEST_ID_0001
+        operation = Operations.CREATE
     )
 
     @Test
