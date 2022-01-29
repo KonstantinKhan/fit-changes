@@ -1,9 +1,8 @@
 package ru.fitChanges.backend.mapping.product
 
-import common.models.IError
-import ru.fitChanges.backend.common.product.context.BeContext
-import ru.fitChanges.backend.common.product.models.ProductIdModel
-import ru.fitChanges.backend.common.product.models.ProductModel
+import ru.fit_changes.backend.common.models.IError
+import ru.fit_changes.backend.common.context.BeContext
+import ru.fit_changes.backend.common.product.models.ProductModel
 import ru.fitChanges.openapi.models.CreateProductResponse
 import ru.fitChanges.openapi.models.Permissions
 import ru.fitChanges.openapi.models.RequestError
@@ -29,6 +28,6 @@ fun ProductModel.toTransport() = ResponseProduct(
     proteinsPerHundredGrams = proteinsPerHundredGrams,
     fatsPerHundredGrams = fatsPerHundredGrams,
     carbohydratePerHundredGrams = carbohydratePerHundredGrams,
-    productId = productId.takeIf { it != ProductIdModel.NONE }?.asString(),
+    productId = productId.takeIf { it != ru.fit_changes.backend.common.product.models.ProductIdModel.NONE }?.asString(),
     permissions = permissions.takeIf { it.isNotEmpty() }?.map { Permissions.valueOf(it.name) }?.toSet()
 )

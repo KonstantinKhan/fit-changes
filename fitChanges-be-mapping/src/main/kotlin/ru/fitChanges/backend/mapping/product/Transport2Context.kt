@@ -1,7 +1,7 @@
 package ru.fitChanges.backend.mapping.product
 
-import ru.fitChanges.backend.common.product.context.BeContext
-import ru.fitChanges.backend.common.product.models.ProductModel
+import ru.fit_changes.backend.common.context.BeContext
+import ru.fit_changes.backend.common.product.models.ProductModel
 import ru.fitChanges.openapi.models.CreatableProduct
 import ru.fitChanges.openapi.models.CreateProductRequest
 
