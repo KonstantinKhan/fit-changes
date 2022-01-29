@@ -3,9 +3,15 @@ plugins {
 }
 
 dependencies {
+
+    val coroutinesVersion: String by project
+
     implementation(kotlin("stdlib"))
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion")
 
     implementation(project(":fit_changes-be-common"))
+    implementation(project(":fit_changes-be-utils"))
+
 
     testImplementation(kotlin("test"))
 }
