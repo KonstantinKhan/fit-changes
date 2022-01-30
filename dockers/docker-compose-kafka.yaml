@@ -23,7 +23,7 @@ services:
       KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
 
   app:
-    image: fit_changes-be-ktor-product:0.0.1
+    image: fit_changes-be-product-ktor-app:0.0.1
     depends_on:
       - kafka
     ports:
