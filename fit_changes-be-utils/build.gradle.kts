@@ -8,6 +8,6 @@ version = "0.0.1"
 dependencies {
     implementation(kotlin("stdlib"))
 
-    implementation(project(":fitChanges-be-transport-openapi"))
+    implementation(project(":fit_changes-be-transport-openapi"))
     implementation(project(":fit_changes-be-common"))
 }

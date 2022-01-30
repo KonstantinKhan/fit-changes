@@ -9,7 +9,7 @@ dependencies {
     implementation(kotlin("stdlib"))
 
     implementation(project(":fit_changes-be-common"))
-    implementation(project(":fitChanges-be-transport-openapi"))
+    implementation(project(":fit_changes-be-transport-openapi"))
     testImplementation(project(":fit_changes-be-utils"))
 
     testImplementation(kotlin("test"))
