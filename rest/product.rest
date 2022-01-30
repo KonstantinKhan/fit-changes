@@ -1,0 +1,15 @@
+POST http://127.0.0.1:8080/exercise/create
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJhdWRpZW5jZSIsImZuYW1lIjoiSXZhbiIsImxuYW1lIjoiSXZhbm92IiwiaXNzIjoiaXNzdWVyIiwiZ3JvdXBzIjpbIlRFU1QiLCJVU0VSIl0sIm1uYW1lIjoiUy4iLCJleHAiOjE2NzI1MzEyMDB9.ChgyoVIa1mPO1khMv2_KtIHrnvtYIAFu5V_C5aNfj58
+
+{
+  "messageType": "CreateProductRequest",
+  "requestId": "rID:0001",
+  "createProduct": {
+    "productName": "Говядина",
+    "caloriesPerHundredGrams": "187.0",
+    "proteinsPerHundredGrams": "18.9",
+    "fatsPerHundredGrams": "12.4",
+    "carbohydratePerHundredGrams": "0.0"
+  }
+}
