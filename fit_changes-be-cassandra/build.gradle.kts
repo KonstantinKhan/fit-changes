@@ -16,4 +16,7 @@ dependencies {
     implementation("com.datastax.oss:java-driver-query-builder:$cassandraDriverVersion")
     kapt("com.datastax.oss:java-driver-mapper-processor:$cassandraDriverVersion")
     implementation("com.datastax.oss:java-driver-mapper-runtime:$cassandraDriverVersion")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-jdk8:$coroutinesVersion" )
+
+    implementation(project(":fit_changes-be-common"))
 }

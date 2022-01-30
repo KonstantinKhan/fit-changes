@@ -41,4 +41,9 @@ dependencies {
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlinVersion")
 
     implementation("org.apache.kafka:kafka-clients:$kafkaVersion")
+
+    implementation(project(":fit_changes-be-transport-openapi"))
+    implementation(project(":fit_changes-be-common"))
+    implementation(project(":fit_changes-be-product-service"))
+    implementation(project(":fit_changes-be-product-logics"))
 }
