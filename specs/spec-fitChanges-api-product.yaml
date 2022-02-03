@@ -67,7 +67,7 @@ components:
           type: number
           format: double
           description: Product fat content
-        carbohydratePerHundredGrams:
+        carbohydratesPerHundredGrams:
           type: number
           format: double
           description: Product carbohydrate content

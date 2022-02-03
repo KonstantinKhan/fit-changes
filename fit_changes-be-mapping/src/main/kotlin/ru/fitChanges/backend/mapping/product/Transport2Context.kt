@@ -15,7 +15,7 @@ private fun CreatableProduct.toModel(beContext: BeContext) = ProductModel(
     caloriesPerHundredGrams = caloriesPerHundredGrams.validationProductParameters(beContext, "Calories"),
     proteinsPerHundredGrams = proteinsPerHundredGrams.validationProductParameters(beContext, "Proteins"),
     fatsPerHundredGrams = fatsPerHundredGrams.validationProductParameters(beContext, "Fats"),
-    carbohydratePerHundredGrams = carbohydratePerHundredGrams.validationProductParameters(beContext, "Carbohydrates")
+    carbohydratesPerHundredGrams = carbohydratesPerHundredGrams.validationProductParameters(beContext, "Carbohydrates")
 )
 
 private fun Double?.validationProductParameters(context: BeContext, parameter: String) =

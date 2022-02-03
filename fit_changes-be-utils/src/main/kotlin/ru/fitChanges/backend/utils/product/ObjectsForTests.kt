@@ -13,7 +13,7 @@ val BEEF_FILLED_CREATABLE_PRODUCT = CreatableProduct(
     caloriesPerHundredGrams = 187.0,
     proteinsPerHundredGrams = 18.9,
     fatsPerHundredGrams = 12.4,
-    carbohydratePerHundredGrams = 0.0
+    carbohydratesPerHundredGrams = 0.0
 )
 
 val BEEF_NOT_FILLED_CREATABLE_PRODUCT = CreatableProduct(
@@ -21,7 +21,7 @@ val BEEF_NOT_FILLED_CREATABLE_PRODUCT = CreatableProduct(
     caloriesPerHundredGrams = null,
     proteinsPerHundredGrams = null,
     fatsPerHundredGrams = null,
-    carbohydratePerHundredGrams = null
+    carbohydratesPerHundredGrams = null
 )
 
 val BEEF_FILLED_MODEL = ProductModel(
@@ -29,7 +29,7 @@ val BEEF_FILLED_MODEL = ProductModel(
     caloriesPerHundredGrams = 187.0,
     proteinsPerHundredGrams = 18.9,
     fatsPerHundredGrams = 12.4,
-    carbohydratePerHundredGrams = 0.0,
+    carbohydratesPerHundredGrams = 0.0,
     productId = ProductIdModel(PRODUCT_ID_0001),
     permissions = mutableSetOf(ProductPermissions.CREATE)
 )
