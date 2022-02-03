@@ -1,9 +1,35 @@
 version: "3.3"
+
 services:
+
+  cassandra:
+    container_name: cassandra-db
+    hostname: cassandra-db
+    image: cassandra:latest
+    ports:
+      - "9042:9042"
+    environment:
+      CASSANDRA_RPC_ADDRESS: 0.0.0.0
+
   zookeeper:
     image: wurstmeister/zookeeper:3.4.6
     expose:
       - "2181"
+
+  cassandra-web:
+    image: markusgulden/cassandra-web
+    expose:
+      - 7000
+      - 7001
+      - 7199
+      - 9042
+      - 9160
+    depends_on:
+      - cassandra
+    environment:
+      CASSANDRA_HOST_IPS: 172.23.0.2
+    ports:
+      - "3000:3000"
 
   kafka:
     image: wurstmeister/kafka:2.13-2.7.0
@@ -31,6 +57,7 @@ services:
     links:
       - zookeeper
       - kafka
+      - cassandra
     environment:
       KAFKA_HOSTS: kafka:9092
       KAFKA_TOPICS_IN: product-in
