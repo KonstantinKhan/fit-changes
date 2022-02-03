@@ -1,4 +1,4 @@
-package ru.fit_changes.backend.ktor_product.configs
+package ru.fit_changes.backend.app.ktor.product.configs
 
 import io.ktor.server.application.*
 

@@ -1,4 +1,4 @@
-package ru.fit_changes.backend.ktor_product
+package ru.fit_changes.backend.app.ktor.product
 
 import org.apache.kafka.clients.consumer.Consumer
 import org.apache.kafka.clients.consumer.ConsumerConfig

@@ -1,4 +1,4 @@
-package ru.fit_changes.backend.ktor_product.plugins
+package ru.fit_changes.backend.app.ktor.product.plugins
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import kotlinx.coroutines.*
@@ -8,8 +8,8 @@ import org.apache.kafka.clients.producer.ProducerRecord
 import ru.fitChanges.openapi.models.CreateProductRequest
 import ru.fit_chages.backend.product.service.ProductService
 import ru.fit_changes.backend.common.context.BeContext
-import ru.fit_changes.backend.ktor_product.ConsumerScope
-import ru.fit_changes.backend.ktor_product.KafkaConfig
+import ru.fit_changes.backend.app.ktor.product.ConsumerScope
+import ru.fit_changes.backend.app.ktor.product.KafkaConfig
 import ru.fit_changes.backend.product.logics.ProductCrud
 import java.time.Duration
 import java.util.*
