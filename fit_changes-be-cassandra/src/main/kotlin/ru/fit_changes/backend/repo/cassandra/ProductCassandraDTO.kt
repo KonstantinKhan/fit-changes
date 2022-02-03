@@ -1,6 +1,5 @@
 package ru.fit_changes.backend.repo.cassandra
 
-import com.datastax.oss.driver.api.core.type.DataType
 import com.datastax.oss.driver.api.core.type.DataTypes
 import com.datastax.oss.driver.api.mapper.annotations.CqlName
 import com.datastax.oss.driver.api.mapper.annotations.Entity
@@ -23,7 +22,7 @@ data class ProductCassandraDTO(
     @CqlName(COLUMN_FATS_PER_HUNDRED_GRAMS)
     val fatsPerHundredGrams: Double?,
     @CqlName(COLUMN_CARBOHYDRATES_PER_HUNDRED_GRAMS)
-    val carbohydratePerHundredGrams: Double?
+    val carbohydratesPerHundredGrams: Double?
 ) {
     constructor(model: ProductModel) : this(
         productId = model.productId.takeIf { it != ProductIdModel.NONE }?.asString(),
@@ -31,7 +30,7 @@ data class ProductCassandraDTO(
         caloriesPerHundredGrams = model.caloriesPerHundredGrams,
         proteinsPerHundredGrams = model.proteinsPerHundredGrams,
         fatsPerHundredGrams = model.fatsPerHundredGrams,
-        carbohydratePerHundredGrams = model.carbohydratePerHundredGrams
+        carbohydratesPerHundredGrams = model.carbohydratesPerHundredGrams
     )
 
     companion object {
@@ -42,6 +41,38 @@ data class ProductCassandraDTO(
         const val COLUMN_PROTEINS_PER_HUNDRED_GRAMS = "proteins_per_hundred_grams"
         const val COLUMN_FATS_PER_HUNDRED_GRAMS = "fats_per_hundred_grams"
         const val COLUMN_CARBOHYDRATES_PER_HUNDRED_GRAMS = "carbohydrates_per_hundred_grams"
+
+        fun table(
+            keyspace: String,
+            tableName: String
+        ) = SchemaBuilder
+            .createTable(keyspace, tableName)
+            .ifNotExists()
+            .withPartitionKey(COLUMN_PRODUCT_ID, DataTypes.TEXT)
+            .withColumn(COLUMN_PRODUCT_NAME, DataTypes.TEXT)
+            .withColumn(COLUMN_CALORIES_PER_HUNDRED_GRAMS, DataTypes.DOUBLE)
+            .withColumn(COLUMN_PROTEINS_PER_HUNDRED_GRAMS, DataTypes.DOUBLE)
+            .withColumn(COLUMN_FATS_PER_HUNDRED_GRAMS, DataTypes.DOUBLE)
+            .withColumn(COLUMN_CARBOHYDRATES_PER_HUNDRED_GRAMS, DataTypes.DOUBLE)
+            .build()
+
+        fun productNameIndex(keyspace: String, tableName: String, locale: String = "en") =
+            SchemaBuilder
+                .createIndex()
+                .ifNotExists()
+                .usingSASI()
+                .onTable(keyspace, tableName)
+                .andColumn(COLUMN_PRODUCT_NAME)
+                .withSASIOptions(
+                    mapOf(
+                        "mode" to "CONTAINS",
+                        "tokenization_locale" to locale,
+                        "analyzer_class" to "org.apache.cassandra.index.sasi.analyzer.NonTokenizingAnalyzer",
+                        "case_sensitive" to "false"
+                    )
+                )
+                .build()
+
     }
 
     fun toProductModel(): ProductModel = ProductModel(
@@ -49,38 +80,7 @@ data class ProductCassandraDTO(
         caloriesPerHundredGrams = caloriesPerHundredGrams ?: 0.0,
         proteinsPerHundredGrams = proteinsPerHundredGrams ?: 0.0,
         fatsPerHundredGrams = fatsPerHundredGrams ?: 0.0,
-        carbohydratePerHundredGrams = carbohydratePerHundredGrams ?: 0.0,
+        carbohydratesPerHundredGrams = carbohydratesPerHundredGrams ?: 0.0,
         productId = productId?.let { ProductIdModel(it) } ?: ProductIdModel.NONE,
     )
-
-    fun table(
-        keyspace: String,
-        tableName: String
-    ) = SchemaBuilder
-        .createTable(keyspace, tableName)
-        .ifNotExists()
-        .withPartitionKey(COLUMN_PRODUCT_ID, DataTypes.TEXT)
-        .withColumn(COLUMN_PRODUCT_ID, DataTypes.TEXT)
-        .withColumn(COLUMN_CALORIES_PER_HUNDRED_GRAMS, DataTypes.DECIMAL)
-        .withColumn(COLUMN_PROTEINS_PER_HUNDRED_GRAMS, DataTypes.DECIMAL)
-        .withColumn(COLUMN_FATS_PER_HUNDRED_GRAMS, DataTypes.DECIMAL)
-        .withColumn(COLUMN_CARBOHYDRATES_PER_HUNDRED_GRAMS, DataTypes.DECIMAL)
-        .build()
-
-    fun productNameIndex(keyspace: String, tableName: String, locale: String = "en") =
-        SchemaBuilder
-            .createIndex()
-            .ifNotExists()
-            .usingSASI()
-            .onTable(keyspace, tableName)
-            .andColumn(COLUMN_PRODUCT_NAME)
-            .withSASIOptions(
-                mapOf(
-                    "mode" to "CONTAINS",
-                    "tokenization_locale" to locale,
-                    "analyzer_class" to "org.apache.cassandra.index.sasi.analyzer.NonTokenizingAnalyzer",
-                    "case_sensitive" to "false"
-                )
-            )
-            .build()
 }
