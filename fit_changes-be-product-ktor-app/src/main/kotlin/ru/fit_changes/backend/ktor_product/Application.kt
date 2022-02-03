@@ -5,12 +5,15 @@ import io.ktor.server.netty.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import ru.fit_changes.backend.ktor_product.plugins.kafka
+import ru.fit_changes.backend.repo.cassandra.CassandraObject.createRepo
 
 fun main(args: Array<String>): Unit = EngineMain.main(args)
 
 fun Application.module(
     testing: Boolean = false,
 ) {
+
+    val repo = createRepo()
 
     routing {
 
