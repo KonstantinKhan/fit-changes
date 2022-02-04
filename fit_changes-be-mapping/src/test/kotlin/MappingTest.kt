@@ -33,7 +33,7 @@ class MappingTest {
         assertTrue(beContext.requestProduct.caloriesPerHundredGrams.toString().isNotBlank())
         assertTrue(beContext.requestProduct.proteinsPerHundredGrams.toString().isNotBlank())
         assertTrue(beContext.requestProduct.fatsPerHundredGrams.toString().isNotBlank())
-        assertTrue(beContext.requestProduct.carbohydratePerHundredGrams.toString().isNotBlank())
+        assertTrue(beContext.requestProduct.carbohydratesPerHundredGrams.toString().isNotBlank())
     }
 
     @Test()

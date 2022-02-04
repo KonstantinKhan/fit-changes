@@ -29,7 +29,7 @@ class ProductCrudTest {
                 assertEquals(expected.caloriesPerHundredGrams, caloriesPerHundredGrams)
                 assertEquals(expected.proteinsPerHundredGrams, proteinsPerHundredGrams)
                 assertEquals(expected.fatsPerHundredGrams, fatsPerHundredGrams)
-                assertEquals(expected.carbohydratePerHundredGrams, carbohydratePerHundredGrams)
+                assertEquals(expected.carbohydratesPerHundredGrams, carbohydratesPerHundredGrams)
                 assertEquals(expected.productId, productId)
             }
         }
