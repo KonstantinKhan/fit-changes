@@ -1,4 +1,4 @@
-package ru.fit_changes.backend.app.ktor.product
+package ru.fit_changes.backend.app.ktor.product.routes
 
 import io.ktor.application.*
 import io.ktor.routing.*
@@ -17,3 +17,11 @@ fun Route.productRouting(productService: ProductService) =
         post("delete") { }
         post("search") { }
     }
+
+fun Application.registerProductRoutes(
+    productService: ProductService
+) {
+    routing {
+        productRouting(productService)
+    }
+}
