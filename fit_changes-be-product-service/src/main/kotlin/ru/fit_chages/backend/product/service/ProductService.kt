@@ -23,6 +23,10 @@ class ProductService(
 
     suspend fun createProduct(context: BeContext, request: CreateProductRequest): CreateProductResponse {
         context.setQuery(request)
+
+        // temporary solution
+        context.responseProduct = context.requestProduct
+
         return context.toCreateProductResponse()
     }
 }
