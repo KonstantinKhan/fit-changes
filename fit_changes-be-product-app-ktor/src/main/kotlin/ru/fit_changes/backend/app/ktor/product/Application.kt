@@ -1,27 +1,42 @@
 package ru.fit_changes.backend.app.ktor.product
 
-import io.ktor.server.application.*
+import com.fasterxml.jackson.databind.DeserializationFeature
+import com.fasterxml.jackson.databind.SerializationFeature
+import io.ktor.application.*
+import io.ktor.features.*
+import io.ktor.jackson.*
+import io.ktor.response.*
+import io.ktor.routing.*
 import io.ktor.server.netty.*
-import io.ktor.server.response.*
-import io.ktor.server.routing.*
-import ru.fit_changes.backend.app.ktor.product.plugins.kafka
-import ru.fit_changes.backend.repo.cassandra.CassandraObject.createRepo
+import ru.fit_chages.backend.product.service.ProductService
+import ru.fit_changes.backend.app.ktor.product.plugins.configRouting
+import ru.fit_changes.backend.product.logics.ProductCrud
 
 fun main(args: Array<String>): Unit = EngineMain.main(args)
 
 fun Application.module(
     testing: Boolean = false,
 ) {
+    install(ContentNegotiation) {
+        jackson {
+            disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES)
+            enable(SerializationFeature.INDENT_OUTPUT)
+            writerWithDefaultPrettyPrinter()
+        }
+    }
 
-    val repo = createRepo()
+    configRouting(ProductService(ProductCrud()))
+
+//    val repo = createRepo()
 
     routing {
 
-        kafka()
+//        kafka()
+
 
         get("/") {
             call.respondText("Hello, World")
         }
-    
+
     }
 }
