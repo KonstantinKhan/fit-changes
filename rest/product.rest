@@ -9,6 +9,10 @@ Content-Type: application/json
     "caloriesPerHundredGrams": "187.0",
     "proteinsPerHundredGrams": "18.9",
     "fatsPerHundredGrams": "12.4",
-    "carbohydratePerHundredGrams": "0.0"
+    "carbohydratesPerHundredGrams": "0.0"
+  },
+  "debug": {
+    "mode": "stub",
+    "stubCase": "success"
   }
 }
