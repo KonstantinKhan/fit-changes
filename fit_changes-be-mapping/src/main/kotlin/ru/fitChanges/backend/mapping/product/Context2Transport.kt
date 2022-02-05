@@ -27,7 +27,7 @@ fun ProductModel.toTransport() = ResponseProduct(
     caloriesPerHundredGrams = caloriesPerHundredGrams,
     proteinsPerHundredGrams = proteinsPerHundredGrams,
     fatsPerHundredGrams = fatsPerHundredGrams,
-    carbohydratePerHundredGrams = carbohydratesPerHundredGrams,
+    carbohydratesPerHundredGrams = carbohydratesPerHundredGrams,
     productId = productId.takeIf { it != ru.fit_changes.backend.common.product.models.ProductIdModel.NONE }?.asString(),
     permissions = permissions.takeIf { it.isNotEmpty() }?.map { Permissions.valueOf(it.name) }?.toSet()
 )
