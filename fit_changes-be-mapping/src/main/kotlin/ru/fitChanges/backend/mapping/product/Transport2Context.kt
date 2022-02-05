@@ -31,6 +31,6 @@ private fun Double?.validationProductParameters(context: BeContext, parameter: S
     if (this != null) {
         this
     } else {
-        context.addError("$parameter cannot be null")
+        context.addError(parameter, "$parameter cannot be null")
         0.0
     }

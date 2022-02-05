@@ -19,7 +19,7 @@ data class BeContext(
     var errors: MutableSet<IError> = mutableSetOf()
 ) {
 
-    fun addError(field: String) {
-        errors.add(CommonError(field))
+    fun addError(field: String, message: String) {
+        errors.add(CommonError(field = field, message = message))
     }
 }
