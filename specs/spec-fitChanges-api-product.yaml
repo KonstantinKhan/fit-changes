@@ -91,13 +91,15 @@ components:
             createProduct:
               $ref: '#/components/schemas/CreatableProduct'
             debug:
-              type: object
-              properties:
-                stub:
-                  type: string
-                  enum:
-                    - success
-                    - error
+              allOf:
+                - $ref: './spec-fitChanges-api.yaml#/components/schemas/BaseDebugRequest'
+                - type: object
+                  properties:
+                    stub:
+                      type: string
+                      enum:
+                        - success
+                        - error
 
     CreateProductResponse:
       description: The structure to respond to a request about the declaration an product
