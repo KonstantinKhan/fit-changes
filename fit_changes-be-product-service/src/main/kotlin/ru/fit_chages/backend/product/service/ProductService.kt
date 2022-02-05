@@ -24,9 +24,6 @@ class ProductService(
     suspend fun createProduct(context: BeContext, request: CreateProductRequest): CreateProductResponse {
         crud.create(context.setQuery(request))
 
-        // temporary solution
-        context.responseProduct = context.requestProduct
-
         return context.toCreateProductResponse()
     }
 }
