@@ -14,6 +14,7 @@ data class BeContext(
     var stubCase: StubCases = StubCases.NONE,
     var status: CorStatus = CorStatus.NONE,
 
+    var dbProduct: ProductModel = ProductModel(),
     var requestProduct: ProductModel = ProductModel(),
     var responseProduct: ProductModel = ProductModel(),
     var errors: MutableSet<IError> = mutableSetOf()
