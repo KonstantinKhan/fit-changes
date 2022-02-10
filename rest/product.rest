@@ -16,3 +16,24 @@ Content-Type: application/json
     "stubCase": "success"
   }
 }
+
+###
+
+POST http://127.0.0.1:8080/product/create
+Content-Type: application/json
+
+{
+  "messageType": "CreateProductRequest",
+  "requestId": "rID:0002",
+  "createProduct": {
+    "productName": "Говядина",
+    "caloriesPerHundredGrams": "187.0",
+    "proteinsPerHundredGrams": "18.9",
+    "fatsPerHundredGrams": "12.4",
+    "carbohydratesPerHundredGrams": "0.0"
+  },
+  "debug": {
+    "mode": "stub",
+    "stubCase": "success"
+  }
+}
