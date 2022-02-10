@@ -17,6 +17,7 @@ fun main(args: Array<String>): Unit = EngineMain.main(args)
 fun Application.module(
     testing: Boolean = false,
 ) {
+    val productService = ProductService(ProductCrud())
     install(ContentNegotiation) {
         jackson {
             disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES)
@@ -24,10 +25,10 @@ fun Application.module(
             writerWithDefaultPrettyPrinter()
         }
     }
-    registerProductRoutes(ProductService(ProductCrud()))
-//    val repo = createRepo()
+
+    registerProductRoutes()
     routing {
-//        kafka()
+        kafka(service = productService)
         get("/") {
             call.respondText("Hello, World")
         }
