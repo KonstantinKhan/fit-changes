@@ -27,12 +27,12 @@ services:
     depends_on:
       - cassandra
     environment:
-      CASSANDRA_HOST_IPS: 172.23.0.2
+      CASSANDRA_HOST_IPS: 192.168.176.2
     ports:
       - "3000:3000"
 
   kafka:
-    image: wurstmeister/kafka:2.13-2.7.0
+    image: wurstmeister/kafka:2.13-2.8.1
     depends_on:
       - zookeeper
     ports:
@@ -49,7 +49,7 @@ services:
       KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
 
   app:
-    image: fit_changes-be-product-ktor-app:0.0.1
+    image: fit_changes-be-product-app-ktor:0.0.1
     depends_on:
       - kafka
     ports:
