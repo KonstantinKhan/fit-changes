@@ -59,7 +59,7 @@ class MappingTest {
         assertEquals(187.0, response.createProduct?.caloriesPerHundredGrams)
         assertEquals(18.9, response.createProduct?.proteinsPerHundredGrams)
         assertEquals(12.4, response.createProduct?.fatsPerHundredGrams)
-        assertEquals(0.0, response.createProduct?.carbohydratePerHundredGrams)
+        assertEquals(0.0, response.createProduct?.carbohydratesPerHundredGrams)
         assertEquals(PRODUCT_ID_0001, response.createProduct?.productId)
         assertTrue(response.createProduct?.permissions?.isNotEmpty() ?: false)
     }
