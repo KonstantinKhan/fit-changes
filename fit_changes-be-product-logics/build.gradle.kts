@@ -11,7 +11,7 @@ dependencies {
 
     implementation(project(":fit_changes-be-common"))
     implementation(project(":fit_changes-be-utils"))
-
+    implementation(project(":fit_changes-be-cassandra"))
 
     testImplementation(kotlin("test"))
 }
