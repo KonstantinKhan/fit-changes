@@ -66,6 +66,26 @@ paths:
               schema:
                 $ref: '#/components/schemas/UpdateProductResponse'
 
+  /delete:
+    post:
+      tags:
+        - product
+      summary: Delete the product
+      operationId: deleteProduct
+      requestBody:
+        description: The request object to delete the product
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeleteProductRequest'
+        required: true
+      responses:
+        200:
+          description: All responses
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteProductResponse'
 
 components:
   schemas:
@@ -105,6 +125,7 @@ components:
               description: ID of the updated object
 
     CreateProductRequest:
+      description: The structure to request for create product
       allOf:
         - $ref: './spec-fitChanges-api.yaml#/components/schemas/BaseMessage'
         - $ref: './spec-fitChanges-api.yaml#/components/schemas/BaseRequest'
@@ -204,4 +225,35 @@ components:
         - type: object
           properties:
             updateProduct:
+              $ref: '#/components/schemas/ResponseProduct'
+
+    DeleteProductRequest:
+      description: The structure to request for delete product
+      allOf:
+        - $ref: './spec-fitChanges-api.yaml#/components/schemas/BaseMessage'
+        - $ref: './spec-fitChanges-api.yaml#/components/schemas/BaseRequest'
+        - type: object
+          properties:
+            deleteProductId:
+              type: string
+            debug:
+              allOf:
+                - $ref: './spec-fitChanges-api.yaml#/components/schemas/BaseDebugRequest'
+                - type: object
+                  properties:
+                    stub:
+                      type: string
+                      enum:
+                        - success
+                        - emptyId
+                        - errorDb
+
+    DeleteProductResponse:
+      description: The structure to respond to a request with a deleting product
+      allOf:
+        - $ref: './spec-fitChanges-api.yaml#/components/schemas/BaseMessage'
+        - $ref: './spec-fitChanges-api.yaml#/components/schemas/BaseResponse'
+        - type: object
+          properties:
+            deleteProduct:
               $ref: '#/components/schemas/ResponseProduct'
