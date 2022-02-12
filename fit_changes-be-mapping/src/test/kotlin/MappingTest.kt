@@ -1,10 +1,10 @@
 import ru.fit_changes.backend.common.context.BeContext
 import ru.fitChanges.backend.mapping.product.setQuery
 import ru.fitChanges.backend.mapping.product.toCreateProductResponse
-import ru.fitChanges.backend.utils.product.*
 import ru.fitChanges.openapi.models.CreateProductRequest
 import ru.fitChanges.openapi.models.CreateProductResponse
 import ru.fit_changes.backend.common.context.Operations
+import ru.fit_changes.backend.utils.product.*
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
