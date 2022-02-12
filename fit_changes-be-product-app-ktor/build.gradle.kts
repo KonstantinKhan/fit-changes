@@ -50,4 +50,6 @@ dependencies {
     implementation(project(":fit_changes-be-product-service"))
     implementation(project(":fit_changes-be-product-logics"))
     implementation(project(":fit_changes-be-cassandra"))
+
+    testImplementation(project(":fit_changes-be-utils"))
 }
