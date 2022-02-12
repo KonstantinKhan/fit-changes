@@ -31,7 +31,7 @@ paths:
       summary: Get information about an product
       operationId: readProduct
       requestBody:
-        description: The request object to obtain an product information
+        description: The request object to obtain a product information
         content:
           application/json:
             schema:
@@ -44,6 +44,28 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ReadProductResponse'
+
+  /update:
+    post:
+      tags:
+        - product
+      summary: Update the product
+      operationId: updateProduct
+      requestBody:
+        description: The request object for product updating
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateProductRequest'
+        required: true
+      responses:
+        200:
+          description: All responses
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateProductResponse'
+
 
 components:
   schemas:
@@ -144,11 +166,42 @@ components:
                         - emptyId
                         - errorDb
     ReadProductResponse:
-      description: The structure to respond to a request with an product information
+      description: The structure to respond to a request with a product information
       allOf:
         - $ref: './spec-fitChanges-api.yaml#/components/schemas/BaseMessage'
         - $ref: './spec-fitChanges-api.yaml#/components/schemas/BaseResponse'
         - type: object
           properties:
             readProduct:
+              $ref: '#/components/schemas/ResponseProduct'
+
+    UpdateProductRequest:
+      description: The structure to update the product
+      allOf:
+        - $ref: './spec-fitChanges-api.yaml#/components/schemas/BaseMessage'
+        - $ref: './spec-fitChanges-api.yaml#/components/schemas/BaseRequest'
+        - type: object
+          properties:
+            updateProduct:
+              $ref: '#/components/schemas/UpdatableProduct'
+            debug:
+              allOf:
+                - $ref: './spec-fitChanges-api.yaml#/components/schemas/BaseDebugRequest'
+                - type: object
+                  properties:
+                    stub:
+                      type: string
+                      enum:
+                        - success
+                        - emptyId
+                        - errorDb
+
+    UpdateProductResponse:
+      description: The structure to respond to a request with an updating product information
+      allOf:
+        - $ref: './spec-fitChanges-api.yaml#/components/schemas/BaseMessage'
+        - $ref: './spec-fitChanges-api.yaml#/components/schemas/BaseResponse'
+        - type: object
+          properties:
+            updateProduct:
               $ref: '#/components/schemas/ResponseProduct'
