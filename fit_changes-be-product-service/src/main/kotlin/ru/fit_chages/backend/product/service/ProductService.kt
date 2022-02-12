@@ -23,7 +23,6 @@ class ProductService(
 
     suspend fun createProduct(context: BeContext, request: CreateProductRequest): CreateProductResponse {
         crud.create(context.setQuery(request))
-
         return context.toCreateProductResponse()
     }
 }
