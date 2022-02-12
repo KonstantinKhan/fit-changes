@@ -1,4 +1,4 @@
-package ru.fitChanges.backend.utils.product
+package ru.fit_changes.backend.utils.product
 
 import ru.fit_changes.backend.common.product.models.ProductIdModel
 import ru.fit_changes.backend.common.product.models.ProductModel
