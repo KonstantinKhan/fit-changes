@@ -1,7 +1,7 @@
-import com.fasterxml.jackson.databind.ObjectMapper
-import ru.fitChanges.backend.utils.product.BEEF_FILLED_CREATABLE_PRODUCT
-import ru.fitChanges.backend.utils.product.PRODUCT_ID_0001
-import ru.fitChanges.backend.utils.product.REQUEST_ID_0001
+import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
+import ru.fit_changes.backend.utils.product.BEEF_FILLED_CREATABLE_PRODUCT
+import ru.fit_changes.backend.utils.product.PRODUCT_ID_0001
+import ru.fit_changes.backend.utils.product.REQUEST_ID_0001
 import ru.fitChanges.openapi.models.BaseMessage
 import ru.fitChanges.openapi.models.CreateProductRequest
 import ru.fitChanges.openapi.models.ReadProductRequest
@@ -23,7 +23,7 @@ class SerializationTest {
         readProductId = PRODUCT_ID_0001
     )
 
-    private val om = ObjectMapper()
+    private val om = jacksonObjectMapper()
     private val jsonCreateBeef = om.writeValueAsString(createBeef)
     private val jsonReadBeef = om.writeValueAsString(readBeef)
 
