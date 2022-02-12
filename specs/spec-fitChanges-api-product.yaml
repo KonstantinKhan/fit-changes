@@ -87,6 +87,27 @@ paths:
               schema:
                 $ref: '#/components/schemas/DeleteProductResponse'
 
+  /search:
+    post:
+      tags:
+        - product
+      summary: Search the products
+      operationId: searchProducts
+      requestBody:
+        description: The request object to search the products
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SearchProductRequest'
+        required: true
+      responses:
+        200:
+          description: All responses
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SearchProductResponse'
+
 components:
   schemas:
 
@@ -257,3 +278,36 @@ components:
           properties:
             deleteProduct:
               $ref: '#/components/schemas/ResponseProduct'
+
+    SearchProductRequest:
+      description: The structure to request for search products
+      allOf:
+        - $ref: './spec-fitChanges-api.yaml#/components/schemas/BaseMessage'
+        - $ref: './spec-fitChanges-api.yaml#/components/schemas/BaseRequest'
+        - type: object
+          properties:
+            query:
+              type: string
+            debug:
+              allOf:
+                - $ref: './spec-fitChanges-api.yaml#/components/schemas/BaseDebugRequest'
+                - type: object
+                  properties:
+                    stub:
+                      type: string
+                      enum:
+                        - success
+                        - emptyId
+                        - errorDb
+
+    SearchProductResponse:
+      description: The structure to respond to a request with query string
+      allOf:
+        - $ref: './spec-fitChanges-api.yaml#/components/schemas/BaseMessage'
+        - $ref: './spec-fitChanges-api.yaml#/components/schemas/BaseResponse'
+        - type: object
+          properties:
+            foundProducts:
+              type: array
+              items:
+                $ref: '#/components/schemas/ResponseProduct'
