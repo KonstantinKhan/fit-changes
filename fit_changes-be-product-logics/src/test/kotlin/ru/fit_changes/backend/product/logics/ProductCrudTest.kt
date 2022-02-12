@@ -2,9 +2,9 @@ package ru.fit_changes.backend.product.logics
 
 import kotlinx.coroutines.runBlocking
 import ru.fit_changes.backend.common.context.BeContext
-import ru.fitChanges.backend.utils.product.BEEF_FILLED_MODEL
-import ru.fitChanges.backend.utils.product.BEEF_FILLED_MODEL_WITHOUT_PRODUCT_ID
-import ru.fitChanges.backend.utils.product.REQUEST_ID_0001
+import ru.fit_changes.backend.utils.product.BEEF_FILLED_MODEL
+import ru.fit_changes.backend.utils.product.BEEF_FILLED_MODEL_WITHOUT_PRODUCT_ID
+import ru.fit_changes.backend.utils.product.REQUEST_ID_0001
 import ru.fit_changes.backend.common.context.Operations
 import ru.fit_changes.backend.common.models.StubCases
 import kotlin.test.Test
