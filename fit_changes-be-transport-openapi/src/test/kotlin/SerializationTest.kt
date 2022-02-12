@@ -1,34 +1,56 @@
 import com.fasterxml.jackson.databind.ObjectMapper
 import ru.fitChanges.backend.utils.product.BEEF_FILLED_CREATABLE_PRODUCT
+import ru.fitChanges.backend.utils.product.PRODUCT_ID_0001
+import ru.fitChanges.backend.utils.product.REQUEST_ID_0001
 import ru.fitChanges.openapi.models.BaseMessage
 import ru.fitChanges.openapi.models.CreateProductRequest
+import ru.fitChanges.openapi.models.ReadProductRequest
 import kotlin.test.Test
 import kotlin.test.assertContains
 import kotlin.test.assertEquals
 
 class SerializationTest {
 
-    private val requestId = "rID:0001"
-
     // Test example of a CreateProductRequest
     private val createBeef = CreateProductRequest(
-        requestId = requestId,
+        requestId = REQUEST_ID_0001,
         createProduct = BEEF_FILLED_CREATABLE_PRODUCT
     )
 
+    // Test example of a ReadProductRequest
+    private val readBeef = ReadProductRequest(
+        requestId = REQUEST_ID_0001,
+        readProductId = PRODUCT_ID_0001
+    )
+
     private val om = ObjectMapper()
-    private val json = om.writeValueAsString(createBeef)
+    private val jsonCreateBeef = om.writeValueAsString(createBeef)
+    private val jsonReadBeef = om.writeValueAsString(readBeef)
 
     @Test
-    fun serializationProductTest() {
-        println(json)
-        assertContains(json, Regex("messageType\":\\s*\"${CreateProductRequest::class.simpleName}"))
+    fun serializationCreateProductTest() {
+        println(jsonCreateBeef)
+        assertContains(jsonCreateBeef, Regex("messageType\":\\s*\"${CreateProductRequest::class.simpleName}"))
     }
 
     @Test
-    fun deserializationProductTest() {
-        val deserialized = om.readValue(json, BaseMessage::class.java) as CreateProductRequest
+    fun deserializationCreateProductTest() {
+        val deserialized = om.readValue(jsonCreateBeef, BaseMessage::class.java) as CreateProductRequest
         println(deserialized)
-        assertEquals(requestId, deserialized.requestId)
+        assertEquals(REQUEST_ID_0001, deserialized.requestId)
+    }
+
+    @Test
+    fun serializationReadProductTest() {
+        println(jsonReadBeef)
+        assertContains(jsonReadBeef, Regex("messageType\":\\s*\"${ReadProductRequest::class.java.simpleName}"))
+    }
+
+    @Test
+    fun deserializationReadProductTest() {
+        val deserialized = om.readValue(jsonReadBeef, BaseMessage::class.java) as ReadProductRequest
+        println(deserialized)
+        assertEquals(REQUEST_ID_0001, deserialized.requestId)
+        assertEquals(PRODUCT_ID_0001, deserialized.readProductId)
     }
 }
