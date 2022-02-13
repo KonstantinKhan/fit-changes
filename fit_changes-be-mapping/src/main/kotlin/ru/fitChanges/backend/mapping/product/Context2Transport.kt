@@ -29,6 +29,18 @@ fun BeContext.toReadProductResponse() = ReadProductResponse(
     }?.toTransport()
 )
 
+fun BeContext.toUpdateProductResponse() = UpdateProductResponse(
+    messageType = "UpdateProductResponse",
+    requestId = requestId.takeIf { it.isNotBlank() },
+    result = if (errors.find { it.level == IError.Level.ERROR } == null) UpdateProductResponse.Result.SUCCESS
+    else UpdateProductResponse.Result.ERROR,
+    errors = errors.takeIf { it.isNotEmpty() }?.map { it.toTransport() },
+    updateProduct = responseProduct.takeIf {
+        errors.isEmpty() &&
+                it != ProductModel()
+    }?.toTransport()
+)
+
 private fun IError.toTransport() = RequestError(
     message = message.takeIf { it.isNotBlank() },
     field = field.takeIf { it.isNotBlank() }
