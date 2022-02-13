@@ -218,9 +218,7 @@ class MappingTest {
         val beContext = BeContext().setQuery(
             UpdateProductRequest(
                 requestId = REQUEST_ID_0001,
-                updateProduct = BEEF_FILLED_UPDATABLE_PRODUCT.copy(
-                    caloriesPerHundredGrams = null
-                )
+                updateProduct = BEEF_NOT_FILLED_UPDATABLE_PRODUCT
             )
         )
 
