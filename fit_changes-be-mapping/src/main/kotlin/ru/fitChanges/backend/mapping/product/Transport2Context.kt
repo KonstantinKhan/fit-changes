@@ -24,6 +24,12 @@ fun BeContext.setQuery(query: UpdateProductRequest) = apply {
     stubCase = query.debug?.stubCase.toModel()
 }
 
+fun BeContext.setQuery(query: DeleteProductRequest) = apply {
+    requestId = query.requestId ?: ""
+    requestProductId = ProductIdModel(query.deleteProductId ?: "")
+    stubCase = query.debug?.stubCase.toModel()
+}
+
 private fun CreatableProduct.toModel(context: BeContext) = ProductModel(
     productName = productName ?: "",
     caloriesPerHundredGrams = caloriesPerHundredGrams.validationProductParameters(context, "Calories"),
