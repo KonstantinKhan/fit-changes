@@ -14,7 +14,10 @@ fun BeContext.toCreateProductResponse() = CreateProductResponse(
     result = if (errors.find { it.level == IError.Level.ERROR } == null) CreateProductResponse.Result.SUCCESS
     else CreateProductResponse.Result.ERROR,
     errors = errors.takeIf { it.isNotEmpty() }?.map { it.toTransport() },
-    createProduct = responseProduct.takeIf { it != ProductModel() }?.toTransport()
+    createProduct = responseProduct.takeIf {
+        errors.isEmpty() &&
+                it != ProductModel()
+    }?.toTransport()
 )
 
 private fun IError.toTransport() = RequestError(
