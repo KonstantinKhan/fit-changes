@@ -3,7 +3,6 @@ import ru.fitChanges.backend.mapping.product.setQuery
 import ru.fitChanges.backend.mapping.product.toCreateProductResponse
 import ru.fitChanges.openapi.models.CreateProductRequest
 import ru.fitChanges.openapi.models.CreateProductResponse
-import ru.fit_changes.backend.common.context.Operations
 import ru.fit_changes.backend.utils.product.*
 import kotlin.test.Test
 import kotlin.test.assertEquals
@@ -11,11 +10,7 @@ import kotlin.test.assertTrue
 
 class MappingTest {
 
-    private val beContext = BeContext(
-        requestId = REQUEST_ID_0001,
-        responseProduct = BEEF_FILLED_MODEL,
-        operation = Operations.CREATE
-    )
+    private val beContext = BeContext()
 
     @Test
     fun createBeefRequestSuccess() {
@@ -48,7 +43,11 @@ class MappingTest {
     }
 
     @Test
-    fun createBeefResponseTest() {
+    fun createBeefResponseTestSuccess() {
+        beContext.apply {
+            requestId = REQUEST_ID_0001
+            responseProduct = BEEF_FILLED_MODEL
+        }
         val response = beContext.toCreateProductResponse()
         println(response)
         assertEquals(response::class.java.simpleName, response.messageType)
@@ -63,4 +62,20 @@ class MappingTest {
         assertEquals(PRODUCT_ID_0001, response.createProduct?.productId)
         assertTrue(response.createProduct?.permissions?.isNotEmpty() ?: false)
     }
+
+    @Test
+    fun createBeefResponseTestFail() {
+        beContext.setQuery(
+            CreateProductRequest(
+                requestId = REQUEST_ID_0001,
+                createProduct = BEEF_NOT_FILLED_CREATABLE_PRODUCT
+            )
+        )
+        val response = beContext.toCreateProductResponse()
+        println(beContext.requestProduct)
+        println(response)
+        assertTrue(response.errors?.isNotEmpty() ?: false)
+        assertEquals(null, response.createProduct)
+    }
+
 }
