@@ -1,12 +1,9 @@
 package ru.fitChanges.backend.mapping.product
 
+import ru.fitChanges.openapi.models.*
 import ru.fit_changes.backend.common.models.IError
 import ru.fit_changes.backend.common.context.BeContext
 import ru.fit_changes.backend.common.product.models.ProductModel
-import ru.fitChanges.openapi.models.CreateProductResponse
-import ru.fitChanges.openapi.models.Permissions
-import ru.fitChanges.openapi.models.RequestError
-import ru.fitChanges.openapi.models.ResponseProduct
 
 fun BeContext.toCreateProductResponse() = CreateProductResponse(
     messageType = "CreateProductResponse",
@@ -15,6 +12,18 @@ fun BeContext.toCreateProductResponse() = CreateProductResponse(
     else CreateProductResponse.Result.ERROR,
     errors = errors.takeIf { it.isNotEmpty() }?.map { it.toTransport() },
     createProduct = responseProduct.takeIf {
+        errors.isEmpty() &&
+                it != ProductModel()
+    }?.toTransport()
+)
+
+fun BeContext.toReadProductResponse() = ReadProductResponse(
+    messageType = "ReadProductResponse",
+    requestId = requestId.takeIf { it.isNotBlank() },
+    result = if (errors.find { it.level == IError.Level.ERROR } == null) ReadProductResponse.Result.SUCCESS
+    else ReadProductResponse.Result.ERROR,
+    errors = errors.takeIf { it.isNotEmpty() }?.map { it.toTransport() },
+    readProduct = responseProduct.takeIf {
         errors.isEmpty() &&
                 it != ProductModel()
     }?.toTransport()
