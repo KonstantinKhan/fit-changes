@@ -16,6 +16,10 @@ val BEEF_FILLED_CREATABLE_PRODUCT = CreatableProduct(
     carbohydratesPerHundredGrams = 0.0
 )
 
+val BEEF_NOT_CALORIES = BEEF_FILLED_CREATABLE_PRODUCT.copy(
+    caloriesPerHundredGrams = null
+)
+
 val BEEF_NOT_FILLED_CREATABLE_PRODUCT = CreatableProduct(
     productName = null,
     caloriesPerHundredGrams = null,

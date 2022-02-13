@@ -31,7 +31,7 @@ class MappingTest {
         assertTrue(beContext.requestProduct.carbohydratesPerHundredGrams.toString().isNotBlank())
     }
 
-    @Test()
+    @Test
     fun createBeefRequestFail() {
         beContext.setQuery(
             CreateProductRequest(
@@ -68,14 +68,12 @@ class MappingTest {
         beContext.setQuery(
             CreateProductRequest(
                 requestId = REQUEST_ID_0001,
-                createProduct = BEEF_NOT_FILLED_CREATABLE_PRODUCT
+                createProduct = BEEF_NOT_CALORIES
             )
         )
         val response = beContext.toCreateProductResponse()
-        println(beContext.requestProduct)
         println(response)
         assertTrue(response.errors?.isNotEmpty() ?: false)
         assertEquals(null, response.createProduct)
     }
-
 }
