@@ -34,12 +34,4 @@ val BEEF_FILLED_MODEL = ProductModel(
     proteinsPerHundredGrams = 18.9,
     fatsPerHundredGrams = 12.4,
     carbohydratesPerHundredGrams = 0.0,
-    productId = ProductIdModel(PRODUCT_ID_0001),
-    permissions = mutableSetOf(ProductPermissions.CREATE)
 )
-
-val BEEF_FILLED_MODEL_WITHOUT_PRODUCT_ID =
-    BEEF_FILLED_MODEL.copy(
-        productId = ProductIdModel.NONE,
-        permissions = mutableSetOf()
-    )
