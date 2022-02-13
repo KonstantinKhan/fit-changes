@@ -2,6 +2,7 @@ import ru.fit_changes.backend.common.context.BeContext
 import ru.fitChanges.backend.mapping.product.setQuery
 import ru.fitChanges.backend.mapping.product.toCreateProductResponse
 import ru.fitChanges.backend.mapping.product.toReadProductResponse
+import ru.fitChanges.backend.mapping.product.toUpdateProductResponse
 import ru.fitChanges.openapi.models.*
 import ru.fit_changes.backend.common.product.models.ProductIdModel
 import ru.fit_changes.backend.common.product.models.ProductPermissions
@@ -22,15 +23,24 @@ class MappingTest {
         println(beContext)
 
         assertEquals(REQUEST_ID_0001, beContext.requestId)
-        assertTrue(beContext.requestProduct.productName.isNotBlank())
-        assertTrue(beContext.requestProduct.caloriesPerHundredGrams.toString().isNotBlank())
-        assertTrue(beContext.requestProduct.proteinsPerHundredGrams.toString().isNotBlank())
-        assertTrue(beContext.requestProduct.fatsPerHundredGrams.toString().isNotBlank())
-        assertTrue(beContext.requestProduct.carbohydratesPerHundredGrams.toString().isNotBlank())
+        assertEquals(BEEF_FILLED_CREATABLE_PRODUCT.productName, beContext.requestProduct.productName)
+        assertEquals(
+            BEEF_FILLED_CREATABLE_PRODUCT.caloriesPerHundredGrams,
+            beContext.requestProduct.caloriesPerHundredGrams
+        )
+        assertEquals(
+            BEEF_FILLED_CREATABLE_PRODUCT.proteinsPerHundredGrams,
+            beContext.requestProduct.proteinsPerHundredGrams
+        )
+        assertEquals(BEEF_FILLED_CREATABLE_PRODUCT.fatsPerHundredGrams, beContext.requestProduct.fatsPerHundredGrams)
+        assertEquals(
+            BEEF_FILLED_CREATABLE_PRODUCT.carbohydratesPerHundredGrams,
+            beContext.requestProduct.carbohydratesPerHundredGrams
+        )
     }
 
     @Test
-    fun createBeefRequestFail() {
+    fun createBeefRequestFailing() {
         val beContext = BeContext().setQuery(
             CreateProductRequest(
                 requestId = REQUEST_ID_0001,
@@ -65,7 +75,7 @@ class MappingTest {
     }
 
     @Test
-    fun createBeefResponseTestFail() {
+    fun createBeefResponseTestFailing() {
         val beContext = BeContext().setQuery(
             CreateProductRequest(
                 requestId = REQUEST_ID_0001,
@@ -91,7 +101,7 @@ class MappingTest {
     }
 
     @Test
-    fun readBeefRequestFail() {
+    fun readBeefRequestFailing() {
         val beContext = BeContext().setQuery(
             ReadProductRequest(
                 requestId = REQUEST_ID_0001,
@@ -123,7 +133,7 @@ class MappingTest {
     }
 
     @Test
-    fun readBeefResponseFailure() {
+    fun readBeefResponseFailing() {
         val beContext = BeContext()
         beContext.setQuery(
             ReadProductRequest(
@@ -137,5 +147,88 @@ class MappingTest {
         assertEquals(ReadProductResponse.Result.SUCCESS, response.result)
         assertNull(response.errors)
         assertNull(response.readProduct)
+    }
+
+    @Test
+    fun updateBeefRequestSuccess() {
+        val beContext = BeContext().setQuery(
+            UpdateProductRequest(
+                requestId = REQUEST_ID_0001,
+                updateProduct = BEEF_FILLED_UPDATABLE_PRODUCT
+            )
+        )
+        assertEquals(BEEF_FILLED_UPDATABLE_PRODUCT.productId, beContext.requestProduct.productId.asString())
+        assertEquals(BEEF_FILLED_UPDATABLE_PRODUCT.productName, beContext.requestProduct.productName)
+        assertEquals(
+            BEEF_FILLED_UPDATABLE_PRODUCT.caloriesPerHundredGrams,
+            beContext.requestProduct.caloriesPerHundredGrams
+        )
+        assertEquals(
+            BEEF_FILLED_UPDATABLE_PRODUCT.proteinsPerHundredGrams,
+            beContext.requestProduct.proteinsPerHundredGrams
+        )
+        assertEquals(BEEF_FILLED_UPDATABLE_PRODUCT.fatsPerHundredGrams, beContext.requestProduct.fatsPerHundredGrams)
+        assertEquals(
+            BEEF_FILLED_UPDATABLE_PRODUCT.carbohydratesPerHundredGrams,
+            beContext.requestProduct.carbohydratesPerHundredGrams
+        )
+    }
+
+    @Test
+    fun updateBeefRequestFailing() {
+        val beContext = BeContext().setQuery(
+            UpdateProductRequest(
+                requestId = REQUEST_ID_0001,
+                updateProduct = BEEF_NOT_FILLED_UPDATABLE_PRODUCT
+            )
+        )
+        assertNotNull(beContext.errors)
+    }
+
+    @Test
+    fun updateBeefResponseSuccess() {
+        val beContext = BeContext().apply {
+            requestId = REQUEST_ID_0001
+            responseProduct = BEEF_FILLED_MODEL.apply {
+                productId = ProductIdModel(PRODUCT_ID_0001)
+                permissions.add(ProductPermissions.READ)
+                permissions.add(ProductPermissions.UPDATE)
+            }
+        }
+
+        val response = beContext.toUpdateProductResponse()
+
+        println(response)
+
+        assertEquals(BEEF_FILLED_MODEL.productId.asString(), response.updateProduct?.productId)
+        assertEquals(BEEF_FILLED_MODEL.productName, response.updateProduct?.productName)
+        assertEquals(BEEF_FILLED_MODEL.caloriesPerHundredGrams, response.updateProduct?.caloriesPerHundredGrams)
+        assertEquals(BEEF_FILLED_MODEL.proteinsPerHundredGrams, response.updateProduct?.proteinsPerHundredGrams)
+        assertEquals(BEEF_FILLED_MODEL.fatsPerHundredGrams, response.updateProduct?.fatsPerHundredGrams)
+        assertEquals(
+            BEEF_FILLED_MODEL.carbohydratesPerHundredGrams,
+            response.updateProduct?.carbohydratesPerHundredGrams
+        )
+        response.updateProduct?.permissions?.let { assertContains(it, Permissions.UPDATE) }
+        response.updateProduct?.permissions?.let { assertContains(it, Permissions.READ) }
+    }
+
+    @Test
+    fun updateBeefResponseFailings() {
+        val beContext = BeContext().setQuery(
+            UpdateProductRequest(
+                requestId = REQUEST_ID_0001,
+                updateProduct = BEEF_FILLED_UPDATABLE_PRODUCT.copy(
+                    caloriesPerHundredGrams = null
+                )
+            )
+        )
+
+        val response = beContext.toUpdateProductResponse()
+
+        println(response)
+
+        assertNotNull(response.errors)
+        assertNull(response.updateProduct)
     }
 }
