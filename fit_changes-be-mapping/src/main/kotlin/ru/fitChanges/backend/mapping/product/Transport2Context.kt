@@ -50,6 +50,7 @@ private fun UpdatableProduct.toModel(context: BeContext) = ProductModel(
     proteinsPerHundredGrams = proteinsPerHundredGrams.validationProductParameters(context, "Proteins"),
     fatsPerHundredGrams = fatsPerHundredGrams.validationProductParameters(context, "Fats"),
     carbohydratesPerHundredGrams = carbohydratesPerHundredGrams.validationProductParameters(context, "Carbohydrates"),
+    productId = ProductIdModel(productId ?: ""),
 )
 
 private fun BaseDebugRequest.StubCase?.toModel(): StubCases = when (this) {
