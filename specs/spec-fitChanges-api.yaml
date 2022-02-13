@@ -15,7 +15,12 @@ paths:
     $ref: 'spec-fitChanges-api-product.yaml#/paths/~1create'
   /product/read:
     $ref: 'spec-fitChanges-api-product.yaml#/paths/~1read'
-
+  /product/update:
+    $ref: 'spec-fitChanges-api-product.yaml#/paths/~1update'
+  /product/delete:
+    $ref: 'spec-fitChanges-api-product.yaml#/paths/~1delete'
+  /product/search:
+    $ref: 'spec-fitChanges-api-product.yaml#/paths/~1search'
 
 components:
   schemas:
