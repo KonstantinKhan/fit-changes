@@ -5,11 +5,19 @@ import ru.fit_changes.backend.common.context.BeContext
 import ru.fit_changes.backend.common.product.models.ProductModel
 import ru.fitChanges.openapi.models.CreatableProduct
 import ru.fitChanges.openapi.models.CreateProductRequest
+import ru.fitChanges.openapi.models.ReadProductRequest
 import ru.fit_changes.backend.common.models.StubCases
+import ru.fit_changes.backend.common.product.models.ProductIdModel
 
 fun BeContext.setQuery(query: CreateProductRequest) = apply {
     requestId = query.requestId ?: ""
     requestProduct = query.createProduct?.toModel(this) ?: ProductModel()
+    stubCase = query.debug?.stubCase.toModel()
+}
+
+fun BeContext.setQuery(query: ReadProductRequest) = apply {
+    requestId = query.requestId ?: ""
+    requestProductId = ProductIdModel(query.readProductId ?: "")
     stubCase = query.debug?.stubCase.toModel()
 }
 
