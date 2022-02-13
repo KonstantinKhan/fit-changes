@@ -1,11 +1,8 @@
 package ru.fitChanges.backend.mapping.product
 
-import ru.fitChanges.openapi.models.BaseDebugRequest
+import ru.fitChanges.openapi.models.*
 import ru.fit_changes.backend.common.context.BeContext
 import ru.fit_changes.backend.common.product.models.ProductModel
-import ru.fitChanges.openapi.models.CreatableProduct
-import ru.fitChanges.openapi.models.CreateProductRequest
-import ru.fitChanges.openapi.models.ReadProductRequest
 import ru.fit_changes.backend.common.models.StubCases
 import ru.fit_changes.backend.common.product.models.ProductIdModel
 
@@ -21,12 +18,26 @@ fun BeContext.setQuery(query: ReadProductRequest) = apply {
     stubCase = query.debug?.stubCase.toModel()
 }
 
+fun BeContext.setQuery(query: UpdateProductRequest) = apply {
+    requestId = query.requestId ?: ""
+    requestProduct = query.updateProduct?.toModel(this) ?: ProductModel()
+    stubCase = query.debug?.stubCase.toModel()
+}
+
 private fun CreatableProduct.toModel(context: BeContext) = ProductModel(
     productName = productName ?: "",
     caloriesPerHundredGrams = caloriesPerHundredGrams.validationProductParameters(context, "Calories"),
     proteinsPerHundredGrams = proteinsPerHundredGrams.validationProductParameters(context, "Proteins"),
     fatsPerHundredGrams = fatsPerHundredGrams.validationProductParameters(context, "Fats"),
     carbohydratesPerHundredGrams = carbohydratesPerHundredGrams.validationProductParameters(context, "Carbohydrates")
+)
+
+private fun UpdatableProduct.toModel(context: BeContext) = ProductModel(
+    productName = productName ?: "",
+    caloriesPerHundredGrams = caloriesPerHundredGrams.validationProductParameters(context, "Calories"),
+    proteinsPerHundredGrams = proteinsPerHundredGrams.validationProductParameters(context, "Proteins"),
+    fatsPerHundredGrams = fatsPerHundredGrams.validationProductParameters(context, "Fats"),
+    carbohydratesPerHundredGrams = carbohydratesPerHundredGrams.validationProductParameters(context, "Carbohydrates"),
 )
 
 private fun BaseDebugRequest.StubCase?.toModel(): StubCases = when (this) {
