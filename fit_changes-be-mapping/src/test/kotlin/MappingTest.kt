@@ -5,6 +5,7 @@ import ru.fitChanges.backend.mapping.product.toReadProductResponse
 import ru.fitChanges.backend.mapping.product.toUpdateProductResponse
 import ru.fitChanges.openapi.models.*
 import ru.fit_changes.backend.common.models.CommonError
+import ru.fit_changes.backend.common.models.StubCases
 import ru.fit_changes.backend.common.product.models.ProductIdModel
 import ru.fit_changes.backend.common.product.models.ProductPermissions
 import ru.fit_changes.backend.utils.product.*
@@ -21,8 +22,6 @@ class MappingTest {
             )
         )
 
-        println(beContext)
-
         assertEquals(REQUEST_ID_0001, beContext.requestId)
         assertEquals(BEEF_FILLED_CREATABLE_PRODUCT.productName, beContext.requestProduct.productName)
         assertEquals(
@@ -38,17 +37,6 @@ class MappingTest {
             BEEF_FILLED_CREATABLE_PRODUCT.carbohydratesPerHundredGrams,
             beContext.requestProduct.carbohydratesPerHundredGrams
         )
-    }
-
-    @Test
-    fun createBeefRequestFailing() {
-        val beContext = BeContext().setQuery(
-            CreateProductRequest(
-                requestId = REQUEST_ID_0001,
-                createProduct = BEEF_NOT_FILLED_CREATABLE_PRODUCT
-            )
-        )
-        println(beContext.errors)
     }
 
     @Test
@@ -106,10 +94,14 @@ class MappingTest {
         val beContext = BeContext().setQuery(
             ReadProductRequest(
                 requestId = REQUEST_ID_0001,
-                readProductId = null
+                readProductId = null,
+                debug = BaseDebugRequest(
+                    stubCase = BaseDebugRequest.StubCase.DATABASE_ERROR
+                )
             )
         )
         assertEquals(ProductIdModel.NONE, beContext.requestProductId)
+        assertEquals(StubCases.DATABASE_ERROR, beContext.stubCase)
     }
 
     @Test
@@ -173,17 +165,6 @@ class MappingTest {
     }
 
     @Test
-    fun updateBeefRequestFailing() {
-        val beContext = BeContext().setQuery(
-            UpdateProductRequest(
-                requestId = REQUEST_ID_0001,
-                updateProduct = BEEF_NOT_FILLED_UPDATABLE_PRODUCT
-            )
-        )
-        assertNotNull(beContext.errors)
-    }
-
-    @Test
     fun updateBeefResponseSuccess() {
         val beContext = BeContext().apply {
             requestId = REQUEST_ID_0001
@@ -226,5 +207,34 @@ class MappingTest {
 
         assertNotNull(response.errors)
         assertNull(response.updateProduct)
+    }
+
+    @Test
+    fun deleteBeefRequestSuccess() {
+        val beContext = BeContext().setQuery(
+            DeleteProductRequest(
+                requestId = REQUEST_ID_0001,
+                deleteProductId = PRODUCT_ID_0001
+            )
+        )
+
+        assertEquals(PRODUCT_ID_0001, beContext.requestProductId.asString())
+    }
+
+    @Test
+    fun searchProductRequestSuccess() {
+        val beContext = BeContext().setQuery(
+            SearchProductRequest(
+                requestId = REQUEST_ID_0001,
+                query = "Говядина",
+                debug = BaseDebugRequest(
+                    stubCase = BaseDebugRequest.StubCase.SUCCESS
+
+                )
+            )
+        )
+
+        assertNotNull(beContext.requestQuery)
+        assertEquals(StubCases.SUCCESS, beContext.stubCase)
     }
 }
