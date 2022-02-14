@@ -3,7 +3,6 @@ package ru.fit_changes.backend.product.logics
 import kotlinx.coroutines.runBlocking
 import ru.fit_changes.backend.common.context.BeContext
 import ru.fit_changes.backend.utils.product.BEEF_FILLED_MODEL
-import ru.fit_changes.backend.utils.product.BEEF_FILLED_MODEL_WITHOUT_PRODUCT_ID
 import ru.fit_changes.backend.utils.product.REQUEST_ID_0001
 import ru.fit_changes.backend.common.context.Operations
 import ru.fit_changes.backend.common.models.StubCases
@@ -17,7 +16,7 @@ class ProductCrudTest {
         val crud = ProductCrud()
         val context = BeContext(
             requestId = REQUEST_ID_0001,
-            requestProduct = BEEF_FILLED_MODEL_WITHOUT_PRODUCT_ID,
+            requestProduct = BEEF_FILLED_MODEL,
             operation = Operations.CREATE,
             stubCase = StubCases.SUCCESS
         )
