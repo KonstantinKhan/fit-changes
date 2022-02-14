@@ -4,6 +4,7 @@ import ru.fitChanges.backend.mapping.product.toCreateProductResponse
 import ru.fitChanges.backend.mapping.product.toReadProductResponse
 import ru.fitChanges.backend.mapping.product.toUpdateProductResponse
 import ru.fitChanges.openapi.models.*
+import ru.fit_changes.backend.common.models.CommonError
 import ru.fit_changes.backend.common.product.models.ProductIdModel
 import ru.fit_changes.backend.common.product.models.ProductPermissions
 import ru.fit_changes.backend.utils.product.*
@@ -134,18 +135,15 @@ class MappingTest {
 
     @Test
     fun readBeefResponseFailing() {
-        val beContext = BeContext()
-        beContext.setQuery(
-            ReadProductRequest(
-                requestId = REQUEST_ID_0001,
-                readProductId = null
-            )
-        )
+        val beContext = BeContext().apply {
+            requestId = REQUEST_ID_0001
+            errors.add(CommonError(field = "test field", message = "error message"))
+        }
         val response = beContext.toReadProductResponse()
         println(response)
         assertEquals("ReadProductResponse", response.messageType)
-        assertEquals(ReadProductResponse.Result.SUCCESS, response.result)
-        assertNull(response.errors)
+        assertEquals(ReadProductResponse.Result.ERROR, response.result)
+        assertNotNull(response.errors)
         assertNull(response.readProduct)
     }
 
