@@ -26,6 +26,12 @@ fun Application.module(
         }
     }
 
+    routing {
+        get("/") {
+            call.respondText("Hello, World")
+        }
+    }
+
    /* registerProductRoutes()
     routing {
         kafka(service = productService)

@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'fit_changes_angular_client';
+  title = 'fit_changes-client-angular';
 }

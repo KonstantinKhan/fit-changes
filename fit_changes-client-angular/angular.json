@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "fit_changes_angular_client": {
+    "fit_changes-client-angular": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -20,7 +20,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/fit_changes_angular_client",
+            "outputPath": "dist/fit_changes-client-angular",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -72,10 +72,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "fit_changes_angular_client:build:production"
+              "browserTarget": "fit_changes-client-angular:build:production"
             },
             "development": {
-              "browserTarget": "fit_changes_angular_client:build:development"
+              "browserTarget": "fit_changes-client-angular:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -83,7 +83,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "fit_changes_angular_client:build"
+            "browserTarget": "fit_changes-client-angular:build"
           }
         },
         "test": {
@@ -107,5 +107,5 @@
       }
     }
   },
-  "defaultProject": "fit_changes_angular_client"
+  "defaultProject": "fit_changes-client-angular"
 }

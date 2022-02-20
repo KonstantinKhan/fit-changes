@@ -1,5 +1,5 @@
 {
-  "name": "fit-changes-angular-client",
+  "name": "fit-changes-client-angular",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",

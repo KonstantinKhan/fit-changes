@@ -20,16 +20,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'fit_changes_angular_client'`, () => {
+  it(`should have as title 'fit_changes-client-angular'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('fit_changes_angular_client');
+    expect(app.title).toEqual('fit_changes-client-angular');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain('fit_changes_angular_client app is running!');
+    expect(compiled.querySelector('.content span')?.textContent).toContain('fit_changes-client-angular app is running!');
   });
 });
