@@ -26,11 +26,11 @@ fun Application.module(
         }
     }
 
-    registerProductRoutes()
+   /* registerProductRoutes()
     routing {
         kafka(service = productService)
         get("/") {
             call.respondText("Hello, World")
         }
-    }
+    }*/
 }
