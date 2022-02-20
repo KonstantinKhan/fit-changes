@@ -11,8 +11,6 @@ export class AppComponent {
   constructor(private http: HttpClient) {
   }
 
-  title = 'fit_changes-client-angular';
-
   ngOnInit() {
     this.http.get('http://localhost:8080/', {responseType: 'text'})
       .subscribe(response => {
