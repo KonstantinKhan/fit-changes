@@ -9,6 +9,11 @@ const routes: Routes = [
       {path: '', redirectTo: '/', pathMatch: 'full'},
       {path: '', component: HomePageComponent}
     ]
+  },
+  {
+    path: 'admin', loadChildren: () => import('./admin/admin.module').then(m =>
+      m.AdminModule
+    )
   }
 ];
 
