@@ -1,2 +1,45 @@
-<p>main-layout works!</p>
-<router-outlet></router-outlet>
+<mat-sidenav-container>
+  <mat-sidenav #sidenav mode="over">
+    <nav>
+      <ul class="menu__list">
+        <li class="menu__link">
+          <a
+            fxLayoutAlign="space-around center"
+            [routerLink]="['/']"
+            (click)="sidenav.toggle()"
+          >
+            <mat-icon>home</mat-icon>
+            Главная
+          </a>
+        </li>
+        <li class="menu__link"><a href="#">Продукты</a></li>
+        <li class="menu__link"><a href="#">Блюда</a></li>
+        <li class="menu__link"><a href="#">Рационы</a></li>
+        <li class="menu__link"><a href="#">Упражнения</a></li>
+        <li class="menu__link"><a href="#">Тренировки</a></li>
+      </ul>
+    </nav>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar color="primary" fxLayoutAlign.xs="center center" fxLayoutAlign.gt-xs="space-between center">
+      <div fxLayoutAlign="center center">
+        <h1>
+          fitCHANGES
+        </h1>
+      </div>
+      <div fxLayoutAlign="space-around center">
+        <a class="nav__item" fxHide.xs>Home</a>
+        <a class="nav__item" fxHide.xs>About</a>
+        <div class="hamburger">
+          <button mat-icon-button (click)="sidenav.toggle()">
+            <mat-icon>menu</mat-icon>
+          </button>
+        </div>
+      </div>
+    </mat-toolbar>
+    <div class="container">
+      <router-outlet></router-outlet>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+
