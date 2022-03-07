@@ -1,24 +1,38 @@
-@media (max-width: 600px) {
-  .hamburger {
-    position: absolute;
-    top: 8px;
-    right: 12px;
-  }
+.mat-sidenav-container {
+  min-height: 100vh;
 }
 
 .menu {
   &__list {
+    margin: 100px 8px 0 16px;
     list-style-type: none;
-    padding-right: 32px;
+    padding: 0 24px 0 8px;
   }
 
   &__link {
-    margin: 8px 0 8px 0;
+    margin: 34px 0 34px 0;
     font-weight: bold;
 
     a {
       color: black;
       text-decoration: none;
+    }
+  }
+
+  &__button {
+    border: 1px solid rgba(0, 0, 0, 0.8);
+    border-radius: 50%;
+    background-color: lightgray;
+    position: absolute;
+    bottom: 60px;
+    right: 0;
+    transform: translateX(50%);
+    transition: border .35s, opacity .35s;
+
+    button {
+      .mat-icon {
+        transition: opacity .35s;
+      }
     }
   }
 }
@@ -27,7 +41,21 @@
   padding-right: 16px;
 }
 
+li {
+  a {
+    align-items: center;
+    display: flex;
+
+    .mat-icon {
+      margin-right: 24px;
+    }
+  }
+}
+
 .mat-drawer-backdrop.mat-drawer-shown {
   background-color: rgba(255, 255, 255, 0.8);
 }
 
+.mat-drawer-inner-container {
+  overflow: hidden !important;
+}

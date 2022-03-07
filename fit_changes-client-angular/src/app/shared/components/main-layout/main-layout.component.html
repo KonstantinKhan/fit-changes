@@ -1,40 +1,117 @@
 <mat-sidenav-container>
-  <mat-sidenav #sidenav mode="over">
-    <nav>
-      <ul class="menu__list">
-        <li class="menu__link">
-          <a
-            fxLayoutAlign="space-around center"
-            [routerLink]="['/']"
-            (click)="sidenav.toggle()"
-          >
-            <mat-icon>home</mat-icon>
-            Главная
-          </a>
-        </li>
-        <li class="menu__link"><a href="#">Продукты</a></li>
-        <li class="menu__link"><a href="#">Блюда</a></li>
-        <li class="menu__link"><a href="#">Рационы</a></li>
-        <li class="menu__link"><a href="#">Упражнения</a></li>
-        <li class="menu__link"><a href="#">Тренировки</a></li>
-      </ul>
-    </nav>
+  <mat-sidenav
+    #sidenav
+    [mode]=getSidenavMode()
+    (window:resize)="getWidthWindow($event)"
+    [opened]=isMenuOpen
+    [ngStyle]="{
+      width:
+        isLargeScreen()
+          ? isFullPanel
+            ? '240px' : '70px'
+          : '60%',
+      'overflow-y': 'visible',
+      'transition-duration': isLargeScreen() ? '0.4s' : '0s'
+    }"
+    (mouseenter)="isFocusSidenav = true"
+    (mouseleave)="isFocusSidenav = false"
+  >
+    <ul class="menu__list">
+      <li class="menu__link">
+        <a
+          [routerLink]="['/']"
+        >
+          <mat-icon>home</mat-icon>
+          Главная
+        </a>
+      </li>
+      <li class="menu__link">
+        <a
+          [routerLink]="['/products']"
+        >
+          <mat-icon>egg</mat-icon>
+          Продукты
+        </a>
+      </li>
+      <li class="menu__link">
+        <a
+          [routerLink]="['/dishes']"
+        >
+          <mat-icon>dinner_dining</mat-icon>
+          Блюда
+        </a>
+      </li>
+      <li class="menu__link">
+        <a
+          href="#"
+        >
+          <mat-icon>restaurant_menu</mat-icon>
+          Рационы
+        </a>
+      </li>
+      <li class="menu__link">
+        <a
+          href="#"
+        >
+          <mat-icon>fitness_center</mat-icon>
+          Упражнения
+        </a>
+      </li>
+      <li class="menu__link">
+        <a
+          href="#"
+        >
+          <mat-icon>event_repeat</mat-icon>
+          Тренировки
+        </a>
+      </li>
+    </ul>
+    <div
+      fxHide fxShow.gt-xs
+      [ngStyle.gt-md]="{
+        border: isFocusSidenav ? '1px solid rgba(0, 0, 0, ' + opacityElement + ')' : '1px solid rgba(0, 0, 0, 0)',
+        opacity: isFocusSidenav ? opacityElement : '0'
+      }"
+      class="menu__button">
+      <button
+        mat-icon-button
+        (click)="onToolBarMenuToggle()"
+      >
+        <mat-icon
+          (mouseenter)="opacityElement='1'"
+          (mouseleave)="opacityElement='0.8'"
+          [ngStyle.gt-md]="{
+            opacity: isFocusSidenav ? opacityElement : '0'
+          }"
+        >
+          {{isFullPanel ? 'keyboard_double_arrow_left' : 'keyboard_double_arrow_right'}}
+        </mat-icon>
+      </button>
+    </div>
+
   </mat-sidenav>
-  <mat-sidenav-content>
-    <mat-toolbar color="primary" fxLayoutAlign.xs="center center" fxLayoutAlign.gt-xs="space-between center">
-      <div fxLayoutAlign="center center">
-        <h1>
-          fitCHANGES
-        </h1>
-      </div>
+  <mat-sidenav-content
+    [ngStyle]="{
+      'margin-left':
+        isLargeScreen()
+        ? isFullPanel
+          ? '240px' : '70px'
+        : '0px',
+      'transition-duration': isLargeScreen() ? '0.4s' : '0s',
+      'transition-timing-function': isLargeScreen() ? 'unset' : 'cubic-bezier(0.25, 0.8, 0.25, 1)',
+      'transition-property': isLargeScreen() ? 'unset' : 'transform,margin-left,margin-right'
+    }"
+  >
+    <mat-toolbar fxLayoutAlign.xs="end center" fxLayoutAlign.gt-xs="end center">
       <div fxLayoutAlign="space-around center">
         <a class="nav__item" fxHide.xs>Home</a>
         <a class="nav__item" fxHide.xs>About</a>
-        <div class="hamburger">
-          <button mat-icon-button (click)="sidenav.toggle()">
-            <mat-icon>menu</mat-icon>
-          </button>
-        </div>
+        <button
+          fxShow fxHide.gt-xs
+          mat-icon-button
+          (click)=sidenav.toggle()>
+          <mat-icon>menu</mat-icon>
+        </button>
       </div>
     </mat-toolbar>
     <div class="container">
@@ -42,4 +119,3 @@
     </div>
   </mat-sidenav-content>
 </mat-sidenav-container>
-
