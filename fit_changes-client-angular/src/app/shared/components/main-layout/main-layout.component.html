@@ -16,10 +16,12 @@
     (mouseenter)="isFocusSidenav = true"
     (mouseleave)="isFocusSidenav = false"
   >
-    <ul class="menu__list">
+    <ul
+      class="menu__list">
       <li class="menu__link">
         <a
           [routerLink]="['/']"
+          (click)="onToggle()"
         >
           <mat-icon>home</mat-icon>
           Главная
@@ -28,6 +30,7 @@
       <li class="menu__link">
         <a
           [routerLink]="['/products']"
+          (click)="onToggle()"
         >
           <mat-icon>egg</mat-icon>
           Продукты
@@ -36,6 +39,7 @@
       <li class="menu__link">
         <a
           [routerLink]="['/dishes']"
+          (click)="onToggle()"
         >
           <mat-icon>dinner_dining</mat-icon>
           Блюда

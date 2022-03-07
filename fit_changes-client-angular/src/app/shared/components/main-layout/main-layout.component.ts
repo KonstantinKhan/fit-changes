@@ -1,5 +1,5 @@
-import {Component, HostListener, OnInit, ViewEncapsulation} from '@angular/core';
-import {MatDrawerMode} from "@angular/material/sidenav";
+import {Component, ElementRef, HostListener, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
+import {MatDrawerMode, MatSidenav} from "@angular/material/sidenav";
 
 @Component({
   selector: 'app-main-layout',
@@ -8,6 +8,8 @@ import {MatDrawerMode} from "@angular/material/sidenav";
   encapsulation: ViewEncapsulation.None
 })
 export class MainLayoutComponent implements OnInit {
+
+  @ViewChild('sidenav', {static: true}) sidenav!: MatSidenav
 
   opacityElement: string = '0.6';
   widthWindow: number = window.innerWidth;
@@ -39,6 +41,12 @@ export class MainLayoutComponent implements OnInit {
 
   onToolBarMenuToggle() {
     this.isFullPanel = !this.isFullPanel;
+  }
+
+  onToggle() {
+    if (!this.isLargeScreen()) {
+      this.sidenav.toggle()
+    }
   }
 
   @HostListener('window:resize', ['$event'])
