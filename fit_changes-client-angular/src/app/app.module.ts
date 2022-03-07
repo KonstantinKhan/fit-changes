@@ -12,12 +12,16 @@ import {FlexLayoutModule} from "@angular/flex-layout";
 import {MatIconModule} from "@angular/material/icon";
 import {MatButtonModule} from "@angular/material/button";
 import {MatSidenavModule} from "@angular/material/sidenav";
+import { ProductsPageComponent } from './products-page/products-page.component';
+import { DishesPageComponent } from './dishes-page/dishes-page.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MainLayoutComponent,
-    HomePageComponent
+    HomePageComponent,
+    ProductsPageComponent,
+    DishesPageComponent
   ],
   imports: [
     BrowserModule,
