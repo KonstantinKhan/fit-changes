@@ -1,12 +1,16 @@
-.mat-sidenav-container {
+mat-sidenav-container {
   min-height: 100vh;
+
+  mat-sidenav {
+    width: 60%;
+  }
 }
 
 .menu {
   &__list {
     margin: 100px 8px 0 16px;
     list-style-type: none;
-    padding: 0 24px 0 8px;
+    padding: 0;
   }
 
   &__link {
@@ -30,10 +34,14 @@
     transition: border .35s, opacity .35s;
 
     button {
-      .mat-icon {
+      mat-icon {
         transition: opacity .35s;
       }
     }
+  }
+
+  &__title {
+    margin: 0 !important;
   }
 }
 
@@ -46,7 +54,7 @@ li {
     align-items: center;
     display: flex;
 
-    .mat-icon {
+    mat-icon {
       margin-right: 24px;
     }
   }

@@ -1,57 +1,82 @@
-import {Component, ElementRef, HostListener, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
+import {Component, HostListener, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
 import {MatDrawerMode, MatSidenav} from "@angular/material/sidenav";
+import {animate, state, style, transition, trigger} from "@angular/animations";
 
 @Component({
   selector: 'app-main-layout',
   templateUrl: './main-layout.component.html',
   styleUrls: ['./main-layout.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
+  animations: [
+    trigger('sidenavAnimation', [
+      state('open', style({
+        width: '240px',
+      })),
+      state('close', style({
+        width: '34px'
+      })),
+      transition('open <=> close', animate('400ms ease'))
+    ])
+  ]
 })
 export class MainLayoutComponent implements OnInit {
 
-  @ViewChild('sidenav', {static: true}) sidenav!: MatSidenav
+  @ViewChild('sidenav') sidenav!: MatSidenav
 
   opacityElement: string = '0.6';
   widthWindow: number = window.innerWidth;
-  isMenuOpen: boolean;
   isFullPanel = true;
   isFocusSidenav = false;
+  animating = false;
+  stateSidenav = 'open';
+  sidenavMode: MatDrawerMode = 'over'
 
   constructor() {
-    this.isMenuOpen = false
   }
 
   ngOnInit(): void {
-    this.positionSideNav()
-  }
-
-  positionSideNav() {
-    this.isMenuOpen = this.isLargeScreen();
+    this.setSidenavMode()
   }
 
   isLargeScreen(): boolean {
     return this.widthWindow >= 600;
   }
 
-  getSidenavMode(): MatDrawerMode {
+  setSidenavMode() {
     if (this.isLargeScreen()) {
-      return 'side';
-    } else return 'over';
-  }
-
-  onToolBarMenuToggle() {
-    this.isFullPanel = !this.isFullPanel;
+      this.sidenavMode = 'side';
+    } else this.sidenavMode = 'over';
   }
 
   onToggle() {
     if (!this.isLargeScreen()) {
-      this.sidenav.toggle()
+      this.sidenav.toggle().then(r => r)
     }
   }
 
+  onCustomToggle() {
+    this.isFullPanel = !this.isFullPanel
+    if (this.isFullPanel) {
+      this.stateSidenav = 'open'
+    } else this.stateSidenav = 'close'
+  }
+
+  startAnimation() {
+    this.animating = true;
+    this.tick();
+  }
+
+  doneAnimation() {
+    this.animating = false;
+  }
+
+  tick() {
+    if (this.animating) requestAnimationFrame(() => this.tick());
+  }
+
   @HostListener('window:resize', ['$event'])
-  getWidthWindow(event: Event) {
+  changeWidthWindow(event: Event) {
     this.widthWindow = (<Window>event.target).innerWidth;
-    this.positionSideNav()
+    this.setSidenavMode()
   }
 }
