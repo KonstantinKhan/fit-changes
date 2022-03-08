@@ -14,6 +14,8 @@ import {MatButtonModule} from "@angular/material/button";
 import {MatSidenavModule} from "@angular/material/sidenav";
 import { ProductsPageComponent } from './products-page/products-page.component';
 import { DishesPageComponent } from './dishes-page/dishes-page.component';
+import {MatInputModule} from "@angular/material/input";
+import {FormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -33,6 +35,8 @@ import { DishesPageComponent } from './dishes-page/dishes-page.component';
     MatIconModule,
     MatButtonModule,
     MatSidenavModule,
+    MatInputModule,
+    FormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
