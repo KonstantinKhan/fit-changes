@@ -1,0 +1,34 @@
+<div class="search-field">
+  <mat-form-field
+    [ngStyle.gt-sm]="{
+        width: '720px'
+      }"
+    appearance="outline">
+    <mat-icon matPrefix>search</mat-icon>
+    <input
+      matInput
+      type="text"
+      placeholder="Найдите продукт или блюдо"
+      [(ngModel)]="value"
+      [formControl]="searchControl"
+      [matAutocomplete]="searchAutocomplete"
+    >
+    <button
+      *ngIf="value"
+      mat-icon-button
+      matSuffix
+      aria-label="Clear"
+      (click)="value=''"
+    >
+      <mat-icon>close</mat-icon>
+    </button>
+    <mat-autocomplete
+      autoActiveFirstOption
+      #searchAutocomplete="matAutocomplete"
+    >
+      <mat-option *ngFor="let product of filteredProducts | async" [value]="product">
+        {{product}}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+</div>
