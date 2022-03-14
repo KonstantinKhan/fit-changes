@@ -4,9 +4,12 @@
     width: '240px'
   }"
   >
-    <canvas
-      id="customDoughnut"
-    ></canvas>
+    <p-chart
+      type="doughnut"
+      [data]="this.data"
+      [options]="this.options"
+      [plugins]="this.plugins"
+    ></p-chart>
   </div>
 </div>
 
