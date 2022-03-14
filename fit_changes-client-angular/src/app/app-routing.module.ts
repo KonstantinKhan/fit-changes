@@ -2,7 +2,7 @@ import {NgModule} from '@angular/core';
 import {PreloadAllModules, RouterModule, Routes} from '@angular/router';
 import {MainLayoutComponent} from "./shared/components/main-layout/main-layout.component";
 import {HomePageComponent} from "./home-page/home-page.component";
-import {ProductsPageComponent} from "./products-page/products-page.component";
+import {ProductsPageComponent} from "./products/components/products-page/products-page.component";
 import {DishesPageComponent} from "./dishes-page/dishes-page.component";
 
 const routes: Routes = [
