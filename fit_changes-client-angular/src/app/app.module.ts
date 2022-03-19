@@ -22,6 +22,7 @@ import {ProductCardComponent} from './products/components/product-card/product-c
 import {MatCardModule} from "@angular/material/card";
 import {ChartModule} from "primeng/chart";
 import {EnergyStatisticComponent} from './shared/components/energy-statistic/energy-statistic.component'
+import {SearchProductPipe} from "./shared/pipes/search-product.pipe";
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import {EnergyStatisticComponent} from './shared/components/energy-statistic/ene
     DishesPageComponent,
     SearchInputComponent,
     ProductCardComponent,
-    EnergyStatisticComponent
+    EnergyStatisticComponent,
+    SearchProductPipe
   ],
   imports: [
     BrowserModule,
