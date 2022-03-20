@@ -1,26 +1,29 @@
 import {Component, OnInit} from '@angular/core';
-import {ChartData, ChartOptions, LegendItem, Plugin} from "chart.js";
+import {Chart, ChartData, ChartOptions, LegendItem, Plugin} from "chart.js";
 import ChartDataLabels from "chartjs-plugin-datalabels";
 import {Product} from "../../interfaces/product";
 
 @Component({
-  selector: 'app-ration-statistic',
+  selector: 'app-energy-statistic',
   templateUrl: './energy-statistic.component.html',
-  styleUrls: ['./energy-statistic.component.scss']
+  styleUrls: ['./energy-statistic.component.scss'],
 })
 export class EnergyStatisticComponent implements OnInit {
+
+  sumEnergy = []
 
   product: Product = {
     productName: "Филе куриное",
     caloriesPerHundredGrams: 110.0,
-    proteinsPerHundredGrams: 23.1,
-    fatsPerHundredGrams: 1.2,
+    proteinsPerHundredGrams: 21,
+    fatsPerHundredGrams: 0,
     carbohydratesPerHundredGrams: 0
   }
   labels: string[] = [];
   data: any;
   options: any;
   plugins: Plugin[] = []
+  value: number = 0
 
   constructor() {
   }
@@ -35,7 +38,7 @@ export class EnergyStatisticComponent implements OnInit {
       labels: this.labels,
       datasets: [
         {
-          backgroundColor: ['#CB9359', '#8B2B15', '#D6E1DD'],
+          backgroundColor: ['#EF9A9A', '#FFE082', '#C5E1A5'],
           data: [
             this.product.proteinsPerHundredGrams,
             this.product.fatsPerHundredGrams,
@@ -46,6 +49,7 @@ export class EnergyStatisticComponent implements OnInit {
     }
     this.setChartOptions()
     this.setPlugins()
+
   }
 
   setChartOptions() {
@@ -72,16 +76,15 @@ export class EnergyStatisticComponent implements OnInit {
               }
               return true
             },
-            boxWidth: 10,
+            boxWidth: 15,
           },
           display: true,
         },
       },
       layout: {
-        padding: 12
+        padding: 8
       },
-      radius: 85,
-      // cutout: 40
+      radius: '90%',
     } as ChartOptions<'doughnut'>
   }
 
@@ -89,22 +92,22 @@ export class EnergyStatisticComponent implements OnInit {
     this.plugins.push(ChartDataLabels)
   }
 
-  generateLabels(): LegendItem[] {
+  generateLabels(chart: Chart): LegendItem[] {
     return [
       {
         datasetIndex: 0,
-        text: "Белки",
-        fillStyle: '#CB9359'
+        text: (chart.data.labels as string[])[0],
+        fillStyle: (chart.data.datasets[0].backgroundColor as string[])[0]
       },
       {
         datasetIndex: 1,
-        text: "Жиры",
-        fillStyle: '#8B2B15'
+        text: (chart.data.labels as string[])[1],
+        fillStyle: (chart.data.datasets[0].backgroundColor as string[])[1]
       },
       {
         datasetIndex: 2,
-        text: "Углеводы",
-        fillStyle: '#D6E1DD',
+        text: (chart.data.labels as string[])[2],
+        fillStyle: (chart.data.datasets[0].backgroundColor as string[])[2]
       }
     ]
   }

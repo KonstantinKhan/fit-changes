@@ -1,16 +1,11 @@
 <div class="ration-statistic-area">
-  <div
-    [ngStyle.xs]="{
-    width: '240px'
-  }"
-  >
-    <p-chart
-      type="doughnut"
-      [data]="this.data"
-      [options]="this.options"
-      [plugins]="this.plugins"
-    ></p-chart>
-  </div>
+  <p-chart
+    type="doughnut"
+    [data]="this.data"
+    [options]="this.options"
+    [plugins]="this.plugins"
+    [style]="{'width': '100%'}"
+  ></p-chart>
 </div>
 
 
