@@ -12,9 +12,5 @@ export class AppComponent {
   }
 
   ngOnInit() {
-    this.http.get('http://localhost:8080/', {responseType: 'text'})
-      .subscribe(response => {
-        console.log(response)
-      })
   }
 }
