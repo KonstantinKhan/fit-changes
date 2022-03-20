@@ -115,6 +115,15 @@ components:
       type: object
       description: The structure with data about the product to request about creation
       properties:
+        productId:
+          type: string
+          description: Product ID
+        authorId:
+          type: string
+          description: Author ID
+        category:
+          type: string
+          description: Category of product
         productName:
           type: string
           description: Product name
