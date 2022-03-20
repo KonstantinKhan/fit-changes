@@ -22,7 +22,6 @@ export class SearchInputComponent implements OnInit {
   @ViewChild('search_input') searchInput!: MatFormField
 
   query: string = "";
-  searchControl = new FormControl();
 
   products: Product[] = []
 
