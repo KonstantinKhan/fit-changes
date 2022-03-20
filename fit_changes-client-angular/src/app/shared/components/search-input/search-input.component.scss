@@ -1,9 +1,44 @@
-.search-field {
+.search-area {
   margin: 8px;
+
+  &__input {
+    display: flex;
+    justify-content: center;
+  }
+
+  &__container-results {
+    display: flex;
+    justify-content: center;
+  }
+
+  &__results {
+    z-index: 1;
+    position: absolute;
+    background-color: white;
+  }
+}
+
+.result-area {
+  margin: 8px 4px;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
+  &__energy {
+    display: flex;
+    justify-content: flex-end;
+
+    small {
+      margin: 0 4px;
+    }
+  }
 }
 
 mat-form-field {
   width: 100%;
+
+  .mat-form-field-wrapper {
+    padding: 0;
+  }
 }
+
+
+

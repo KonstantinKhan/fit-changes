@@ -1,34 +1,64 @@
-<div class="search-field">
-  <mat-form-field
-    [ngStyle.gt-sm]="{
+<div class="search-area">
+  <div
+    class="search-area__input"
+  >
+    <mat-form-field
+      [ngStyle.gt-sm]="{
         width: '720px'
       }"
-    appearance="outline">
-    <mat-icon matPrefix>search</mat-icon>
-    <input
-      matInput
-      type="text"
-      placeholder="Найдите продукт или блюдо"
-      [(ngModel)]="value"
-      [formControl]="searchControl"
-      [matAutocomplete]="searchAutocomplete"
+      appearance="outline"
+      #search_input
     >
-    <button
-      *ngIf="value"
-      mat-icon-button
-      matSuffix
-      aria-label="Clear"
-      (click)="value=''"
+      <mat-icon matPrefix>search</mat-icon>
+      <input
+        matInput
+        type="text"
+        placeholder="Найдите продукт или блюдо"
+        [(ngModel)]="query"
+        [formControl]="searchControl"
+        autocomplete="off"
+      >
+      <button
+        *ngIf="query"
+        mat-icon-button
+        matSuffix
+        aria-label="Clear"
+        (click)="query=''"
+      >
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+  </div>
+  <div class="search-area__container-results">
+    <div
+      class="search-area__results"
+      *ngIf="query.trim().length > 0"
+      #search_results
+      (window:resize)="changeWidthWindow()"
     >
-      <mat-icon>close</mat-icon>
-    </button>
-    <mat-autocomplete
-      autoActiveFirstOption
-      #searchAutocomplete="matAutocomplete"
-    >
-      <mat-option *ngFor="let product of filteredProducts | async" [value]="product">
-        {{product}}
-      </mat-option>
-    </mat-autocomplete>
-  </mat-form-field>
+      <div
+        *ngFor="let product of this.products | searchProduct:query"
+      >
+        <div class="result-area">
+          <div>
+            <div>
+              {{product.productName}}
+            </div>
+            <div class="result-area__energy">
+              <small>К: {{product.caloriesPerHundredGrams}}</small>
+              <small>Б: {{product.proteinsPerHundredGrams}}</small>
+              <small>Ж: {{product.fatsPerHundredGrams}}</small>
+              <small>У: {{product.carbohydratesPerHundredGrams}}</small>
+            </div>
+          </div>
+          <button mat-mini-fab>
+            <mat-icon>
+              add
+            </mat-icon>
+          </button>
+        </div>
+        <hr>
+      </div>
+    </div>
+  </div>
 </div>
