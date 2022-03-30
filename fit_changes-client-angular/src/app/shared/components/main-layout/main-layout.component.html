@@ -1,116 +1,123 @@
-<mat-sidenav-container autosize>
-  <mat-sidenav
-    #sidenav
-    [mode]=sidenavMode
-    (window:resize)="changeWidthWindow($event)"
-    [opened]=isLargeScreen()
-    [ngStyle.gt-xs]="{
+<div class="container">
+  <mat-sidenav-container
+    autosize
+  >
+    <mat-sidenav
+      #sidenav
+      [mode]=sidenavMode
+      (window:resize)="changeWidthWindow($event)"
+      [opened]=isLargeScreen()
+      [ngStyle.gt-xs]="{
       width: 'unset',
       overflowY: 'visible'
     }"
-    (mouseenter)="isFocusSidenav = true"
-    (mouseleave)="isFocusSidenav = false"
-  >
-    <ul
-      [@sidenavAnimation]="stateSidenav"
-      (@sidenavAnimation.start)="startAnimation()"
-      (@sidenavAnimation.done)="doneAnimation()"
-      class="menu__list">
-      <li class="menu__link">
-        <a
-          [routerLink]="['/']"
-          (click)="onToggle()"
-        >
-          <mat-icon>home</mat-icon>
-          <p class="menu__title" *ngIf="isFullPanel">Главная</p>
-        </a>
-      </li>
-      <li class="menu__link">
-        <a
-          [routerLink]="['/products']"
-          (click)="onToggle()"
-        >
-          <mat-icon>egg</mat-icon>
-          Продукты
-        </a>
-      </li>
-      <li class="menu__link">
-        <a
-          [routerLink]="['/dishes']"
-          (click)="onToggle()"
-        >
-          <mat-icon>dinner_dining</mat-icon>
-          Блюда
-        </a>
-      </li>
-      <li class="menu__link">
-        <a
-          href="#"
-        >
-          <mat-icon>restaurant_menu</mat-icon>
-          Рационы
-        </a>
-      </li>
-      <li class="menu__link">
-        <a
-          href="#"
-        >
-          <mat-icon>fitness_center</mat-icon>
-          Упражнения
-        </a>
-      </li>
-      <li class="menu__link">
-        <a
-          href="#"
-        >
-          <mat-icon>event_repeat</mat-icon>
-          Тренировки
-        </a>
-      </li>
-    </ul>
-    <div
-      fxHide fxShow.gt-xs
-      [ngStyle.gt-md]="{
+      (mouseenter)="isFocusSidenav = true"
+      (mouseleave)="isFocusSidenav = false"
+    >
+      <ul
+        [@sidenavAnimation]="stateSidenav"
+        (@sidenavAnimation.start)="startAnimation()"
+        (@sidenavAnimation.done)="doneAnimation()"
+        class="menu__list">
+        <li class="menu__link">
+          <a
+            [routerLink]="['/']"
+            (click)="onToggle()"
+          >
+            <mat-icon>home</mat-icon>
+            <p class="menu__title" *ngIf="isFullPanel">Главная</p>
+          </a>
+        </li>
+        <li class="menu__link">
+          <a
+            [routerLink]="['/products']"
+            (click)="onToggle()"
+          >
+            <mat-icon>egg</mat-icon>
+            Продукты
+          </a>
+        </li>
+        <li class="menu__link">
+          <a
+            [routerLink]="['/dishes']"
+            (click)="onToggle()"
+          >
+            <mat-icon>dinner_dining</mat-icon>
+            Блюда
+          </a>
+        </li>
+        <li class="menu__link">
+          <a
+            href="#"
+          >
+            <mat-icon>restaurant_menu</mat-icon>
+            Рационы
+          </a>
+        </li>
+        <li class="menu__link">
+          <a
+            href="#"
+          >
+            <mat-icon>fitness_center</mat-icon>
+            Упражнения
+          </a>
+        </li>
+        <li class="menu__link">
+          <a
+            href="#"
+          >
+            <mat-icon>event_repeat</mat-icon>
+            Тренировки
+          </a>
+        </li>
+      </ul>
+      <div
+        fxHide fxShow.gt-xs
+        [ngStyle.gt-md]="{
         border: isFocusSidenav ? '1px solid rgba(0, 0, 0, ' + opacityElement + ')' : '1px solid rgba(0, 0, 0, 0)',
         opacity: isFocusSidenav ? opacityElement : '0'
       }"
-      class="menu__button">
-      <button
-        mat-icon-button
-        (click)="onCustomToggle()"
-      >
-        <mat-icon
-          (mouseenter)="opacityElement='1'"
-          (mouseleave)="opacityElement='0.8'"
-          [ngStyle.gt-md]="{
+        class="menu__button">
+        <button
+          mat-icon-button
+          (click)="onCustomToggle()"
+        >
+          <mat-icon
+            (mouseenter)="opacityElement='1'"
+            (mouseleave)="opacityElement='0.8'"
+            [ngStyle.gt-md]="{
             opacity: isFocusSidenav ? opacityElement : '0'
           }"
-        >
-          {{isFullPanel ? 'keyboard_double_arrow_left' : 'keyboard_double_arrow_right'}}
-        </mat-icon>
-      </button>
-    </div>
-
-  </mat-sidenav>
-  <mat-sidenav-content
-    [ngStyle.gt-xs]="{
-      transitionDuration: 'unset'
-    }"
-  >
-    <mat-toolbar fxLayoutAlign.xs="end center" fxLayoutAlign.gt-xs="end center">
-      <div fxLayoutAlign="space-around center">
-        <a class="nav__item" fxHide.xs>Home</a>
-        <a class="nav__item" fxHide.xs>About</a>
-        <button
-          fxShow fxHide.gt-xs
-          mat-icon-button
-          (click)=sidenav.toggle()>
-          <mat-icon>menu</mat-icon>
+          >
+            {{isFullPanel ? 'keyboard_double_arrow_left' : 'keyboard_double_arrow_right'}}
+          </mat-icon>
         </button>
       </div>
-    </mat-toolbar>
-    <div class="container">
-      <router-outlet></router-outlet>
-    </div>
-  </mat-sidenav-content>
-</mat-sidenav-container>
+
+    </mat-sidenav>
+    <mat-sidenav-content
+      [ngStyle.gt-xs]="{
+      transitionDuration: 'unset'
+    }"
+    >
+      <mat-toolbar
+        fxLayoutAlign.xs="end center"
+        fxLayoutAlign.gt-xs="end center">
+        <div fxLayoutAlign="space-around center">
+          <a class="nav__item" fxHide.xs>Home</a>
+          <a class="nav__item" fxHide.xs>About</a>
+          <button
+            fxShow fxHide.gt-xs
+            mat-icon-button
+            (click)=sidenav.toggle()>
+            <mat-icon>menu</mat-icon>
+          </button>
+        </div>
+      </mat-toolbar>
+      <div class="container-content">
+        <router-outlet></router-outlet>
+      </div>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>
+
