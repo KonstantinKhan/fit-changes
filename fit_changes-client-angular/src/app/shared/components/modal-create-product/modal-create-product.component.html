@@ -1,0 +1,95 @@
+<div
+  class="modal"
+>
+  <form
+    [formGroup]="form"
+    (ngSubmit)="submit()"
+  >
+    <div class="product-info">
+      <mat-form-field class="form-field-product-name" appearance="outline">
+        <mat-label>Название продукта</mat-label>
+        <input
+          matInput
+          type="text"
+          autocomplete="off"
+          placeholder="Название продукта"
+          formControlName="productName"
+        >
+      </mat-form-field>
+      <mat-form-field class="form-field-product-calories" appearance="outline">
+        <mat-label>Калории</mat-label>
+        <input
+          matInput
+          (focusout)="focusout(this.form.get('productCalories')?.value, 'productCalories')"
+          inputmode="numeric"
+          autocomplete="off"
+          placeholder="на 100 гр."
+          formControlName="productCalories"
+        >
+      </mat-form-field>
+    </div>
+    <div class="micronutrients-container">
+      <mat-form-field appearance="outline">
+        <mat-label>Белки</mat-label>
+        <input
+          matInput
+          (focusout)="focusout(this.form.get('productProteins')?.value, 'productProteins')"
+          type="text"
+          inputmode="numeric"
+          autocomplete="off"
+          placeholder="на 100 гр."
+          formControlName="productProteins"
+        >
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Жиры</mat-label>
+        <input
+          matInput
+          (focusout)="focusout(this.form.get('productFats')?.value, 'productFats')"
+          inputmode="numeric"
+          autocomplete="off"
+          placeholder="на 100 гр."
+          formControlName="productFats"
+        >
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Углеводы</mat-label>
+        <input
+          matInput
+          (focusout)="focusout(this.form.get('productCarbohydrates')?.value, 'productCarbohydrates')"
+          inputmode="numeric"
+          autocomplete="off"
+          placeholder="на 100 гр."
+          formControlName="productCarbohydrates"
+        >
+      </mat-form-field>
+    </div>
+    <div class="form-button-action">
+      <button
+        pButton
+        pRipple
+        type="submit"
+        icon="pi pi-check"
+        class="p-button-rounded p-button-success p-button-outlined"
+        [disabled]="form.invalid"
+      ></button>
+      <button
+        pButton
+        pRipple
+        type="button"
+        icon="pi pi-undo"
+        class="p-button-rounded p-button-warning p-button-outlined"
+      >
+      </button>
+      <button
+        pButton
+        pRipple
+        type="button"
+        icon="pi pi-times"
+        class="p-button-rounded p-button-danger p-button-outlined"
+        (click)="close.emit()"
+      >
+      </button>
+    </div>
+  </form>
+</div>

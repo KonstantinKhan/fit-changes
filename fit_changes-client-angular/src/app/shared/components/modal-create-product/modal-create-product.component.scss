@@ -1,0 +1,55 @@
+.modal {
+  width: 80%;
+  padding: 1rem;
+  background: #fff;
+  margin-top: 3rem;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, 0);
+  border: 1px solid #f1f1f1;
+  border-radius: 8px;
+  z-index: 2;
+  box-shadow: 0 0 12px #BDBDBD
+}
+
+.product-info {
+  display: flex;
+  justify-content: space-between;
+}
+
+.form-field-product-name {
+  width: 65%;
+}
+
+.form-field-product-calories {
+  width: 30%;
+}
+
+.micronutrients-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.micronutrients-container mat-form-field {
+  width: 30%;
+}
+
+.form-button-action {
+  padding-top: 8px;
+  margin-right: -8px;
+  display: flex;
+  justify-content: end;
+
+  button {
+    height: 2rem;
+    width: 2rem;
+    margin: 0 8px;
+  }
+}
+
+.mat-form-field {
+  font-size: 12px;
+  mat-label {
+    font-size: 12px;
+  }
+}
