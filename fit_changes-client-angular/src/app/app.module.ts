@@ -23,6 +23,11 @@ import {MatCardModule} from "@angular/material/card";
 import {ChartModule} from "primeng/chart";
 import {EnergyStatisticComponent} from './shared/components/energy-statistic/energy-statistic.component'
 import {SearchProductPipe} from "./shared/pipes/search-product.pipe";
+import {RationPageComponent} from './ration/ration-page/ration-page.component';
+import {ModalCreateProductComponent} from './shared/components/modal-create-product/modal-create-product.component';
+import {DynamicModalLoader} from "./shared/directives/load-modal.directive";
+import {ButtonModule} from "primeng/button";
+import {RippleModule} from "primeng/ripple";
 
 @NgModule({
   declarations: [
@@ -34,7 +39,10 @@ import {SearchProductPipe} from "./shared/pipes/search-product.pipe";
     SearchInputComponent,
     ProductCardComponent,
     EnergyStatisticComponent,
-    SearchProductPipe
+    SearchProductPipe,
+    RationPageComponent,
+    ModalCreateProductComponent,
+    DynamicModalLoader
   ],
   imports: [
     BrowserModule,
@@ -52,8 +60,11 @@ import {SearchProductPipe} from "./shared/pipes/search-product.pipe";
     ReactiveFormsModule,
     MatCardModule,
     ChartModule,
+    ButtonModule,
+    RippleModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}
