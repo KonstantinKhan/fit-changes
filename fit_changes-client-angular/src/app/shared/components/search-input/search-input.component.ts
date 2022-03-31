@@ -5,7 +5,6 @@ import {
   ViewChild,
   ViewEncapsulation
 } from '@angular/core';
-import {FormControl} from "@angular/forms";
 import {ProductSearchService} from "../../../services/product-search.service";
 import {MatFormField} from "@angular/material/form-field";
 import {Product} from "../../interfaces/product";
