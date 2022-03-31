@@ -1,6 +1,4 @@
 .search-area {
-  margin: 8px;
-
   &__input {
     display: flex;
     justify-content: center;
@@ -22,6 +20,7 @@
   margin: 8px 4px;
   display: flex;
   justify-content: space-between;
+
   &__energy {
     display: flex;
     justify-content: flex-end;
