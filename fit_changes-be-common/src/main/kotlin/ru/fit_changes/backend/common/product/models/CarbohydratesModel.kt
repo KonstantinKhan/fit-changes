@@ -6,6 +6,6 @@ value class CarbohydratesModel(private val carbohydrates: Double) {
         get() = carbohydrates
 
     companion object {
-        val NONE = CarbohydratesModel(0.0)
+        val NONE = CarbohydratesModel(Double.NaN)
     }
 }

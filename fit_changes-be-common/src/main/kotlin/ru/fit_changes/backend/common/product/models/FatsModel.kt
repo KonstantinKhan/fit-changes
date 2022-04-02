@@ -6,6 +6,6 @@ value class FatsModel(private val fats: Double) {
         get() = fats
 
     companion object {
-        val NONE = FatsModel(0.0)
+        val NONE = FatsModel(Double.NaN)
     }
 }

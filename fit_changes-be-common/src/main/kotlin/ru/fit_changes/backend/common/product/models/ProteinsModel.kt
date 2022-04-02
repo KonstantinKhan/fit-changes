@@ -6,6 +6,6 @@ value class ProteinsModel(private val proteins: Double) {
         get() = proteins
 
     companion object {
-        val NONE = ProteinsModel(0.0)
+        val NONE = ProteinsModel(Double.NaN)
     }
 }

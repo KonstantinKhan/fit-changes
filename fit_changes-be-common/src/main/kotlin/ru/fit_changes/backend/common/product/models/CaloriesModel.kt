@@ -6,6 +6,6 @@ value class CaloriesModel(private val calories: Double) {
         get() = calories
 
     companion object {
-        val NONE = CaloriesModel(0.0)
+        val NONE = CaloriesModel(Double.NaN)
     }
 }
