@@ -49,7 +49,9 @@ dependencies {
     implementation(project(":fit_changes-be-common"))
     implementation(project(":fit_changes-be-product-service"))
     implementation(project(":fit_changes-be-product-logics"))
+
     implementation(project(":fit_changes-be-cassandra"))
+    implementation(project(":fit_changes-be-repo-inmemory"))
 
     testImplementation(project(":fit_changes-be-utils"))
 }
