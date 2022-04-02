@@ -5,8 +5,7 @@ import com.datastax.oss.driver.api.mapper.annotations.CqlName
 import com.datastax.oss.driver.api.mapper.annotations.Entity
 import com.datastax.oss.driver.api.mapper.annotations.PartitionKey
 import com.datastax.oss.driver.api.querybuilder.SchemaBuilder
-import ru.fit_changes.backend.common.product.models.ProductIdModel
-import ru.fit_changes.backend.common.product.models.ProductModel
+import ru.fit_changes.backend.common.product.models.*
 
 @Entity
 data class ProductCassandraDTO(
@@ -27,10 +26,10 @@ data class ProductCassandraDTO(
     constructor(model: ProductModel) : this(
         productId = model.productId.takeIf { it != ProductIdModel.NONE }?.asString(),
         productName = model.productName.takeIf { it.isNotBlank() },
-        caloriesPerHundredGrams = model.caloriesPerHundredGrams,
-        proteinsPerHundredGrams = model.proteinsPerHundredGrams,
-        fatsPerHundredGrams = model.fatsPerHundredGrams,
-        carbohydratesPerHundredGrams = model.carbohydratesPerHundredGrams
+        caloriesPerHundredGrams = model.caloriesPerHundredGrams.takeIf { it != CaloriesModel.NONE }?.value,
+        proteinsPerHundredGrams = model.proteinsPerHundredGrams.takeIf { it != ProteinsModel.NONE }?.value,
+        fatsPerHundredGrams = model.fatsPerHundredGrams.takeIf { it != FatsModel.NONE }?.value,
+        carbohydratesPerHundredGrams = model.carbohydratesPerHundredGrams.takeIf { it != CarbohydratesModel.NONE }?.value,
     )
 
     companion object {
@@ -77,10 +76,11 @@ data class ProductCassandraDTO(
 
     fun toProductModel(): ProductModel = ProductModel(
         productName = productName ?: "",
-        caloriesPerHundredGrams = caloriesPerHundredGrams ?: 0.0,
-        proteinsPerHundredGrams = proteinsPerHundredGrams ?: 0.0,
-        fatsPerHundredGrams = fatsPerHundredGrams ?: 0.0,
-        carbohydratesPerHundredGrams = carbohydratesPerHundredGrams ?: 0.0,
+        caloriesPerHundredGrams = caloriesPerHundredGrams?.let { CaloriesModel(it) } ?: CaloriesModel.NONE,
+        proteinsPerHundredGrams = proteinsPerHundredGrams?.let { ProteinsModel(it) } ?: ProteinsModel.NONE,
+        fatsPerHundredGrams = fatsPerHundredGrams?.let { FatsModel(it) } ?: FatsModel.NONE,
+        carbohydratesPerHundredGrams = carbohydratesPerHundredGrams?.let { CarbohydratesModel(it) }
+            ?: CarbohydratesModel.NONE,
         productId = productId?.let { ProductIdModel(it) } ?: ProductIdModel.NONE,
     )
 }
