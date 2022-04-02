@@ -3,7 +3,7 @@ package ru.fitChanges.backend.mapping.product
 import ru.fitChanges.openapi.models.*
 import ru.fit_changes.backend.common.models.IError
 import ru.fit_changes.backend.common.context.BeContext
-import ru.fit_changes.backend.common.product.models.ProductModel
+import ru.fit_changes.backend.common.product.models.*
 
 fun BeContext.toCreateProductResponse() = CreateProductResponse(
     messageType = "CreateProductResponse",
@@ -48,10 +48,10 @@ private fun IError.toTransport() = RequestError(
 
 fun ProductModel.toTransport() = ResponseProduct(
     productName = productName.takeIf { it.isNotBlank() },
-    caloriesPerHundredGrams = caloriesPerHundredGrams,
-    proteinsPerHundredGrams = proteinsPerHundredGrams,
-    fatsPerHundredGrams = fatsPerHundredGrams,
-    carbohydratesPerHundredGrams = carbohydratesPerHundredGrams,
+    caloriesPerHundredGrams = caloriesPerHundredGrams.takeIf { it != CaloriesModel.NONE }?.value,
+    proteinsPerHundredGrams = proteinsPerHundredGrams.takeIf { it != ProteinsModel.NONE }?.value,
+    fatsPerHundredGrams = fatsPerHundredGrams.takeIf { it != FatsModel.NONE }?.value,
+    carbohydratesPerHundredGrams = carbohydratesPerHundredGrams.takeIf { it != CarbohydratesModel.NONE }?.value,
     productId = productId.takeIf { it != ru.fit_changes.backend.common.product.models.ProductIdModel.NONE }?.asString(),
     permissions = permissions.takeIf { it.isNotEmpty() }?.map { Permissions.valueOf(it.name) }?.toSet()
 )
