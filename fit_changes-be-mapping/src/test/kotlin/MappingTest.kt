@@ -6,9 +6,7 @@ import ru.fitChanges.backend.mapping.product.toUpdateProductResponse
 import ru.fitChanges.openapi.models.*
 import ru.fit_changes.backend.common.models.CommonErrorModel
 import ru.fit_changes.backend.common.models.StubCases
-import ru.fit_changes.backend.common.product.models.CaloriesModel
-import ru.fit_changes.backend.common.product.models.ProductIdModel
-import ru.fit_changes.backend.common.product.models.ProductPermissions
+import ru.fit_changes.backend.common.product.models.*
 import ru.fit_changes.backend.utils.product.*
 import kotlin.test.*
 
@@ -30,12 +28,15 @@ class MappingTest {
             beContext.requestProduct.caloriesPerHundredGrams
         )
         assertEquals(
-            BEEF_FILLED_CREATABLE_PRODUCT.proteinsPerHundredGrams,
+            BEEF_FILLED_CREATABLE_PRODUCT.proteinsPerHundredGrams?.let { ProteinsModel(it) },
             beContext.requestProduct.proteinsPerHundredGrams
         )
-        assertEquals(BEEF_FILLED_CREATABLE_PRODUCT.fatsPerHundredGrams, beContext.requestProduct.fatsPerHundredGrams)
         assertEquals(
-            BEEF_FILLED_CREATABLE_PRODUCT.carbohydratesPerHundredGrams,
+            BEEF_FILLED_CREATABLE_PRODUCT.fatsPerHundredGrams?.let { FatsModel(it) },
+            beContext.requestProduct.fatsPerHundredGrams
+        )
+        assertEquals(
+            BEEF_FILLED_CREATABLE_PRODUCT.carbohydratesPerHundredGrams?.let { CarbohydratesModel(it) },
             beContext.requestProduct.carbohydratesPerHundredGrams
         )
     }
@@ -120,9 +121,15 @@ class MappingTest {
         assertEquals(
             BEEF_FILLED_MODEL.caloriesPerHundredGrams,
             response.readProduct?.caloriesPerHundredGrams?.let { CaloriesModel(it) })
-        assertEquals(BEEF_FILLED_MODEL.proteinsPerHundredGrams, response.readProduct?.proteinsPerHundredGrams)
-        assertEquals(BEEF_FILLED_MODEL.fatsPerHundredGrams, response.readProduct?.fatsPerHundredGrams)
-        assertEquals(BEEF_FILLED_MODEL.carbohydratesPerHundredGrams, response.readProduct?.carbohydratesPerHundredGrams)
+        assertEquals(
+            BEEF_FILLED_MODEL.proteinsPerHundredGrams,
+            response.readProduct?.proteinsPerHundredGrams?.let { ProteinsModel(it) })
+        assertEquals(
+            BEEF_FILLED_MODEL.fatsPerHundredGrams,
+            response.readProduct?.fatsPerHundredGrams?.let { FatsModel(it) })
+        assertEquals(
+            BEEF_FILLED_MODEL.carbohydratesPerHundredGrams,
+            response.readProduct?.carbohydratesPerHundredGrams?.let { CarbohydratesModel(it) })
         response.readProduct?.permissions?.let { assertContains(it, Permissions.READ) }
     }
 
@@ -151,17 +158,20 @@ class MappingTest {
         assertEquals(BEEF_FILLED_UPDATABLE_PRODUCT.productId, beContext.requestProduct.productId.asString())
         assertEquals(BEEF_FILLED_UPDATABLE_PRODUCT.productName, beContext.requestProduct.productName)
         assertEquals(
-            BEEF_FILLED_UPDATABLE_PRODUCT.caloriesPerHundredGrams?.let { CaloriesModel(it) },
-            beContext.requestProduct.caloriesPerHundredGrams
+            BEEF_FILLED_UPDATABLE_PRODUCT.caloriesPerHundredGrams,
+            beContext.requestProduct.caloriesPerHundredGrams.takeIf { it != CaloriesModel.NONE }?.value
         )
         assertEquals(
             BEEF_FILLED_UPDATABLE_PRODUCT.proteinsPerHundredGrams,
-            beContext.requestProduct.proteinsPerHundredGrams
+            beContext.requestProduct.proteinsPerHundredGrams.takeIf { it != ProteinsModel.NONE }?.value
         )
-        assertEquals(BEEF_FILLED_UPDATABLE_PRODUCT.fatsPerHundredGrams, beContext.requestProduct.fatsPerHundredGrams)
+        assertEquals(
+            BEEF_FILLED_UPDATABLE_PRODUCT.fatsPerHundredGrams,
+            beContext.requestProduct.fatsPerHundredGrams.takeIf { it != FatsModel.NONE }?.value
+        )
         assertEquals(
             BEEF_FILLED_UPDATABLE_PRODUCT.carbohydratesPerHundredGrams,
-            beContext.requestProduct.carbohydratesPerHundredGrams
+            beContext.requestProduct.carbohydratesPerHundredGrams.takeIf { it != CarbohydratesModel.NONE }?.value
         )
     }
 
@@ -185,11 +195,15 @@ class MappingTest {
         assertEquals(
             BEEF_FILLED_MODEL.caloriesPerHundredGrams,
             response.updateProduct?.caloriesPerHundredGrams?.let { CaloriesModel(it) })
-        assertEquals(BEEF_FILLED_MODEL.proteinsPerHundredGrams, response.updateProduct?.proteinsPerHundredGrams)
-        assertEquals(BEEF_FILLED_MODEL.fatsPerHundredGrams, response.updateProduct?.fatsPerHundredGrams)
+        assertEquals(
+            BEEF_FILLED_MODEL.proteinsPerHundredGrams,
+            response.updateProduct?.proteinsPerHundredGrams?.let { ProteinsModel(it) })
+        assertEquals(
+            BEEF_FILLED_MODEL.fatsPerHundredGrams,
+            response.updateProduct?.fatsPerHundredGrams?.let { FatsModel(it) })
         assertEquals(
             BEEF_FILLED_MODEL.carbohydratesPerHundredGrams,
-            response.updateProduct?.carbohydratesPerHundredGrams
+            response.updateProduct?.carbohydratesPerHundredGrams?.let { CarbohydratesModel(it) }
         )
         response.updateProduct?.permissions?.let { assertContains(it, Permissions.UPDATE) }
         response.updateProduct?.permissions?.let { assertContains(it, Permissions.READ) }
