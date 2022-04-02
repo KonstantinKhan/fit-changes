@@ -1,9 +1,6 @@
 package ru.fit_changes.backend.repo.inmemory
 
-import ru.fit_changes.backend.common.product.models.AuthorIdModel
-import ru.fit_changes.backend.common.product.models.CaloriesModel
-import ru.fit_changes.backend.common.product.models.ProductIdModel
-import ru.fit_changes.backend.common.product.models.ProductModel
+import ru.fit_changes.backend.common.product.models.*
 import java.io.Serializable
 
 data class ProductRow(
@@ -21,9 +18,9 @@ data class ProductRow(
         authorId = internal.authorId.takeIf { it != AuthorIdModel.NONE }?.asString(),
         productName = internal.productName.takeIf { it.isNotBlank() },
         caloriesPerHundredGrams = internal.caloriesPerHundredGrams.takeIf { it != CaloriesModel.NONE }?.value,
-        proteinsPerHundredGrams = internal.proteinsPerHundredGrams,
-        fatsPerHundredGrams = internal.fatsPerHundredGrams,
-        carbohydratesPerHundredGrams = internal.carbohydratesPerHundredGrams
+        proteinsPerHundredGrams = internal.proteinsPerHundredGrams.takeIf { it != ProteinsModel.NONE }?.value,
+        fatsPerHundredGrams = internal.fatsPerHundredGrams.takeIf { it != FatsModel.NONE }?.value,
+        carbohydratesPerHundredGrams = internal.carbohydratesPerHundredGrams.takeIf { it != CarbohydratesModel.NONE }?.value,
     )
 
     fun toInternal(): ProductModel = ProductModel(
@@ -31,8 +28,9 @@ data class ProductRow(
         authorId = authorId?.let { AuthorIdModel(it) } ?: AuthorIdModel.NONE,
         productName = productName ?: "",
         caloriesPerHundredGrams = caloriesPerHundredGrams?.let { CaloriesModel(it) } ?: CaloriesModel.NONE,
-        proteinsPerHundredGrams = proteinsPerHundredGrams ?: 0.0,
-        fatsPerHundredGrams = fatsPerHundredGrams ?: 0.0,
-        carbohydratesPerHundredGrams = carbohydratesPerHundredGrams ?: 0.0
+        proteinsPerHundredGrams = proteinsPerHundredGrams?.let { ProteinsModel(it) } ?: ProteinsModel.NONE,
+        fatsPerHundredGrams = fatsPerHundredGrams?.let { FatsModel(it) } ?: FatsModel.NONE,
+        carbohydratesPerHundredGrams = carbohydratesPerHundredGrams?.let { CarbohydratesModel(it) }
+            ?: CarbohydratesModel.NONE
     )
 }
