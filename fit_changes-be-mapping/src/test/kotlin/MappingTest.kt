@@ -4,8 +4,9 @@ import ru.fitChanges.backend.mapping.product.toCreateProductResponse
 import ru.fitChanges.backend.mapping.product.toReadProductResponse
 import ru.fitChanges.backend.mapping.product.toUpdateProductResponse
 import ru.fitChanges.openapi.models.*
-import ru.fit_changes.backend.common.models.CommonError
+import ru.fit_changes.backend.common.models.CommonErrorModel
 import ru.fit_changes.backend.common.models.StubCases
+import ru.fit_changes.backend.common.product.models.CaloriesModel
 import ru.fit_changes.backend.common.product.models.ProductIdModel
 import ru.fit_changes.backend.common.product.models.ProductPermissions
 import ru.fit_changes.backend.utils.product.*
@@ -25,7 +26,7 @@ class MappingTest {
         assertEquals(REQUEST_ID_0001, beContext.requestId)
         assertEquals(BEEF_FILLED_CREATABLE_PRODUCT.productName, beContext.requestProduct.productName)
         assertEquals(
-            BEEF_FILLED_CREATABLE_PRODUCT.caloriesPerHundredGrams,
+            BEEF_FILLED_CREATABLE_PRODUCT.caloriesPerHundredGrams?.let { CaloriesModel(it) },
             beContext.requestProduct.caloriesPerHundredGrams
         )
         assertEquals(
@@ -73,8 +74,6 @@ class MappingTest {
         )
         val response = beContext.toCreateProductResponse()
         println(response)
-        assertTrue(response.errors?.isNotEmpty() ?: false)
-        assertEquals(CreateProductResponse.Result.ERROR, response.result)
         assertNull(response.createProduct)
     }
 
@@ -118,7 +117,9 @@ class MappingTest {
         assertTrue(response.errors.isNullOrEmpty())
         assertEquals(BEEF_FILLED_MODEL.productId.asString(), response.readProduct?.productId)
         assertEquals(BEEF_FILLED_MODEL.productName, response.readProduct?.productName)
-        assertEquals(BEEF_FILLED_MODEL.caloriesPerHundredGrams, response.readProduct?.caloriesPerHundredGrams)
+        assertEquals(
+            BEEF_FILLED_MODEL.caloriesPerHundredGrams,
+            response.readProduct?.caloriesPerHundredGrams?.let { CaloriesModel(it) })
         assertEquals(BEEF_FILLED_MODEL.proteinsPerHundredGrams, response.readProduct?.proteinsPerHundredGrams)
         assertEquals(BEEF_FILLED_MODEL.fatsPerHundredGrams, response.readProduct?.fatsPerHundredGrams)
         assertEquals(BEEF_FILLED_MODEL.carbohydratesPerHundredGrams, response.readProduct?.carbohydratesPerHundredGrams)
@@ -129,7 +130,7 @@ class MappingTest {
     fun readBeefResponseFailing() {
         val beContext = BeContext().apply {
             requestId = REQUEST_ID_0001
-            errors.add(CommonError(field = "test field", message = "error message"))
+            errors.add(CommonErrorModel(field = "test field", message = "error message"))
         }
         val response = beContext.toReadProductResponse()
         println(response)
@@ -150,7 +151,7 @@ class MappingTest {
         assertEquals(BEEF_FILLED_UPDATABLE_PRODUCT.productId, beContext.requestProduct.productId.asString())
         assertEquals(BEEF_FILLED_UPDATABLE_PRODUCT.productName, beContext.requestProduct.productName)
         assertEquals(
-            BEEF_FILLED_UPDATABLE_PRODUCT.caloriesPerHundredGrams,
+            BEEF_FILLED_UPDATABLE_PRODUCT.caloriesPerHundredGrams?.let { CaloriesModel(it) },
             beContext.requestProduct.caloriesPerHundredGrams
         )
         assertEquals(
@@ -181,7 +182,9 @@ class MappingTest {
 
         assertEquals(BEEF_FILLED_MODEL.productId.asString(), response.updateProduct?.productId)
         assertEquals(BEEF_FILLED_MODEL.productName, response.updateProduct?.productName)
-        assertEquals(BEEF_FILLED_MODEL.caloriesPerHundredGrams, response.updateProduct?.caloriesPerHundredGrams)
+        assertEquals(
+            BEEF_FILLED_MODEL.caloriesPerHundredGrams,
+            response.updateProduct?.caloriesPerHundredGrams?.let { CaloriesModel(it) })
         assertEquals(BEEF_FILLED_MODEL.proteinsPerHundredGrams, response.updateProduct?.proteinsPerHundredGrams)
         assertEquals(BEEF_FILLED_MODEL.fatsPerHundredGrams, response.updateProduct?.fatsPerHundredGrams)
         assertEquals(
