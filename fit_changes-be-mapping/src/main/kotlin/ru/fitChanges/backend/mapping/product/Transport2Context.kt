@@ -2,14 +2,15 @@ package ru.fitChanges.backend.mapping.product
 
 import ru.fitChanges.openapi.models.*
 import ru.fit_changes.backend.common.context.BeContext
-import ru.fit_changes.backend.common.product.models.ProductModel
 import ru.fit_changes.backend.common.models.StubCases
-import ru.fit_changes.backend.common.product.models.ProductIdModel
+import ru.fit_changes.backend.common.models.WorkMode
+import ru.fit_changes.backend.common.product.models.*
 
 fun BeContext.setQuery(query: CreateProductRequest) = apply {
     requestId = query.requestId ?: ""
-    requestProduct = query.createProduct?.toModel(this) ?: ProductModel()
+    requestProduct = query.createProduct?.toModel() ?: ProductModel()
     stubCase = query.debug?.stubCase.toModel()
+    workMode = query.debug?.mode.toModel()
 }
 
 fun BeContext.setQuery(query: ReadProductRequest) = apply {
@@ -20,7 +21,7 @@ fun BeContext.setQuery(query: ReadProductRequest) = apply {
 
 fun BeContext.setQuery(query: UpdateProductRequest) = apply {
     requestId = query.requestId ?: ""
-    requestProduct = query.updateProduct?.toModel(this) ?: ProductModel()
+    requestProduct = query.updateProduct?.toModel() ?: ProductModel()
     stubCase = query.debug?.stubCase.toModel()
 }
 
@@ -36,20 +37,22 @@ fun BeContext.setQuery(query: SearchProductRequest) = apply {
     stubCase = query.debug?.stubCase.toModel()
 }
 
-private fun CreatableProduct.toModel(context: BeContext) = ProductModel(
+private fun CreatableProduct.toModel() = ProductModel(
     productName = productName ?: "",
-    caloriesPerHundredGrams = caloriesPerHundredGrams.validationProductParameters(context, "Calories"),
-    proteinsPerHundredGrams = proteinsPerHundredGrams.validationProductParameters(context, "Proteins"),
-    fatsPerHundredGrams = fatsPerHundredGrams.validationProductParameters(context, "Fats"),
-    carbohydratesPerHundredGrams = carbohydratesPerHundredGrams.validationProductParameters(context, "Carbohydrates")
+    caloriesPerHundredGrams = caloriesPerHundredGrams?.let { CaloriesModel(it) } ?: CaloriesModel.NONE,
+    proteinsPerHundredGrams = proteinsPerHundredGrams?.let { ProteinsModel(it) } ?: ProteinsModel.NONE,
+    fatsPerHundredGrams = fatsPerHundredGrams?.let { FatsModel(it) } ?: FatsModel.NONE,
+    carbohydratesPerHundredGrams = carbohydratesPerHundredGrams?.let { CarbohydratesModel(it) }
+        ?: CarbohydratesModel.NONE
 )
 
-private fun UpdatableProduct.toModel(context: BeContext) = ProductModel(
+private fun UpdatableProduct.toModel() = ProductModel(
     productName = productName ?: "",
-    caloriesPerHundredGrams = caloriesPerHundredGrams.validationProductParameters(context, "Calories"),
-    proteinsPerHundredGrams = proteinsPerHundredGrams.validationProductParameters(context, "Proteins"),
-    fatsPerHundredGrams = fatsPerHundredGrams.validationProductParameters(context, "Fats"),
-    carbohydratesPerHundredGrams = carbohydratesPerHundredGrams.validationProductParameters(context, "Carbohydrates"),
+    caloriesPerHundredGrams = caloriesPerHundredGrams?.let { CaloriesModel(it) } ?: CaloriesModel.NONE,
+    proteinsPerHundredGrams = proteinsPerHundredGrams?.let { ProteinsModel(it) } ?: ProteinsModel.NONE,
+    fatsPerHundredGrams = fatsPerHundredGrams?.let { FatsModel(it) } ?: FatsModel.NONE,
+    carbohydratesPerHundredGrams = carbohydratesPerHundredGrams?.let { CarbohydratesModel(it) }
+        ?: CarbohydratesModel.NONE,
     productId = ProductIdModel(productId ?: ""),
 )
 
@@ -59,10 +62,8 @@ private fun BaseDebugRequest.StubCase?.toModel(): StubCases = when (this) {
     null -> StubCases.NONE
 }
 
-private fun Double?.validationProductParameters(context: BeContext, parameter: String) =
-    if (this != null) {
-        this
-    } else {
-        context.addError(parameter, "$parameter cannot be null")
-        0.0
-    }
+private fun BaseDebugRequest.Mode?.toModel(): WorkMode = when (this) {
+    BaseDebugRequest.Mode.TEST -> WorkMode.TEST
+    BaseDebugRequest.Mode.STUB -> WorkMode.STUB
+    else -> WorkMode.PROD
+}
