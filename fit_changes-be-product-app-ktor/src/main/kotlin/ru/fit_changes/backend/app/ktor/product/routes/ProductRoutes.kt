@@ -19,6 +19,8 @@ import org.apache.kafka.common.serialization.StringSerializer
 import ru.fitChanges.openapi.models.BaseMessage
 import ru.fitChanges.openapi.models.CreateProductRequest
 import ru.fitChanges.openapi.models.CreateProductResponse
+import ru.fit_chages.backend.product.service.ProductService
+import ru.fit_changes.backend.app.ktor.product.controllers.createProduct
 import java.time.Duration
 import java.util.*
 import java.util.concurrent.atomic.AtomicBoolean
@@ -101,5 +103,18 @@ fun Route.productRouting() =
 fun Application.registerProductRoutes() {
     routing {
         productRouting()
+    }
+}
+
+fun Route.productRoutingHttp(productService: ProductService) =
+    route("product") {
+        post("create") {
+            call.createProduct(productService)
+        }
+    }
+
+fun Application.registerProductRoutesHttp(productService: ProductService) {
+    routing {
+        productRoutingHttp(productService)
     }
 }
