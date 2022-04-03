@@ -1,6 +1,7 @@
 package ru.fit_changes.backend.repo.cassandra
 
 import kotlinx.coroutines.future.await
+import ru.fit_changes.backend.common.models.CommonErrorModel
 import ru.fit_changes.backend.common.product.models.ProductIdModel
 import ru.fit_changes.backend.repo.product.*
 import java.util.*
@@ -12,7 +13,15 @@ class RepoProductCassandra(
         val product = req.product.copy(productId = ProductIdModel(UUID.randomUUID()))
         dao.create(ProductCassandraDTO(product)).await()
         val created = dao.read(product.productId.asString()).await()
-        return DbProductResponse(created?.toProductModel())
+        return if (created == null) {
+            DbProductResponse(
+                CommonErrorModel(
+                    field = "id",
+                    message = "Not found"
+                )
+            )
+        } else
+            DbProductResponse(created.toProductModel())
 
     }
 
