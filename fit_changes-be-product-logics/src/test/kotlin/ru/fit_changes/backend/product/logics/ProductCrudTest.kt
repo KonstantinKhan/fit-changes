@@ -10,6 +10,7 @@ import ru.fit_changes.backend.utils.product.PRODUCT_ID_0001
 import ru.fit_changes.backend.utils.product.PRODUCT_ID_0002
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertTrue
 
 class ProductCrudTest {
 
@@ -38,6 +39,20 @@ class ProductCrudTest {
     }
 
     @Test
+    fun productCreateFailing() {
+        val crud = ProductCrud()
+        val context = BeContext(
+            requestProduct = BEEF_FILLED_MODEL,
+            operation = Operations.CREATE,
+            stubCase = StubCases.NONE
+        )
+        runBlocking {
+            crud.create(context)
+            assertTrue(context.errors.isNotEmpty())
+        }
+    }
+
+    @Test
     fun productReadSuccess() {
         val crud = ProductCrud()
         val context = BeContext(
@@ -53,6 +68,20 @@ class ProductCrudTest {
             with(context.responseProduct) {
                 assertEquals(expected.productId, productId)
             }
+        }
+    }
+
+    @Test
+    fun productReadFailing() {
+        val crud = ProductCrud()
+        val context = BeContext(
+            requestProduct = BEEF_FILLED_MODEL,
+            operation = Operations.CREATE,
+            stubCase = StubCases.NONE
+        )
+        runBlocking {
+            crud.read(context)
+            assertTrue(context.errors.isNotEmpty())
         }
     }
 }

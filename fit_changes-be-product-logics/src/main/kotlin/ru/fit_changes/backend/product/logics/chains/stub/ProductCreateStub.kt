@@ -7,6 +7,7 @@ import ru.fit_changes.backend.common.models.StubCases
 import ru.fit_changes.backend.common.product.models.ProductIdModel
 import ru.fit_changes.backend.product.logics.handlers.CorChainDsl
 import ru.fit_changes.backend.product.logics.handlers.addCorWorkerDsl
+import ru.fit_changes.backend.product.logics.workers.noMatchingStubs
 
 fun CorChainDsl<BeContext>.productCreateStub(title: String) = addCorWorkerDsl {
     this.title = title
@@ -19,4 +20,5 @@ fun CorChainDsl<BeContext>.productCreateStub(title: String) = addCorWorkerDsl {
         responseProduct = requestProduct.copy(productId = ProductIdModel(PRODUCT_ID_0001))
         status = CorStatus.FINISHING
     }
+    noMatchingStubs()
 }
