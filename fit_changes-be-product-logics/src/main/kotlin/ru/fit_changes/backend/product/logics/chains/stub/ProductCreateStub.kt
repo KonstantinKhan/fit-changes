@@ -11,10 +11,12 @@ import ru.fit_changes.backend.product.logics.handlers.addCorWorkerDsl
 fun CorChainDsl<BeContext>.productCreateStub(title: String) = addCorWorkerDsl {
     this.title = title
     on {
-        status == CorStatus.RUNNING &&
+        status == CorStatus.RUNNING
+                &&
                 stubCase == StubCases.SUCCESS
     }
     handle {
         responseProduct = requestProduct.copy(productId = ProductIdModel(PRODUCT_ID_0001))
+        status = CorStatus.FINISHING
     }
 }
