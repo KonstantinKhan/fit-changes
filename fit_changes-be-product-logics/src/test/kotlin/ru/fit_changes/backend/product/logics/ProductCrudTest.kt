@@ -6,6 +6,7 @@ import ru.fit_changes.backend.utils.product.BEEF_FILLED_MODEL
 import ru.fit_changes.backend.utils.product.REQUEST_ID_0001
 import ru.fit_changes.backend.common.context.Operations
 import ru.fit_changes.backend.common.models.StubCases
+import ru.fit_changes.backend.common.product.models.ProductIdModel
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
@@ -29,6 +30,26 @@ class ProductCrudTest {
                 assertEquals(expected.proteinsPerHundredGrams, proteinsPerHundredGrams)
                 assertEquals(expected.fatsPerHundredGrams, fatsPerHundredGrams)
                 assertEquals(expected.carbohydratesPerHundredGrams, carbohydratesPerHundredGrams)
+                assertEquals(expected.productId, productId)
+            }
+        }
+    }
+
+    @Test
+    fun productReadSuccess() {
+        val crud = ProductCrud()
+        val testProductId = "111"
+        val context = BeContext(
+            requestProductId = ProductIdModel(testProductId),
+            operation = Operations.READ,
+            stubCase = StubCases.SUCCESS
+        )
+        runBlocking {
+            crud.read(context)
+            val expected = BEEF_FILLED_MODEL.apply {
+                productId = ProductIdModel(testProductId)
+            }
+            with(context.responseProduct) {
                 assertEquals(expected.productId, productId)
             }
         }
