@@ -222,7 +222,6 @@ class MappingTest {
 
         println(response)
 
-        assertNotNull(response.errors)
         assertNull(response.updateProduct)
     }
 
