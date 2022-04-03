@@ -3,8 +3,8 @@ package ru.fit_changes.backend.app.ktor.product.helpers
 import io.ktor.application.*
 import io.ktor.request.*
 import io.ktor.response.*
-import ru.fitChanges.openapi.models.BaseMessage
 import ru.fit_changes.backend.common.context.BeContext
+import ru.fit_changes.openapi.models.BaseMessage
 
 suspend inline fun <reified T : BaseMessage, reified U : BaseMessage> ApplicationCall.handleRoute(
     block: BeContext.(T) -> U

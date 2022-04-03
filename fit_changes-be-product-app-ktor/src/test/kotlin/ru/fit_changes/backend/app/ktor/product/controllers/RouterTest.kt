@@ -3,8 +3,8 @@ package ru.fit_changes.backend.app.ktor.product.controllers
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import io.ktor.http.*
 import io.ktor.server.testing.*
-import ru.fitChanges.openapi.models.BaseMessage
 import ru.fit_changes.backend.app.ktor.product.module
+import ru.fit_changes.openapi.models.BaseMessage
 import kotlin.test.assertEquals
 
 abstract class RouterTest {

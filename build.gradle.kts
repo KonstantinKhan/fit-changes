@@ -4,7 +4,7 @@ plugins {
     id("com.bmuschko.docker-java-application") apply false
 }
 
-group = "ru.fitChanges"
+group = "ru.fit_changes"
 version = "0.0.1"
 
 subprojects {

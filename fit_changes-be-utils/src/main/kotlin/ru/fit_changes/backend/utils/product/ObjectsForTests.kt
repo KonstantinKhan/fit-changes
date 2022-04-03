@@ -1,8 +1,8 @@
 package ru.fit_changes.backend.utils.product
 
-import ru.fitChanges.openapi.models.CreatableProduct
-import ru.fitChanges.openapi.models.UpdatableProduct
 import ru.fit_changes.backend.common.product.models.*
+import ru.fit_changes.openapi.models.CreatableProduct
+import ru.fit_changes.openapi.models.UpdatableProduct
 
 const val REQUEST_ID_0001 = "requestID:0001"
 const val PRODUCT_ID_0001 = "productID:0001"

@@ -1,9 +1,9 @@
-package ru.fitChanges.backend.mapping.product
+package ru.fit_changes.backend.mapping.product
 
-import ru.fitChanges.openapi.models.*
 import ru.fit_changes.backend.common.models.IError
 import ru.fit_changes.backend.common.context.BeContext
 import ru.fit_changes.backend.common.product.models.*
+import ru.fit_changes.openapi.models.*
 
 fun BeContext.toCreateProductResponse() = CreateProductResponse(
     messageType = "CreateProductResponse",
@@ -52,6 +52,6 @@ fun ProductModel.toTransport() = ResponseProduct(
     proteinsPerHundredGrams = proteinsPerHundredGrams.takeIf { it != ProteinsModel.NONE }?.value,
     fatsPerHundredGrams = fatsPerHundredGrams.takeIf { it != FatsModel.NONE }?.value,
     carbohydratesPerHundredGrams = carbohydratesPerHundredGrams.takeIf { it != CarbohydratesModel.NONE }?.value,
-    productId = productId.takeIf { it != ru.fit_changes.backend.common.product.models.ProductIdModel.NONE }?.asString(),
+    productId = productId.takeIf { it != ProductIdModel.NONE }?.asString(),
     permissions = permissions.takeIf { it.isNotEmpty() }?.map { Permissions.valueOf(it.name) }?.toSet()
 )

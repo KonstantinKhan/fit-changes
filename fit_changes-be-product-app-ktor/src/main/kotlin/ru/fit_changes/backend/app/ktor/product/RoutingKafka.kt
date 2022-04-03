@@ -5,10 +5,10 @@ import kotlinx.coroutines.*
 import org.apache.kafka.clients.consumer.ConsumerRecord
 import org.apache.kafka.clients.consumer.ConsumerRecords
 import org.apache.kafka.clients.producer.ProducerRecord
-import ru.fitChanges.openapi.models.CreateProductRequest
 import ru.fit_chages.backend.product.service.ProductService
 import ru.fit_changes.backend.common.context.BeContext
 import ru.fit_changes.backend.product.logics.ProductCrud
+import ru.fit_changes.openapi.models.CreateProductRequest
 import java.time.Duration
 import java.util.*
 import java.util.concurrent.atomic.AtomicBoolean

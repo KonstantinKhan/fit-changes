@@ -2,9 +2,9 @@ import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import ru.fit_changes.backend.utils.product.BEEF_FILLED_CREATABLE_PRODUCT
 import ru.fit_changes.backend.utils.product.PRODUCT_ID_0001
 import ru.fit_changes.backend.utils.product.REQUEST_ID_0001
-import ru.fitChanges.openapi.models.BaseMessage
-import ru.fitChanges.openapi.models.CreateProductRequest
-import ru.fitChanges.openapi.models.ReadProductRequest
+import ru.fit_changes.openapi.models.BaseMessage
+import ru.fit_changes.openapi.models.CreateProductRequest
+import ru.fit_changes.openapi.models.ReadProductRequest
 import kotlin.test.Test
 import kotlin.test.assertContains
 import kotlin.test.assertEquals

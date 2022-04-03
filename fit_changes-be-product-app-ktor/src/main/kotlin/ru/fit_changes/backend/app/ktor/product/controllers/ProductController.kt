@@ -8,10 +8,10 @@ import org.apache.kafka.clients.producer.KafkaProducer
 import org.apache.kafka.clients.producer.ProducerConfig
 import org.apache.kafka.clients.producer.ProducerRecord
 import org.apache.kafka.common.serialization.StringSerializer
-import ru.fitChanges.openapi.models.CreateProductRequest
-import ru.fitChanges.openapi.models.CreateProductResponse
 import ru.fit_chages.backend.product.service.ProductService
 import ru.fit_changes.backend.app.ktor.product.helpers.handleRoute
+import ru.fit_changes.openapi.models.CreateProductRequest
+import ru.fit_changes.openapi.models.CreateProductResponse
 import java.util.*
 
 suspend fun ApplicationCall.createProduct(productService: ProductService) {

@@ -1,10 +1,10 @@
-package ru.fitChanges.backend.mapping.product
+package ru.fit_changes.backend.mapping.product
 
-import ru.fitChanges.openapi.models.*
 import ru.fit_changes.backend.common.context.BeContext
 import ru.fit_changes.backend.common.models.StubCases
 import ru.fit_changes.backend.common.models.WorkMode
 import ru.fit_changes.backend.common.product.models.*
+import ru.fit_changes.openapi.models.*
 
 fun BeContext.setQuery(query: CreateProductRequest) = apply {
     requestId = query.requestId ?: ""

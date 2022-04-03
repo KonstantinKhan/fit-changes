@@ -1,13 +1,13 @@
 import ru.fit_changes.backend.common.context.BeContext
-import ru.fitChanges.backend.mapping.product.setQuery
-import ru.fitChanges.backend.mapping.product.toCreateProductResponse
-import ru.fitChanges.backend.mapping.product.toReadProductResponse
-import ru.fitChanges.backend.mapping.product.toUpdateProductResponse
-import ru.fitChanges.openapi.models.*
 import ru.fit_changes.backend.common.models.CommonErrorModel
 import ru.fit_changes.backend.common.models.StubCases
 import ru.fit_changes.backend.common.product.models.*
+import ru.fit_changes.backend.mapping.product.setQuery
+import ru.fit_changes.backend.mapping.product.toCreateProductResponse
+import ru.fit_changes.backend.mapping.product.toReadProductResponse
+import ru.fit_changes.backend.mapping.product.toUpdateProductResponse
 import ru.fit_changes.backend.utils.product.*
+import ru.fit_changes.openapi.models.*
 import kotlin.test.*
 
 class MappingTest {

@@ -1,12 +1,12 @@
 package ru.fit_chages.backend.product.service
 
-import ru.fitChanges.backend.mapping.product.setQuery
-import ru.fitChanges.backend.mapping.product.toCreateProductResponse
-import ru.fitChanges.openapi.models.BaseMessage
-import ru.fitChanges.openapi.models.CreateProductRequest
-import ru.fitChanges.openapi.models.CreateProductResponse
 import ru.fit_changes.backend.common.context.BeContext
+import ru.fit_changes.backend.mapping.product.setQuery
+import ru.fit_changes.backend.mapping.product.toCreateProductResponse
 import ru.fit_changes.backend.product.logics.ProductCrud
+import ru.fit_changes.openapi.models.BaseMessage
+import ru.fit_changes.openapi.models.CreateProductRequest
+import ru.fit_changes.openapi.models.CreateProductResponse
 
 class ProductService(
     private var crud: ProductCrud

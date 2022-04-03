@@ -1,10 +1,10 @@
 package ru.fit_changes.backend.app.ktor.product.controllers
 
-import ru.fitChanges.openapi.models.BaseDebugRequest
 import ru.fit_changes.backend.utils.product.BEEF_FILLED_CREATABLE_PRODUCT
 import ru.fit_changes.backend.utils.product.REQUEST_ID_0001
-import ru.fitChanges.openapi.models.CreateProductRequest
-import ru.fitChanges.openapi.models.CreateProductResponse
+import ru.fit_changes.openapi.models.BaseDebugRequest
+import ru.fit_changes.openapi.models.CreateProductRequest
+import ru.fit_changes.openapi.models.CreateProductResponse
 import kotlin.test.Test
 
 class ProductRouterTest : RouterTest() {
