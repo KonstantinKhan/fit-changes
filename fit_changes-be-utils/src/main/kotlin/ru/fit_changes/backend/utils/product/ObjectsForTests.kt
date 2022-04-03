@@ -6,6 +6,7 @@ import ru.fit_changes.openapi.models.UpdatableProduct
 
 const val REQUEST_ID_0001 = "requestID:0001"
 const val PRODUCT_ID_0001 = "productID:0001"
+const val PRODUCT_ID_0002 = "productID:0002"
 
 val BEEF_FILLED_CREATABLE_PRODUCT = CreatableProduct(
     productName = "Говядина",
@@ -41,7 +42,6 @@ val BEEF_NOT_FILLED_UPDATABLE_PRODUCT = BEEF_FILLED_UPDATABLE_PRODUCT.copy(
 )
 
 val BEEF_FILLED_MODEL = ProductModel(
-    productId = ProductIdModel(PRODUCT_ID_0001),
     productName = "Говядина",
     caloriesPerHundredGrams = CaloriesModel(187.0),
     proteinsPerHundredGrams = ProteinsModel(18.9),
