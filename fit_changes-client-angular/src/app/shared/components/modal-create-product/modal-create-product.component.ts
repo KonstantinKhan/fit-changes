@@ -87,6 +87,12 @@ export class ModalCreateProductComponent implements OnInit, OnDestroy {
                 break;
             }
           }) as Subscription)
+      } else {
+        this.subscriptions.push(this.form.get(key)?.valueChanges
+          .subscribe(value => {
+            this.product.productName = value
+          }) as Subscription
+        )
       }
     })
   }
@@ -94,10 +100,20 @@ export class ModalCreateProductComponent implements OnInit, OnDestroy {
   submit() {
     this.close.emit()
     const formData = {...this.form.value}
-    this.http.post('http://localhost:8080/product/create', this.product, {
-      responseType: 'text'
-    })
-      .subscribe(text => console.log(text))
+    this.http.post('http://localhost:8080/product/create',
+      {
+        messageType: "CreateProductRequest",
+        requestId: "id:0001",
+        createProduct: this.product,
+        debug: {
+          mode: "test",
+          stub: "success"
+        }
+      }
+      , {
+        responseType: 'text'
+      })
+      .subscribe(value => console.log(value))
     console.log(this.product)
   }
 
