@@ -41,6 +41,7 @@ val BEEF_NOT_FILLED_UPDATABLE_PRODUCT = BEEF_FILLED_UPDATABLE_PRODUCT.copy(
 )
 
 val BEEF_FILLED_MODEL = ProductModel(
+    productId = ProductIdModel(PRODUCT_ID_0001),
     productName = "Говядина",
     caloriesPerHundredGrams = CaloriesModel(187.0),
     proteinsPerHundredGrams = ProteinsModel(18.9),
