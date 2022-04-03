@@ -16,7 +16,7 @@ import org.apache.kafka.clients.producer.ProducerConfig
 import org.apache.kafka.clients.producer.ProducerRecord
 import org.apache.kafka.common.serialization.StringDeserializer
 import org.apache.kafka.common.serialization.StringSerializer
-import ru.fit_chages.backend.product.service.ProductService
+import ru.fit_changes.backend.product.service.ProductService
 import ru.fit_changes.backend.app.ktor.product.controllers.createProduct
 import ru.fit_changes.openapi.models.BaseMessage
 import ru.fit_changes.openapi.models.CreateProductRequest

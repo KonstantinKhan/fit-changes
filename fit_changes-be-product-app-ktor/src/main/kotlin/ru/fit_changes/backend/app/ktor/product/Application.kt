@@ -9,7 +9,7 @@ import io.ktor.jackson.*
 import io.ktor.response.*
 import io.ktor.routing.*
 import io.ktor.server.netty.*
-import ru.fit_chages.backend.product.service.ProductService
+import ru.fit_changes.backend.product.service.ProductService
 import ru.fit_changes.backend.app.ktor.product.configs.AppKtorConfig
 import ru.fit_changes.backend.app.ktor.product.routes.registerProductRoutesHttp
 import ru.fit_changes.backend.product.logics.ProductCrud

@@ -1,4 +1,4 @@
-package ru.fit_chages.backend.product.service
+package ru.fit_changes.backend.product.service
 
 import ru.fit_changes.openapi.models.BaseMessage
 

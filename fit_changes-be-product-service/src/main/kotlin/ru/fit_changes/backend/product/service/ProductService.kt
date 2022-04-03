@@ -1,4 +1,4 @@
-package ru.fit_chages.backend.product.service
+package ru.fit_changes.backend.product.service
 
 import ru.fit_changes.backend.common.context.BeContext
 import ru.fit_changes.backend.mapping.product.setQuery
