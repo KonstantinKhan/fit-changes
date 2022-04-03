@@ -73,6 +73,7 @@ class MappingTest {
                 createProduct = BEEF_NOT_CALORIES
             )
         )
+        beContext.errors.add(CommonErrorModel())
         val response = beContext.toCreateProductResponse()
         println(response)
         assertNull(response.createProduct)
@@ -217,6 +218,8 @@ class MappingTest {
                 updateProduct = BEEF_NOT_FILLED_UPDATABLE_PRODUCT
             )
         )
+
+        beContext.errors.add(CommonErrorModel())
 
         val response = beContext.toUpdateProductResponse()
 
