@@ -44,7 +44,7 @@ class ProductCrudTest {
         val context = BeContext(
             requestProduct = BEEF_FILLED_MODEL,
             operation = Operations.CREATE,
-            stubCase = StubCases.NONE
+            stubCase = StubCases.DATABASE_ERROR
         )
         runBlocking {
             crud.create(context)
@@ -77,7 +77,7 @@ class ProductCrudTest {
         val context = BeContext(
             requestProduct = BEEF_FILLED_MODEL,
             operation = Operations.CREATE,
-            stubCase = StubCases.NONE
+            stubCase = StubCases.DATABASE_ERROR
         )
         runBlocking {
             crud.read(context)
