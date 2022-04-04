@@ -75,12 +75,46 @@ class ProductCrudTest {
     fun productReadFailing() {
         val crud = ProductCrud()
         val context = BeContext(
-            requestProduct = BEEF_FILLED_MODEL,
             operation = Operations.CREATE,
             stubCase = StubCases.DATABASE_ERROR
         )
         runBlocking {
             crud.read(context)
+            assertTrue(context.errors.isNotEmpty())
+        }
+    }
+
+    @Test
+    fun productUpdateSuccess() {
+        val crud = ProductCrud()
+        val context = BeContext(
+            requestProduct = BEEF_FILLED_MODEL,
+            operation = Operations.UPDATE,
+            stubCase = StubCases.SUCCESS
+        )
+        runBlocking {
+            crud.update(context)
+            val expected = BEEF_FILLED_MODEL
+            with(context.responseProduct) {
+                assertEquals(expected.productId, productId)
+                assertEquals(expected.productName, productName)
+                assertEquals(expected.caloriesPerHundredGrams, caloriesPerHundredGrams)
+                assertEquals(expected.proteinsPerHundredGrams, proteinsPerHundredGrams)
+                assertEquals(expected.fatsPerHundredGrams, fatsPerHundredGrams)
+                assertEquals(expected.carbohydratesPerHundredGrams, carbohydratesPerHundredGrams)
+            }
+        }
+    }
+
+    @Test
+    fun productUpdateFailing() {
+        val crud = ProductCrud()
+        val context = BeContext(
+            operation = Operations.UPDATE,
+            stubCase = StubCases.DATABASE_ERROR
+        )
+        runBlocking {
+            crud.update(context)
             assertTrue(context.errors.isNotEmpty())
         }
     }
