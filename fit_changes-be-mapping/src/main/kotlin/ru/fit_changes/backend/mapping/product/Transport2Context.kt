@@ -33,7 +33,7 @@ fun BeContext.setQuery(query: DeleteProductRequest) = apply {
 
 fun BeContext.setQuery(query: SearchProductRequest) = apply {
     requestId = query.requestId ?: ""
-    requestQuery = query.query ?: ""
+    requestProductFilter = query.query?.let { ProductSearchFilter(searchStr = it) } ?: ProductSearchFilter()
     stubCase = query.debug?.stubCase.toModel()
 }
 
