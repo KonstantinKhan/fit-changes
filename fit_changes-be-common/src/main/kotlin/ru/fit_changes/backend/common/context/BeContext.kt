@@ -24,8 +24,6 @@ data class BeContext(
     var requestProduct: ProductModel = ProductModel(),
     var responseProduct: ProductModel = ProductModel(),
 
-    var requestQuery: String = "",
-
     var productRepo: IRepoProduct = IRepoProduct.NONE,
 
     var errors: MutableSet<IError> = mutableSetOf(),
