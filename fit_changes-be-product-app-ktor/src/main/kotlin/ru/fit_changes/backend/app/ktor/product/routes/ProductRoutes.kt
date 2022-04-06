@@ -16,8 +16,8 @@ import org.apache.kafka.clients.producer.ProducerConfig
 import org.apache.kafka.clients.producer.ProducerRecord
 import org.apache.kafka.common.serialization.StringDeserializer
 import org.apache.kafka.common.serialization.StringSerializer
+import ru.fit_changes.backend.app.ktor.product.controllers.*
 import ru.fit_changes.backend.product.service.ProductService
-import ru.fit_changes.backend.app.ktor.product.controllers.createProduct
 import ru.fit_changes.openapi.models.BaseMessage
 import ru.fit_changes.openapi.models.CreateProductRequest
 import ru.fit_changes.openapi.models.CreateProductResponse
@@ -110,6 +110,18 @@ fun Route.productRoutingHttp(productService: ProductService) =
     route("product") {
         post("create") {
             call.createProduct(productService)
+        }
+        post("read") {
+            call.readProduct(productService)
+        }
+        post("update") {
+            call.updateProduct(productService)
+        }
+        post("delete") {
+            call.deleteProduct(productService)
+        }
+        post("search") {
+            call.searchProduct(productService)
         }
     }
 
