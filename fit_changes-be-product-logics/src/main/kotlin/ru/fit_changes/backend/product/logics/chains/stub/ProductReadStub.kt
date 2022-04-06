@@ -17,6 +17,7 @@ fun CorChainDsl<BeContext>.productReadStub(title: String) = chain {
                 stubCase != StubCases.NONE
     }
     addCorWorkerDsl {
+        this.title = "Successful stubCase for READ"
         on {
             status == CorStatus.RUNNING
                     &&
