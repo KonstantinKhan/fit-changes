@@ -6,6 +6,7 @@ import ru.fit_changes.backend.utils.product.BEEF_FILLED_MODEL
 import ru.fit_changes.backend.common.context.Operations
 import ru.fit_changes.backend.common.models.StubCases
 import ru.fit_changes.backend.common.product.models.ProductIdModel
+import ru.fit_changes.backend.common.product.models.ProductSearchFilter
 import ru.fit_changes.backend.utils.product.PRODUCT_ID_0001
 import ru.fit_changes.backend.utils.product.PRODUCT_ID_0002
 import kotlin.test.Test
@@ -18,9 +19,10 @@ class ProductCrudTest {
     fun productCreateSuccess() {
         val crud = ProductCrud()
         val context = BeContext(
-            requestProduct = BEEF_FILLED_MODEL,
             operation = Operations.CREATE,
-            stubCase = StubCases.SUCCESS
+            stubCase = StubCases.SUCCESS,
+            requestProduct = BEEF_FILLED_MODEL,
+            requestProductFilter = ProductSearchFilter(searchStr = "Помидор")
         )
         runBlocking {
             crud.create(context)
@@ -42,9 +44,10 @@ class ProductCrudTest {
     fun productCreateFailing() {
         val crud = ProductCrud()
         val context = BeContext(
-            requestProduct = BEEF_FILLED_MODEL,
             operation = Operations.CREATE,
-            stubCase = StubCases.DATABASE_ERROR
+            stubCase = StubCases.DATABASE_ERROR,
+            requestProduct = BEEF_FILLED_MODEL,
+            requestProductFilter = ProductSearchFilter(searchStr = "Помидор")
         )
         runBlocking {
             crud.create(context)
@@ -56,9 +59,10 @@ class ProductCrudTest {
     fun productReadSuccess() {
         val crud = ProductCrud()
         val context = BeContext(
-            requestProductId = ProductIdModel(PRODUCT_ID_0002),
             operation = Operations.READ,
-            stubCase = StubCases.SUCCESS
+            stubCase = StubCases.SUCCESS,
+            requestProductId = ProductIdModel(PRODUCT_ID_0002),
+            requestProductFilter = ProductSearchFilter(searchStr = "Помидор")
         )
         runBlocking {
             crud.read(context)
@@ -76,7 +80,8 @@ class ProductCrudTest {
         val crud = ProductCrud()
         val context = BeContext(
             operation = Operations.CREATE,
-            stubCase = StubCases.DATABASE_ERROR
+            stubCase = StubCases.DATABASE_ERROR,
+            requestProductFilter = ProductSearchFilter(searchStr = "Помидор")
         )
         runBlocking {
             crud.read(context)
@@ -88,9 +93,10 @@ class ProductCrudTest {
     fun productUpdateSuccess() {
         val crud = ProductCrud()
         val context = BeContext(
-            requestProduct = BEEF_FILLED_MODEL,
             operation = Operations.UPDATE,
-            stubCase = StubCases.SUCCESS
+            stubCase = StubCases.SUCCESS,
+            requestProduct = BEEF_FILLED_MODEL,
+            requestProductFilter = ProductSearchFilter(searchStr = "Помидор")
         )
         runBlocking {
             crud.update(context)
@@ -111,7 +117,8 @@ class ProductCrudTest {
         val crud = ProductCrud()
         val context = BeContext(
             operation = Operations.UPDATE,
-            stubCase = StubCases.DATABASE_ERROR
+            stubCase = StubCases.DATABASE_ERROR,
+            requestProductFilter = ProductSearchFilter(searchStr = "Помидор")
         )
         runBlocking {
             crud.update(context)
@@ -123,9 +130,10 @@ class ProductCrudTest {
     fun productDeleteSuccess() {
         val crud = ProductCrud()
         val context = BeContext(
-            requestProductId = ProductIdModel(PRODUCT_ID_0002),
             operation = Operations.DELETE,
-            stubCase = StubCases.SUCCESS
+            stubCase = StubCases.SUCCESS,
+            requestProductId = ProductIdModel(PRODUCT_ID_0002),
+            requestProductFilter = ProductSearchFilter(searchStr = "Помидор")
         )
         runBlocking {
             crud.delete(context)
@@ -146,10 +154,38 @@ class ProductCrudTest {
         val crud = ProductCrud()
         val context = BeContext(
             operation = Operations.DELETE,
-            stubCase = StubCases.WRONG_ID
+            stubCase = StubCases.WRONG_ID,
+            requestProductFilter = ProductSearchFilter(searchStr = "Помидор")
         )
-        runBlocking { 
+        runBlocking {
             crud.delete(context)
+            assertTrue(context.errors.isNotEmpty())
+        }
+    }
+
+    @Test
+    fun productSearchSuccess() {
+        val crud = ProductCrud()
+        val context = BeContext(
+            operation = Operations.SEARCH,
+            stubCase = StubCases.SUCCESS,
+            requestProductFilter = ProductSearchFilter(searchStr = "Помидор")
+        )
+        runBlocking {
+            crud.search(context)
+            assertTrue(context.foundProducts.size == 2)
+        }
+    }
+
+    @Test
+    fun productSearchFailing() {
+        val crud = ProductCrud()
+        val context = BeContext(
+            operation = Operations.SEARCH,
+            stubCase = StubCases.DATABASE_ERROR
+        )
+        runBlocking {
+            crud.search(context)
             assertTrue(context.errors.isNotEmpty())
         }
     }

@@ -5,6 +5,7 @@ import ru.fit_changes.backend.common.models.IError
 import ru.fit_changes.backend.common.models.WorkMode
 import ru.fit_changes.backend.common.product.models.ProductIdModel
 import ru.fit_changes.backend.common.product.models.ProductModel
+import ru.fit_changes.backend.common.product.models.ProductSearchFilter
 import ru.fit_changes.backend.repo.product.IRepoProduct
 
 data class BeContext(
@@ -27,8 +28,11 @@ data class BeContext(
 
     var productRepo: IRepoProduct = IRepoProduct.NONE,
 
-    var errors: MutableSet<IError> = mutableSetOf()
+    var errors: MutableSet<IError> = mutableSetOf(),
+    var requestProductFilter: ProductSearchFilter = ProductSearchFilter()
 ) {
+
+    var foundProducts: MutableList<ProductModel> = mutableListOf()
 
     fun addError(error: IError, failingStatus: Boolean = true) {
         if (failingStatus) status = CorStatus.FAILING
