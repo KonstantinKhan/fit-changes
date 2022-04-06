@@ -37,3 +37,70 @@ Content-Type: application/json
     "stubCase": "success"
   }
 }
+
+###
+
+POST http://127.0.0.1:8080/product/read
+Content-Type: application/json
+
+{
+  "messageType": "ReadProductRequest",
+  "requestId": "rID:0003",
+  "readProductId": "pID:0004",
+  "debug": {
+    "mode": "stub",
+    "stubCase": "success"
+  }
+}
+
+###
+
+POST http://127.0.0.1:8080/product/update
+Content-Type: application/json
+
+{
+  "messageType": "UpdateProductRequest",
+  "requestId": "rID:0004",
+  "updateProduct": {
+    "productId": "pID:00111",
+    "productName": "Филе куриное",
+    "caloriesPerHundredGrams": "110.0",
+    "proteinsPerHundredGrams": "21.0",
+    "fatsPerHundredGrams": "3.0",
+    "carbohydratesPerHundredGrams": "0.0"
+  },
+  "debug": {
+    "mode": "stub",
+    "stubCase": "success"
+  }
+}
+
+###
+
+POST http://127.0.0.1:8080/product/delete
+Content-Type: application/json
+
+{
+  "messageType": "DeleteProductRequest",
+  "requestId": "rID:0005",
+  "deleteProductId": "pID:0001",
+  "debug": {
+    "mode": "stub",
+    "stubCase": "success"
+  }
+}
+
+###
+
+POST http://127.0.0.1:8080/product/search
+Content-Type: application/json
+
+{
+  "messageType": "SearchProductRequest",
+  "requestId": "rID:0006",
+  "query": "Помидор",
+  "debug": {
+    "mode": "stub",
+    "stubCase": "success"
+  }
+}
