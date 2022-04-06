@@ -106,8 +106,8 @@ export class ModalCreateProductComponent implements OnInit, OnDestroy {
         requestId: "id:0001",
         createProduct: this.product,
         debug: {
-          mode: "test",
-          stub: "success"
+          mode: "stub",
+          stubCase: "success"
         }
       }
       , {
