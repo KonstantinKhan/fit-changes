@@ -10,8 +10,7 @@ import org.apache.kafka.clients.producer.ProducerRecord
 import org.apache.kafka.common.serialization.StringSerializer
 import ru.fit_changes.backend.product.service.ProductService
 import ru.fit_changes.backend.app.ktor.product.helpers.handleRoute
-import ru.fit_changes.openapi.models.CreateProductRequest
-import ru.fit_changes.openapi.models.CreateProductResponse
+import ru.fit_changes.openapi.models.*
 import java.util.*
 
 suspend fun ApplicationCall.createProduct(productService: ProductService) {
@@ -37,6 +36,30 @@ suspend fun ApplicationCall.createProduct(productService: ProductService) {
 //        )
 
         productService.createProduct(this, request)
+    }
+}
+
+suspend fun ApplicationCall.readProduct(productService: ProductService) {
+    handleRoute<ReadProductRequest, ReadProductResponse>() { request ->
+        productService.readProduct(this, request)
+    }
+}
+
+suspend fun ApplicationCall.updateProduct(productService: ProductService) {
+    handleRoute<UpdateProductRequest, UpdateProductResponse>() { request ->
+        productService.updateProduct(this, request)
+    }
+}
+
+suspend fun ApplicationCall.deleteProduct(productService: ProductService) {
+    handleRoute<DeleteProductRequest, DeleteProductResponse>() { request ->
+        productService.deleteProduct(this, request)
+    }
+}
+
+suspend fun ApplicationCall.searchProduct(productService: ProductService) {
+    handleRoute<SearchProductRequest, SearchProductResponse>() { request ->
+        productService.searchProduct(this, request)
     }
 }
 
