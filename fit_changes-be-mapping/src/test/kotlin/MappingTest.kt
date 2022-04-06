@@ -253,7 +253,7 @@ class MappingTest {
             )
         )
 
-        assertNotNull(beContext.requestQuery)
+        assertNotNull(beContext.foundProducts)
         assertEquals(StubCases.SUCCESS, beContext.stubCase)
     }
 }
