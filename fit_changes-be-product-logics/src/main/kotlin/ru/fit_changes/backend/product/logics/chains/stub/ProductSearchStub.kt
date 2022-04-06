@@ -9,6 +9,7 @@ import ru.fit_changes.backend.product.logics.handlers.addCorWorkerDsl
 import ru.fit_changes.backend.product.logics.handlers.chain
 import ru.fit_changes.backend.product.logics.workers.noMatchingStubs
 import ru.fit_changes.backend.utils.product.BEEF_FILLED_MODEL
+import ru.fit_changes.backend.utils.product.PRODUCT_ID_0001
 import ru.fit_changes.backend.utils.product.PRODUCT_ID_0002
 
 fun CorChainDsl<BeContext>.productSearchStub(title: String) = chain {
@@ -26,8 +27,9 @@ fun CorChainDsl<BeContext>.productSearchStub(title: String) = chain {
                     stubCase == StubCases.SUCCESS
         }
         handle {
-            foundProducts.add(BEEF_FILLED_MODEL)
-            foundProducts.add(BEEF_FILLED_MODEL.apply { productId = ProductIdModel(PRODUCT_ID_0002) })
+            foundProducts.add(BEEF_FILLED_MODEL.copy(productId = ProductIdModel(PRODUCT_ID_0001)))
+            foundProducts.add(BEEF_FILLED_MODEL.copy(productId = ProductIdModel(PRODUCT_ID_0002)))
+            status = CorStatus.FINISHING
         }
     }
     noMatchingStubs()
