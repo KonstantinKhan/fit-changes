@@ -41,6 +41,26 @@ fun BeContext.toUpdateProductResponse() = UpdateProductResponse(
     }?.toTransport()
 )
 
+fun BeContext.toDeleteProductResponse() = DeleteProductResponse(
+    messageType = "DeleteProductResponse",
+    requestId = requestId.takeIf { it.isNotBlank() },
+    result = if (errors.find { it.level == IError.Level.ERROR } == null) DeleteProductResponse.Result.SUCCESS
+    else DeleteProductResponse.Result.ERROR,
+    errors = errors.takeIf { it.isNotEmpty() }?.map { it.toTransport() },
+    deleteProduct = responseProduct.takeIf {
+        errors.isEmpty() && it != ProductModel()
+    }?.toTransport()
+)
+
+fun BeContext.toSearchProductResponse() = SearchProductResponse(
+    messageType = "SearchProductResponse",
+    requestId = requestId.takeIf { it.isNotBlank() },
+    result = if (errors.find { it.level == IError.Level.ERROR } == null) SearchProductResponse.Result.SUCCESS
+    else SearchProductResponse.Result.ERROR,
+    errors = errors.takeIf { it.isNotEmpty() }?.map { it.toTransport() },
+    foundProducts = foundProducts.takeIf { it.isNotEmpty() }?.map { it.toTransport() }
+)
+
 private fun IError.toTransport() = RequestError(
     message = message.takeIf { it.isNotBlank() },
     field = field.takeIf { it.isNotBlank() }
@@ -53,5 +73,6 @@ fun ProductModel.toTransport() = ResponseProduct(
     fatsPerHundredGrams = fatsPerHundredGrams.takeIf { it != FatsModel.NONE }?.value,
     carbohydratesPerHundredGrams = carbohydratesPerHundredGrams.takeIf { it != CarbohydratesModel.NONE }?.value,
     productId = productId.takeIf { it != ProductIdModel.NONE }?.asString(),
-    permissions = permissions.takeIf { it.isNotEmpty() }?.map { Permissions.valueOf(it.name) }?.toSet()
+    permissions = permissions.takeIf { it.isNotEmpty() }?.map { Permissions.valueOf(it.name) }?.toSet(),
+    authorId = authorId.takeIf { it != AuthorIdModel.NONE }?.asString(),
 )
