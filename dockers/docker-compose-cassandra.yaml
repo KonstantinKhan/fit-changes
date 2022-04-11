@@ -1,0 +1,17 @@
+version: "3.8"
+
+services:
+
+  cassandra:
+    image: cassandra:latest
+    ports:
+      - "9042:9042"
+
+  cassandra-web:
+    image: markusgulden/cassandra-web
+    depends_on:
+      - cassandra
+    environment:
+      CASSANDRA_HOST_IPS: 127.0.0.1
+    ports:
+      - "3000:3000"
