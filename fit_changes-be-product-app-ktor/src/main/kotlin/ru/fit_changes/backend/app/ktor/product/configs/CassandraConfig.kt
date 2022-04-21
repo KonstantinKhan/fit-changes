@@ -1,6 +1,6 @@
 package ru.fit_changes.backend.app.ktor.product.configs
 
-import io.ktor.application.*
+import io.ktor.server.application.*
 
 
 // not yet used anywhere
