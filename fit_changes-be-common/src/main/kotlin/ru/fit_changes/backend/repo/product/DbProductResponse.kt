@@ -10,5 +10,6 @@ data class DbProductResponse(
     override val errors: List<CommonErrorModel> = emptyList(),
 ) : IDbResponse<ProductModel?> {
     constructor(result: ProductModel) : this(result, true, emptyList())
+    constructor(result: ProductModel, isSuccess: Boolean) : this(result, isSuccess, emptyList())
     constructor(error: CommonErrorModel) : this(null, false, listOf(error))
 }
