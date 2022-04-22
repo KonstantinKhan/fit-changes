@@ -12,7 +12,11 @@ abstract class RepoProductCreateTest {
     @Test
     fun createSuccess() {
         val result = runBlocking { repo.create(DbProductModelRequest(createInitTestModel("create", "Chicken"))) }
-        val expected = createObject.copy(productId = result.result?.productId ?: ProductIdModel.NONE)
+        val expected = createObject.copy(
+            productId = result.result?.productId ?: ProductIdModel.NONE,
+            authorId = result.result?.authorId ?: AuthorIdModel.NONE,
+            productName = result.result?.productName ?: "noname"
+        )
         assertEquals(expected, result.result)
     }
 
