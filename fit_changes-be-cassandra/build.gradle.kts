@@ -8,6 +8,7 @@ plugins {
 dependencies {
     val coroutinesVersion: String by project
     val cassandraDriverVersion: String by project
+    val testContainersVersion: String by project
 
     implementation(kotlin("stdlib"))
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion")
@@ -18,5 +19,11 @@ dependencies {
     implementation("com.datastax.oss:java-driver-mapper-runtime:$cassandraDriverVersion")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-jdk8:$coroutinesVersion" )
 
+    implementation(project(":fit_changes-be-repo-test"))
+
     implementation(project(":fit_changes-be-common"))
+
+    // https://mvnrepository.com/artifact/org.testcontainers/cassandra
+    testImplementation("org.testcontainers:cassandra:$testContainersVersion")
+
 }
