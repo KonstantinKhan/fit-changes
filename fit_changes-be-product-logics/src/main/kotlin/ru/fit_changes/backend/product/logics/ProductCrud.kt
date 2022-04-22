@@ -25,6 +25,10 @@ class ProductCrud(private val config: ContextConfig = ContextConfig()) {
         ProductSearch.exec(context.initSettings())
     }
 
+    suspend fun allProducts(context: BeContext) {
+        ProductAll.exec(context.initSettings())
+    }
+
     private fun BeContext.initSettings() = apply {
         config = this@ProductCrud.config
     }
