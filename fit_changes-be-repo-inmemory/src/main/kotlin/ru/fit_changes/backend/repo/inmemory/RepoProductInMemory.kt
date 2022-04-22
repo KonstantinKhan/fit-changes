@@ -14,7 +14,7 @@ import java.time.Duration
 import java.util.*
 
 class RepoProductInMemory(
-
+    private val initObjects: List<ProductModel> = emptyList()
 ) : IRepoProduct {
 
     private val cache: Cache<String, ProductRow> = let {
@@ -36,13 +36,13 @@ class RepoProductInMemory(
     }
 
     init {
-        println("Repo in memory has been init")
+        initObjects.forEach {
+            save(it)
+        }
     }
 
     private fun save(item: ProductModel): DbProductResponse {
-        println("save start")
         val row = ProductRow(item)
-        println("row is: $row")
         val errors = mutableListOf<CommonErrorModel>()
         if (row.productId == null) {
             errors.add(
@@ -99,11 +99,7 @@ class RepoProductInMemory(
                 errors = errors
             )
         }
-        println("no errors")
-
         cache.put(row.productId, row)
-        println("put complete")
-        cache.forEach { println(it.value) }
         return DbProductResponse(
             result = row.toInternal(),
             isSuccess = true
@@ -111,7 +107,6 @@ class RepoProductInMemory(
     }
 
     override suspend fun create(req: DbProductModelRequest): DbProductResponse {
-        println("create")
         return save(
             req.product.copy(
                 productId = ProductIdModel(UUID.randomUUID())
@@ -119,19 +114,75 @@ class RepoProductInMemory(
         )
     }
 
-    override suspend fun read(req: DbProductIdRequest): DbProductResponse {
-        TODO("Not yet implemented")
-    }
+    override suspend fun read(req: DbProductIdRequest): DbProductResponse = cache.get(req.id.asString())?.let {
+        DbProductResponse(
+            it.toInternal(),
+            isSuccess = true
+        )
+    } ?: DbProductResponse(
+        isSuccess = false,
+        errors = listOf(
+            CommonErrorModel(
+                field = "id",
+                message = "Id not found"
+            )
+        ),
+        result = null
+    )
 
     override suspend fun update(req: DbProductModelRequest): DbProductResponse {
-        TODO("Not yet implemented")
+        val key = req.product.productId.takeIf { it != ProductIdModel.NONE }?.asString()
+            ?: return DbProductResponse(
+                isSuccess = false,
+                errors = listOf(
+                    CommonErrorModel(
+                        field = "id",
+                        message = "Id must not be null or blank"
+                    )
+                ),
+                result = null
+            )
+        return if (cache.containsKey(key)) {
+            save(req.product)
+            DbProductResponse(
+                isSuccess = true,
+                result = req.product
+            )
+        } else {
+            DbProductResponse(
+                isSuccess = false,
+                errors = listOf(
+                    CommonErrorModel(
+                        field = "id",
+                        message = "Not found"
+                    )
+                ),
+                result = null
+            )
+        }
     }
 
-    override suspend fun delete(req: DbProductIdRequest): DbProductResponse {
-        TODO("Not yet implemented")
-    }
+    override suspend fun delete(req: DbProductIdRequest): DbProductResponse = cache.get(req.id.asString())?.let {
+        DbProductResponse(
+            it.toInternal(),
+            isSuccess = true
+        )
+    } ?: DbProductResponse(
+        isSuccess = false,
+        result = null,
+        errors = listOf(CommonErrorModel(field = "id", message = "Id not found"))
+    )
 
     override suspend fun search(req: DbProductFilterRequest): DbProductsResponse {
         TODO("Not yet implemented")
+    }
+
+    override suspend fun allProducts(): DbProductsResponse {
+        val products = mutableListOf<ProductModel>()
+        cache.forEach { products.add(it.value.toInternal()) }
+        return DbProductsResponse(
+            isSuccess = true,
+            result = products
+        )
     }
 }
