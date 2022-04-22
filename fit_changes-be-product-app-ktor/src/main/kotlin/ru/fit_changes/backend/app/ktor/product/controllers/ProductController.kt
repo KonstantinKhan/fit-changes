@@ -1,7 +1,8 @@
 package ru.fit_changes.backend.app.ktor.product.controllers
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import io.ktor.application.*
+import io.ktor.server.application.*
+import io.ktor.server.response.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.apache.kafka.clients.producer.KafkaProducer
@@ -10,6 +11,7 @@ import org.apache.kafka.clients.producer.ProducerRecord
 import org.apache.kafka.common.serialization.StringSerializer
 import ru.fit_changes.backend.product.service.ProductService
 import ru.fit_changes.backend.app.ktor.product.helpers.handleRoute
+import ru.fit_changes.backend.common.context.BeContext
 import ru.fit_changes.openapi.models.*
 import java.util.*
 
@@ -61,6 +63,11 @@ suspend fun ApplicationCall.searchProduct(productService: ProductService) {
     handleRoute<SearchProductRequest, SearchProductResponse>() { request ->
         productService.searchProduct(this, request)
     }
+}
+
+suspend fun ApplicationCall.getAllProducts(productService: ProductService) {
+    val response = productService.getAllProducts(BeContext())
+    respond(response)
 }
 
 //private fun kafkaProducer(hosts: List<String>): KafkaProducer<String, String> {
