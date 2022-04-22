@@ -6,6 +6,7 @@ interface IRepoProduct {
     suspend fun update(req: DbProductModelRequest): DbProductResponse
     suspend fun delete(req: DbProductIdRequest): DbProductResponse
     suspend fun search(req: DbProductFilterRequest): DbProductsResponse
+    suspend fun allProducts(): DbProductsResponse
 
     object NONE: IRepoProduct {
         override suspend fun create(req: DbProductModelRequest): DbProductResponse {
@@ -25,6 +26,10 @@ interface IRepoProduct {
         }
 
         override suspend fun search(req: DbProductFilterRequest): DbProductsResponse {
+            TODO("Not yet implemented")
+        }
+
+        override suspend fun allProducts(): DbProductsResponse {
             TODO("Not yet implemented")
         }
     }
