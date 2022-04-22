@@ -11,6 +11,8 @@ import {HttpClient} from "@angular/common/http";
 })
 export class RationPageComponent implements OnInit {
 
+  products: string[] = [];
+
   @ViewChild(DynamicModalLoader) dynamicModal!: DynamicModalLoader
 
   subscriptions: Subscription[] = [];
@@ -25,10 +27,13 @@ export class RationPageComponent implements OnInit {
   showModal() {
     const component = this.dynamicModal.viewContainerRef.createComponent(ModalCreateProductComponent)
     component.instance.close.subscribe(() => {
-      console.log(component.instance.close)
+      console.log(component.instance.product.productName)
+      if (component.instance.product.productName != null) {
+        this.products.push(component.instance.product.productName)
+      }
+      console.log(this.products)
       this.dynamicModal.viewContainerRef.clear()
       // component.instance.close.unsubscribe()
-      console.log(component.instance.close)
     })
   }
 
