@@ -39,4 +39,8 @@ class ProductService(
         return context.toSearchProductResponse()
     }
 
+    suspend fun getAllProducts(context: BeContext): SearchProductResponse {
+        crud.allProducts(context)
+        return context.toSearchProductResponse()
+    }
 }
