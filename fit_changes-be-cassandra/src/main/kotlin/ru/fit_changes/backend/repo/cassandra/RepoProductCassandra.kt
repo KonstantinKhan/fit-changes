@@ -40,4 +40,8 @@ class RepoProductCassandra(
     override suspend fun search(req: DbProductFilterRequest): DbProductsResponse {
         TODO("Not yet implemented")
     }
+
+    override suspend fun allProducts(): DbProductsResponse {
+        TODO("Not yet implemented")
+    }
 }
