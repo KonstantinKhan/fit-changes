@@ -105,16 +105,15 @@ export class ModalCreateProductComponent implements OnInit, OnDestroy {
         messageType: "CreateProductRequest",
         requestId: "id:0001",
         createProduct: this.product,
-        debug: {
-          mode: "stub",
-          stubCase: "success"
-        }
+        // debug: {
+        //   mode: "stub",
+        //   stubCase: "success"
+        // }
       }
       , {
         responseType: 'text'
       })
       .subscribe(value => console.log(value))
-    console.log(this.product)
   }
 
   focusout(val: string, field: string) {
@@ -208,7 +207,6 @@ export class ModalCreateProductComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    console.log('onDestroy')
     this.subscriptions.forEach((sub) => sub.unsubscribe())
     this.close.unsubscribe()
   }
