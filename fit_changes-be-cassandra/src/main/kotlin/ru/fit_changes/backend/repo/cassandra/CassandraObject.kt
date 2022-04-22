@@ -7,13 +7,13 @@ import java.net.InetSocketAddress
 object CassandraObject {
     private val session by lazy {
         CqlSession.builder()
-            .addContactPoint(InetSocketAddress("cassandra", 9042))
+            .addContactPoint(InetSocketAddress("localhost", 9042))
             .withLocalDatacenter("datacenter1")
             .withAuthCredentials("cassandra", "cassandra")
             .build()
     }
 
-    val mapper: ProductCassandraMapper by lazy {
+    private val mapper: ProductCassandraMapper by lazy {
         ProductCassandraMapperBuilder(session).build()
     }
 
