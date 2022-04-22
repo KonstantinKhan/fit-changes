@@ -6,7 +6,7 @@ import java.util.*
 abstract class BaseInitProduct : IInitObjects<ProductModel> {
     fun createInitTestModel(
         suf: String,
-        productName: String,
+        productName: String = "Chicken",
     ) = ProductModel(
         productId = ProductIdModel(UUID.randomUUID()),
         authorId = AuthorIdModel(UUID.randomUUID()),
