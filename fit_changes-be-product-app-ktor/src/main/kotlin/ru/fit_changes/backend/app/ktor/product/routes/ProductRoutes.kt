@@ -1,10 +1,10 @@
 package ru.fit_changes.backend.app.ktor.product.routes
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import io.ktor.application.*
-import io.ktor.request.*
-import io.ktor.response.*
-import io.ktor.routing.*
+import io.ktor.server.application.*
+import io.ktor.server.request.*
+import io.ktor.server.response.*
+import io.ktor.server.routing.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.withContext
@@ -122,6 +122,9 @@ fun Route.productRoutingHttp(productService: ProductService) =
         }
         post("search") {
             call.searchProduct(productService)
+        }
+        get("all_products") {
+            call.getAllProducts(productService)
         }
     }
 
