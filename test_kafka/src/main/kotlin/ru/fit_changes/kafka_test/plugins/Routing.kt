@@ -1,6 +1,6 @@
 package ru.fit_changes.kafka_test.plugins
 
-import io.ktor.routing.*
+import io.ktor.server.routing.*
 import kotlinx.coroutines.*
 import org.apache.kafka.clients.consumer.ConsumerConfig
 import org.apache.kafka.clients.consumer.ConsumerRecords
