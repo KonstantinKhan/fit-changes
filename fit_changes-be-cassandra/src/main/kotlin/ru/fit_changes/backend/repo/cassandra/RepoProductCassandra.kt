@@ -67,7 +67,7 @@ class RepoProductCassandra(
             DbProductResponse(
                 CommonErrorModel(
                     field = "id",
-                    message = "Not found"
+                    message = "ID not found"
                 )
             )
         } else
@@ -76,7 +76,25 @@ class RepoProductCassandra(
     }
 
     override suspend fun read(req: DbProductIdRequest): DbProductResponse {
-        TODO("Not yet implemented")
+
+        val id = req.id.takeIf { it != ProductIdModel.NONE }?.asString()
+            ?: return DbProductResponse(
+                CommonErrorModel(
+                    field = "id",
+                    message = "Id cannot be empty"
+                )
+            )
+        val result = dao.read(id).await()
+        return if (result == null) {
+            DbProductResponse(
+                CommonErrorModel(
+                    field = "id",
+                    message = "Id not found"
+                )
+            )
+        } else {
+            DbProductResponse(result.toProductModel())
+        }
     }
 
     override suspend fun update(req: DbProductModelRequest): DbProductResponse {
