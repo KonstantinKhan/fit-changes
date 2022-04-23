@@ -12,6 +12,8 @@ data class ProductCassandraDTO(
     @PartitionKey
     @CqlName(COLUMN_PRODUCT_ID)
     val productId: String?,
+    @CqlName(COLUMN_AUTHOR_ID)
+    val authorId: String?,
     @CqlName(COLUMN_PRODUCT_NAME)
     val productName: String?,
     @CqlName(COLUMN_CALORIES_PER_HUNDRED_GRAMS)
@@ -25,6 +27,7 @@ data class ProductCassandraDTO(
 ) {
     constructor(model: ProductModel) : this(
         productId = model.productId.takeIf { it != ProductIdModel.NONE }?.asString(),
+        authorId = model.authorId.takeIf { it != AuthorIdModel.NONE }?.asString(),
         productName = model.productName.takeIf { it.isNotBlank() },
         caloriesPerHundredGrams = model.caloriesPerHundredGrams.takeIf { it != CaloriesModel.NONE }?.value,
         proteinsPerHundredGrams = model.proteinsPerHundredGrams.takeIf { it != ProteinsModel.NONE }?.value,
@@ -35,6 +38,7 @@ data class ProductCassandraDTO(
     companion object {
         const val TABLE_NAME = "product"
         const val COLUMN_PRODUCT_ID = "product_id"
+        const val COLUMN_AUTHOR_ID = "author_id"
         const val COLUMN_PRODUCT_NAME = "product_name"
         const val COLUMN_CALORIES_PER_HUNDRED_GRAMS = "calories_per_hundred_grams"
         const val COLUMN_PROTEINS_PER_HUNDRED_GRAMS = "proteins_per_hundred_grams"
@@ -48,6 +52,7 @@ data class ProductCassandraDTO(
             .createTable(keyspace, tableName)
             .ifNotExists()
             .withPartitionKey(COLUMN_PRODUCT_ID, DataTypes.TEXT)
+            .withColumn(COLUMN_AUTHOR_ID, DataTypes.TEXT)
             .withColumn(COLUMN_PRODUCT_NAME, DataTypes.TEXT)
             .withColumn(COLUMN_CALORIES_PER_HUNDRED_GRAMS, DataTypes.DOUBLE)
             .withColumn(COLUMN_PROTEINS_PER_HUNDRED_GRAMS, DataTypes.DOUBLE)
@@ -82,5 +87,6 @@ data class ProductCassandraDTO(
         carbohydratesPerHundredGrams = carbohydratesPerHundredGrams?.let { CarbohydratesModel(it) }
             ?: CarbohydratesModel.NONE,
         productId = productId?.let { ProductIdModel(it) } ?: ProductIdModel.NONE,
+        authorId = authorId?.let { AuthorIdModel(it) } ?: AuthorIdModel.NONE
     )
 }
