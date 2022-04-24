@@ -7,5 +7,7 @@ dependencies {
     implementation(kotlin("stdlib"))
     implementation(kotlin("test-junit"))
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion")
+
     implementation(project(":fit_changes-be-common"))
+    implementation(project(":fit_changes-be-utils"))
 }
