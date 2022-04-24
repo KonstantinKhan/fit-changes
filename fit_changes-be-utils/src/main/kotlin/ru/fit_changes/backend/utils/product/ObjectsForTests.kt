@@ -48,3 +48,11 @@ val BEEF_FILLED_MODEL = ProductModel(
     fatsPerHundredGrams = FatsModel(12.4),
     carbohydratesPerHundredGrams = CarbohydratesModel(0.0),
 )
+
+val CHICKEN_FILLED_MODEL = ProductModel(
+    productName = "Филе куриное",
+    caloriesPerHundredGrams = CaloriesModel(110.0),
+    proteinsPerHundredGrams = ProteinsModel(21.0),
+    fatsPerHundredGrams = FatsModel(3.0),
+    carbohydratesPerHundredGrams = CarbohydratesModel(0.0),
+)
