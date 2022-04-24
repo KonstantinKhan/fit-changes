@@ -14,7 +14,7 @@ import java.time.Duration
 import java.util.*
 
 class RepoProductInMemory(
-    private val initObjects: List<ProductModel> = emptyList()
+    initObjects: List<ProductModel> = emptyList()
 ) : IRepoProduct {
 
     private val cache: Cache<String, ProductRow> = let {
@@ -174,7 +174,19 @@ class RepoProductInMemory(
     )
 
     override suspend fun search(req: DbProductFilterRequest): DbProductsResponse {
-        TODO("Not yet implemented")
+        val foundProducts = mutableListOf<ProductModel>()
+        cache.forEach { it ->
+            it.takeIf {
+                it.value.productName?.lowercase()?.contains(req.query) == true
+            }?.let {
+                foundProducts.add(it.value.toInternal())
+            }
+        }
+
+        return DbProductsResponse(
+            isSuccess = true,
+            result = foundProducts
+        )
     }
 
     override suspend fun allProducts(): DbProductsResponse {
