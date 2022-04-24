@@ -1,4 +1,7 @@
 package ru.fit_changes.backend.repo.product
 
-class DbProductFilterRequest {
-}
+import ru.fit_changes.backend.repo.IDbRequest
+
+data class DbProductFilterRequest(
+    val query: String = ""
+): IDbRequest
