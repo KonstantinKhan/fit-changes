@@ -35,6 +35,7 @@ fun BeContext.setQuery(query: SearchProductRequest) = apply {
     requestId = query.requestId ?: ""
     requestProductFilter = query.query?.let { ProductSearchFilter(searchStr = it) } ?: ProductSearchFilter()
     stubCase = query.debug?.stubCase.toModel()
+    workMode = query.debug?.mode.toModel()
 }
 
 private fun CreatableProduct.toModel() = ProductModel(
