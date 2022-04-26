@@ -98,9 +98,8 @@ Content-Type: application/json
 {
   "messageType": "SearchProductRequest",
   "requestId": "rID:0006",
-  "query": "Помидор",
+  "query": "ку",
   "debug": {
-    "mode": "stub",
-    "stubCase": "success"
+    "mode": "test"
   }
 }
