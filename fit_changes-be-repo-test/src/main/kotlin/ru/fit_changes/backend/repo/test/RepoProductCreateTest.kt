@@ -4,6 +4,9 @@ import kotlinx.coroutines.runBlocking
 import ru.fit_changes.backend.common.product.models.*
 import ru.fit_changes.backend.repo.product.DbProductModelRequest
 import ru.fit_changes.backend.repo.product.IRepoProduct
+import ru.fit_changes.backend.utils.product.BEEF_FILLED_MODEL
+import ru.fit_changes.backend.utils.product.CHICKEN_FILLED_MODEL
+import java.util.*
 import kotlin.test.*
 
 abstract class RepoProductCreateTest {
@@ -45,6 +48,13 @@ abstract class RepoProductCreateTest {
             carbohydratesPerHundredGrams = CarbohydratesModel(carbohydrates = 0.0),
         )
 
-        override val initObjects: List<ProductModel> = emptyList()
+        override val initObjects = listOf(
+            BEEF_FILLED_MODEL.copy(
+                productId = ProductIdModel(UUID.randomUUID())
+            ),
+            CHICKEN_FILLED_MODEL.copy(
+                productId = ProductIdModel(UUID.randomUUID())
+            )
+        )
     }
 }
