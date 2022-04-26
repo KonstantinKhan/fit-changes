@@ -12,10 +12,10 @@ data class ProductCassandraDTO(
     @PartitionKey
     @CqlName(COLUMN_PRODUCT_ID)
     val productId: String?,
-    @CqlName(COLUMN_AUTHOR_ID)
-    val authorId: String?,
     @CqlName(COLUMN_PRODUCT_NAME)
     val productName: String?,
+    @CqlName(COLUMN_AUTHOR_ID)
+    val authorId: String?,
     @CqlName(COLUMN_CALORIES_PER_HUNDRED_GRAMS)
     val caloriesPerHundredGrams: Double?,
     @CqlName(COLUMN_PROTEINS_PER_HUNDRED_GRAMS)
@@ -36,10 +36,10 @@ data class ProductCassandraDTO(
     )
 
     companion object {
-        const val TABLE_NAME = "product"
+        const val TABLE_NAME = "products"
         const val COLUMN_PRODUCT_ID = "product_id"
-        const val COLUMN_AUTHOR_ID = "author_id"
         const val COLUMN_PRODUCT_NAME = "product_name"
+        const val COLUMN_AUTHOR_ID = "author_id"
         const val COLUMN_CALORIES_PER_HUNDRED_GRAMS = "calories_per_hundred_grams"
         const val COLUMN_PROTEINS_PER_HUNDRED_GRAMS = "proteins_per_hundred_grams"
         const val COLUMN_FATS_PER_HUNDRED_GRAMS = "fats_per_hundred_grams"
@@ -52,8 +52,8 @@ data class ProductCassandraDTO(
             .createTable(keyspace, tableName)
             .ifNotExists()
             .withPartitionKey(COLUMN_PRODUCT_ID, DataTypes.TEXT)
-            .withColumn(COLUMN_AUTHOR_ID, DataTypes.TEXT)
             .withColumn(COLUMN_PRODUCT_NAME, DataTypes.TEXT)
+            .withColumn(COLUMN_AUTHOR_ID, DataTypes.TEXT)
             .withColumn(COLUMN_CALORIES_PER_HUNDRED_GRAMS, DataTypes.DOUBLE)
             .withColumn(COLUMN_PROTEINS_PER_HUNDRED_GRAMS, DataTypes.DOUBLE)
             .withColumn(COLUMN_FATS_PER_HUNDRED_GRAMS, DataTypes.DOUBLE)
@@ -65,13 +65,14 @@ data class ProductCassandraDTO(
                 .createIndex()
                 .ifNotExists()
                 .usingSASI()
+                .usingSASI()
                 .onTable(keyspace, tableName)
                 .andColumn(COLUMN_PRODUCT_NAME)
                 .withSASIOptions(
                     mapOf(
                         "mode" to "CONTAINS",
-                        "tokenization_locale" to locale,
-                        "analyzer_class" to "org.apache.cassandra.index.sasi.analyzer.NonTokenizingAnalyzer",
+//                        "tokenization_locale" to locale,
+//                        "analyzer_class" to "org.apache.cassandra.index.sasi.analyzer.NonTokenizingAnalyzer",
                         "case_sensitive" to "false"
                     )
                 )
