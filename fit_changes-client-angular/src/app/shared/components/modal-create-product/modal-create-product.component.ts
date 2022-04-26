@@ -98,22 +98,31 @@ export class ModalCreateProductComponent implements OnInit, OnDestroy {
   }
 
   submit() {
-    this.close.emit()
     const formData = {...this.form.value}
     this.http.post('http://localhost:8080/product/create',
       {
         messageType: "CreateProductRequest",
         requestId: "id:0001",
         createProduct: this.product,
+        debug: {
+          mode: "test"
+        }
         // debug: {
         //   mode: "stub",
         //   stubCase: "success"
         // }
       }
       , {
-        responseType: 'text'
+        responseType: 'json'
       })
-      .subscribe(value => console.log(value))
+      .subscribe(value => {
+        Object.entries(value).find(([key, value]) => {
+          if (key === 'createProduct') {
+            console.log(value)
+          }
+        })
+        this.close.emit()
+      })
   }
 
   focusout(val: string, field: string) {
