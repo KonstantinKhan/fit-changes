@@ -106,7 +106,15 @@ class RepoProductCassandra(
     }
 
     override suspend fun search(req: DbProductFilterRequest): DbProductsResponse {
-        TODO("Not yet implemented")
+        return try {
+            val found = dao.search(req).await().map { it.toProductModel() }
+            DbProductsResponse(true, emptyList(), found)
+        } catch (e: Exception) {
+            println("exception: ${e.message}")
+            DbProductsResponse(isSuccess = false, errors = listOf(CommonErrorModel()), emptyList())
+        }
+
+
     }
 
     override suspend fun allProducts(): DbProductsResponse {
