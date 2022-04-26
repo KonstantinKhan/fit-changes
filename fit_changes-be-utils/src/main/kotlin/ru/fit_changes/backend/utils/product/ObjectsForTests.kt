@@ -56,3 +56,11 @@ val CHICKEN_FILLED_MODEL = ProductModel(
     fatsPerHundredGrams = FatsModel(3.0),
     carbohydratesPerHundredGrams = CarbohydratesModel(0.0),
 )
+
+val CHICKEN_THIGH_FILLED_MODEL = ProductModel(
+    productName = "Бедро куриное",
+    caloriesPerHundredGrams = CaloriesModel(185.0),
+    proteinsPerHundredGrams = ProteinsModel(21.3),
+    fatsPerHundredGrams = FatsModel(11.0),
+    carbohydratesPerHundredGrams = CarbohydratesModel(0.0),
+)
