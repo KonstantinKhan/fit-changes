@@ -30,7 +30,7 @@ class RepoProductInMemory(
                     ProductRow::class.java,
                     ResourcePoolsBuilder.heap(100)
                 )
-                .withExpiry(ExpiryPolicyBuilder.timeToIdleExpiration(Duration.ofMinutes(1)))
+                .withExpiry(ExpiryPolicyBuilder.timeToIdleExpiration(Duration.ofMinutes(60)))
                 .build()
         )
     }
