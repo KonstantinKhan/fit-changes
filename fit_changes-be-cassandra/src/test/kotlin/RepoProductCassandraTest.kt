@@ -10,26 +10,27 @@ import ru.fit_changes.backend.repo.cassandra.RepoProductCassandra
 import ru.fit_changes.backend.repo.product.IRepoProduct
 import ru.fit_changes.backend.repo.test.RepoProductCreateTest
 import ru.fit_changes.backend.repo.test.RepoProductReadTest
+import ru.fit_changes.backend.repo.test.RepoProductSearchTest
 import java.net.InetSocketAddress
 
 class RepoProductCassandraCreateTest : RepoProductCreateTest() {
-    override val repo: IRepoProduct = TestComponent.createRepo()
+    override val repo: IRepoProduct = TestComponent.createRepo(initObjects)
 }
 
 class RepoProductCassandraReadTest : RepoProductReadTest() {
-    override val repo: IRepoProduct = TestComponent.readRepo(initObjects)
-
+    override val repo: IRepoProduct = TestComponent.createRepo(initObjects)
 }
 
-class TestCassandraContainer : CassandraContainer<TestCassandraContainer>("cassandra:latest")
+class RepoProductCassandraSearchTest : RepoProductSearchTest() {
+    override val repo: IRepoProduct = TestComponent.createRepo(initObjects)
+}
+
+class TestCassandraContainer : CassandraContainer<TestCassandraContainer>("cassandra:3.11.2")
 
 object TestComponent {
 
-    private const val keyspace = "data"
-    private const val tableName = ProductCassandraDTO.TABLE_NAME
-
     private val container by lazy { TestCassandraContainer().apply { start() } }
-    private val session: CqlSession by lazy {
+    private val session by lazy {
         CqlSession.builder()
             .addContactPoint(InetSocketAddress(container.host, container.getMappedPort(CassandraContainer.CQL_PORT)))
             .withLocalDatacenter("datacenter1")
@@ -40,7 +41,9 @@ object TestComponent {
         ProductCassandraMapperBuilder(session).build()
     }
 
-    fun createRepo(): RepoProductCassandra {
+    fun createRepo(initObjects: List<ProductModel>): RepoProductCassandra {
+        val keyspace = "data"
+        val tableName = ProductCassandraDTO.TABLE_NAME
         session.execute(
             SchemaBuilder
                 .createKeyspace(keyspace)
@@ -48,21 +51,9 @@ object TestComponent {
                 .withSimpleStrategy(1)
                 .build()
         )
-        session.execute(ProductCassandraDTO.table(keyspace, tableName))
-        val dao = mapper.productCassandraDao(keyspace, tableName)
-        return RepoProductCassandra(dao)
-    }
-
-    fun readRepo(initObjects: List<ProductModel>): RepoProductCassandra {
-        session.execute(
-            SchemaBuilder
-                .createKeyspace(keyspace)
-                .ifNotExists()
-                .withSimpleStrategy(1)
-                .build()
-        )
-        session.execute(ProductCassandraDTO.table(keyspace, tableName))
-        val dao = mapper.productCassandraDao(keyspace, tableName)
+        session.execute(ProductCassandraDTO.table(keyspace, ProductCassandraDTO.TABLE_NAME))
+        session.execute(ProductCassandraDTO.productNameIndex(keyspace, ProductCassandraDTO.TABLE_NAME))
+        val dao = mapper.productCassandraDao(keyspace, ProductCassandraDTO.TABLE_NAME)
         CompletableFutures
             .allDone(initObjects.map { dao.create(ProductCassandraDTO(it)) })
             .toCompletableFuture()
