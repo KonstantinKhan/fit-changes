@@ -28,6 +28,8 @@ import {ModalCreateProductComponent} from './shared/components/modal-create-prod
 import {DynamicModalLoader} from "./shared/directives/load-modal.directive";
 import {ButtonModule} from "primeng/button";
 import {RippleModule} from "primeng/ripple";
+import {TableModule} from "primeng/table";
+import {ToolbarModule} from "primeng/toolbar";
 
 @NgModule({
   declarations: [
@@ -62,6 +64,8 @@ import {RippleModule} from "primeng/ripple";
     ChartModule,
     ButtonModule,
     RippleModule,
+    TableModule,
+    ToolbarModule
   ],
   providers: [],
   bootstrap: [AppComponent]
