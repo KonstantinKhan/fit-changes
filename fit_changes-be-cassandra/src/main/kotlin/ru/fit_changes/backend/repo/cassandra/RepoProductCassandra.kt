@@ -16,49 +16,42 @@ class RepoProductCassandra(
             if (productName.isBlank()) {
                 errors.add(
                     CommonErrorModel(
-                        field = "productName",
-                        message = "Product name cannot be null or empty"
+                        field = "productName", message = "Product name cannot be null or empty"
                     )
                 )
             }
             if (caloriesPerHundredGrams == CaloriesModel.NONE) {
                 errors.add(
                     CommonErrorModel(
-                        field = "caloriesPerHundredGrams",
-                        message = "Calories cannot be null or empty"
+                        field = "caloriesPerHundredGrams", message = "Calories cannot be null or empty"
                     )
                 )
             }
             if (proteinsPerHundredGrams == ProteinsModel.NONE) {
                 errors.add(
                     CommonErrorModel(
-                        field = "proteinsPerHundredGrams",
-                        message = "Proteins cannot be null or empty"
+                        field = "proteinsPerHundredGrams", message = "Proteins cannot be null or empty"
                     )
                 )
             }
             if (fatsPerHundredGrams == FatsModel.NONE) {
                 errors.add(
                     CommonErrorModel(
-                        field = "fatsPerHundredGrams",
-                        message = "Fats cannot be null or empty"
+                        field = "fatsPerHundredGrams", message = "Fats cannot be null or empty"
                     )
                 )
             }
             if (carbohydratesPerHundredGrams == CarbohydratesModel.NONE) {
                 errors.add(
                     CommonErrorModel(
-                        field = "carbohydratesPerHundredGrams",
-                        message = "Carbohydrates cannot be null or empty"
+                        field = "carbohydratesPerHundredGrams", message = "Carbohydrates cannot be null or empty"
                     )
                 )
             }
         }
         if (errors.size > 0) {
             return DbProductResponse(
-                result = null,
-                isSuccess = false,
-                errors = errors
+                result = null, isSuccess = false, errors = errors
             )
         }
         dao.create(ProductCassandraDTO(product)).await()
@@ -66,30 +59,25 @@ class RepoProductCassandra(
         return if (created == null) {
             DbProductResponse(
                 CommonErrorModel(
-                    field = "id",
-                    message = "ID not found"
+                    field = "id", message = "ID not found"
                 )
             )
-        } else
-            DbProductResponse(created.toProductModel())
+        } else DbProductResponse(created.toProductModel())
 
     }
 
     override suspend fun read(req: DbProductIdRequest): DbProductResponse {
 
-        val id = req.id.takeIf { it != ProductIdModel.NONE }?.asString()
-            ?: return DbProductResponse(
-                CommonErrorModel(
-                    field = "id",
-                    message = "Id cannot be empty"
-                )
+        val id = req.id.takeIf { it != ProductIdModel.NONE }?.asString() ?: return DbProductResponse(
+            CommonErrorModel(
+                field = "id", message = "Id cannot be empty"
             )
+        )
         val result = dao.read(id).await()
         return if (result == null) {
             DbProductResponse(
                 CommonErrorModel(
-                    field = "id",
-                    message = "Id not found"
+                    field = "id", message = "Id not found"
                 )
             )
         } else {
@@ -98,11 +86,36 @@ class RepoProductCassandra(
     }
 
     override suspend fun update(req: DbProductModelRequest): DbProductResponse {
-        TODO("Not yet implemented")
+        return if (req.product.productId == ProductIdModel.NONE) {
+            DbProductResponse(CommonErrorModel(field = "id", message = "Invalid value"))
+        } else try {
+            dao.update(ProductCassandraDTO(req.product)).await()
+            val updated = dao.read(req.product.productId.asString()).await()
+            if (updated == null) {
+                DbProductResponse(CommonErrorModel(field = "id", message = "Not found"))
+            } else {
+                DbProductResponse(updated.toProductModel())
+            }
+        } catch (e: Exception) {
+            DbProductResponse(e)
+        }
     }
 
     override suspend fun delete(req: DbProductIdRequest): DbProductResponse {
-        TODO("Not yet implemented")
+        return if (req.id == ProductIdModel.NONE) {
+            DbProductResponse(CommonErrorModel(field = "id", message = "Invalid value"))
+        } else try {
+            val deleted = dao.read(req.id.asString()).await()?.also {
+                dao.delete(it)
+            }
+            if (deleted == null) {
+                DbProductResponse(CommonErrorModel(field = "id", message = "Id not found"))
+            } else {
+                DbProductResponse(deleted.toProductModel())
+            }
+        } catch (e: Exception) {
+            DbProductResponse(e)
+        }
     }
 
     override suspend fun search(req: DbProductFilterRequest): DbProductsResponse {

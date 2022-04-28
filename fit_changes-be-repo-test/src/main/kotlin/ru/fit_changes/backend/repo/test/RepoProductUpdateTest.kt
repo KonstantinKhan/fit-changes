@@ -34,6 +34,7 @@ abstract class RepoProductUpdateTest {
 
         private val updateProduct = ProductModel(
             productId = initObjects.first().productId,
+            authorId = initObjects.first().authorId,
             productName = "Updated Chicken",
             caloriesPerHundredGrams = CaloriesModel(111.0),
             proteinsPerHundredGrams = ProteinsModel(21.0),

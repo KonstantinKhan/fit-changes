@@ -18,6 +18,7 @@ abstract class RepoProductSearchTest {
     @Test
     fun searchSuccessWithoutQuery() {
         val result = runBlocking { repo.search(DbProductFilterRequest()) }
+        println("result: ${result.result}")
         assertTrue(result.isSuccess)
     }
 
@@ -25,6 +26,7 @@ abstract class RepoProductSearchTest {
     fun searchSuccessBeef() {
         val result = runBlocking { repo.search(DbProductFilterRequest("Гов")) }
         assertTrue(result.isSuccess)
+        println("result: ${result.result}")
         assertTrue(result.result?.size == 1)
         assertEquals(initObjects.first(), result.result?.first())
     }
@@ -32,6 +34,7 @@ abstract class RepoProductSearchTest {
     @Test
     fun searchSuccessChicken() {
         val result = runBlocking { repo.search(DbProductFilterRequest("кур")) }
+        println("result: ${result.result}")
         assertEquals(2, result.result?.size)
     }
 
