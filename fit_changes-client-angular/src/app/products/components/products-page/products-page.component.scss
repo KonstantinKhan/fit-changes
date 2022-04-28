@@ -1,0 +1,36 @@
+.products-page {
+  margin: 16px;
+}
+
+.product-stack {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.product-info-stack {
+  display: block !important;
+  box-shadow: rgba(14, 30, 37, 0.12) 0 2px 4px 0, rgba(14, 30, 37, 0.32) 0 2px 16px 0;
+  border-radius: 8px;
+  margin-bottom: 4px;
+  margin-top: 4px;
+}
+
+.button-block {
+  display: flex;
+  justify-content: right;
+}
+
+.button-action {
+  margin-left: 4px;
+  margin-right: 4px;
+}
+
+.product-name-stack {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.tr-stack {
+  background: none !important;
+}

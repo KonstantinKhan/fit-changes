@@ -1,8 +1,69 @@
 <div class="products-page">
+  <p-toolbar>
+    <ng-template pTemplate="left">
+      <button
+        pButton
+        pRipple
+        label="Добавить"
+        icon="pi pi-plus"
+        class="p-button-raised"
+      ></button>
+    </ng-template>
+  </p-toolbar>
   <app-search-input></app-search-input>
-  <button
-    mat-raised-button
+  <p-table
+    responsiveLayout="stack"
+    [value]="products"
+    styleClass="p-datatable-sm"
   >
-    addProduct
-  </button>
+    <ng-template pTemplate="header">
+      <tr>
+        <th>№</th>
+        <th>Продукт</th>
+        <th>Калории</th>
+        <th>Белки</th>
+        <th>Жиры</th>
+        <th>Углеводы</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-product let-rowIndex="rowIndex">
+      <tr [ngClass.lt-md]="{'tr-stack':true}">
+        <td fxHide.lt-md>{{rowIndex + 1}}</td>
+        <td [ngClass.lt-md]="{'product-info-stack':true}">
+          <div>
+            <div class="product-stack">
+              <span fxHide.gt-sm>№{{rowIndex + 1}}</span>
+              <span [ngClass.lt-md]="{'product-name-stack':true}">{{product.productName}}</span>
+            </div>
+            <div fxHide.gt-sm class="product-stack">
+              <span>К: {{product.caloriesPerHundredGrams | number: '1.1-1'}}</span>
+              <span>Б: {{product.proteinsPerHundredGrams | number: '1.1-1'}}</span>
+              <span>Ж: {{product.fatsPerHundredGrams | number: '1.1-1'}}</span>
+              <span>У: {{product.carbohydratesPerHundredGrams | number: '1.1-1'}}</span>
+            </div>
+            <hr fxHide.gt-sm>
+          </div>
+          <div fxHide.gt-sm class="button-block">
+            <button pButton
+                    pRipple
+                    class="
+                    p-button-rounded
+                    p-button-sm
+                    button-action
+                    p-button-success
+                    "
+                    icon="pi pi-plus"></button>
+            <button pButton pRipple class="p-button-rounded p-button-sm button-action p-button-warning"
+                    icon="pi pi-pencil"></button>
+            <button pButton pRipple class="p-button-rounded p-button-sm button-action p-button-danger"
+                    icon="pi pi-trash"></button>
+          </div>
+        </td>
+        <td fxHide.lt-md>{{product.caloriesPerHundredGrams}}</td>
+        <td fxHide.lt-md>{{product.proteinsPerHundredGrams}}</td>
+        <td fxHide.lt-md>{{product.fatsPerHundredGrams}}</td>
+        <td fxHide.lt-md>{{product.carbohydratesPerHundredGrams}}</td>
+      </tr>
+    </ng-template>
+  </p-table>
 </div>
