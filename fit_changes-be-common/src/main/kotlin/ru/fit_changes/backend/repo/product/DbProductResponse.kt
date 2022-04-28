@@ -12,4 +12,5 @@ data class DbProductResponse(
     constructor(result: ProductModel) : this(result, true, emptyList())
     constructor(result: ProductModel, isSuccess: Boolean) : this(result, isSuccess, emptyList())
     constructor(error: CommonErrorModel) : this(null, false, listOf(error))
+    constructor(e: Exception) : this(null, false, listOf(CommonErrorModel(e)))
 }

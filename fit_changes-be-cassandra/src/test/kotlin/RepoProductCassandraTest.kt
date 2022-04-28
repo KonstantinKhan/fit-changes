@@ -8,9 +8,7 @@ import ru.fit_changes.backend.repo.cassandra.ProductCassandraMapper
 import ru.fit_changes.backend.repo.cassandra.ProductCassandraMapperBuilder
 import ru.fit_changes.backend.repo.cassandra.RepoProductCassandra
 import ru.fit_changes.backend.repo.product.IRepoProduct
-import ru.fit_changes.backend.repo.test.RepoProductCreateTest
-import ru.fit_changes.backend.repo.test.RepoProductReadTest
-import ru.fit_changes.backend.repo.test.RepoProductSearchTest
+import ru.fit_changes.backend.repo.test.*
 import java.net.InetSocketAddress
 
 class RepoProductCassandraCreateTest : RepoProductCreateTest() {
@@ -21,7 +19,15 @@ class RepoProductCassandraReadTest : RepoProductReadTest() {
     override val repo: IRepoProduct = TestComponent.createRepo(initObjects)
 }
 
+class RepoProductCassandraUpdateTest : RepoProductUpdateTest() {
+    override val repo: IRepoProduct = TestComponent.createRepo(initObjects)
+}
+
 class RepoProductCassandraSearchTest : RepoProductSearchTest() {
+    override val repo: IRepoProduct = TestComponent.createRepo(initObjects)
+}
+
+class RepoProductCassandraDeleteTest : RepoProductDeleteTest() {
     override val repo: IRepoProduct = TestComponent.createRepo(initObjects)
 }
 
@@ -42,6 +48,7 @@ object TestComponent {
     }
 
     fun createRepo(initObjects: List<ProductModel>): RepoProductCassandra {
+        println("createRepo()")
         val keyspace = "data"
         val tableName = ProductCassandraDTO.TABLE_NAME
         session.execute(
