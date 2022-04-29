@@ -7,7 +7,7 @@ import java.net.InetSocketAddress
 object CassandraObject {
     private val session by lazy {
         CqlSession.builder()
-            .addContactPoint(InetSocketAddress("localhost", 9042))
+            .addContactPoint(InetSocketAddress("193.108.114.100", 9042))
             .withLocalDatacenter("datacenter1")
             .withAuthCredentials("cassandra", "cassandra")
             .build()
