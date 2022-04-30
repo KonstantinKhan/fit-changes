@@ -1,10 +1,8 @@
 import {Component, EventEmitter, OnDestroy, OnInit, Output} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {Product} from "../../interfaces/product";
-import {map, Subscription} from "rxjs";
 import {ProductValidators} from "../../validators/productValidators";
-import {HttpClient} from "@angular/common/http";
-
+import {map, Subscription} from "rxjs";
 
 @Component({
   selector: 'app-modal-create-product',
@@ -12,6 +10,7 @@ import {HttpClient} from "@angular/common/http";
   styleUrls: ['./modal-create-product.component.scss']
 })
 export class ModalCreateProductComponent implements OnInit, OnDestroy {
+
 
   form!: FormGroup
   product: Product = {
@@ -25,11 +24,13 @@ export class ModalCreateProductComponent implements OnInit, OnDestroy {
   private subscriptions: Subscription[] = []
 
   @Output() close = new EventEmitter<void>();
+  @Output() submitEvent = new EventEmitter<void>()
 
-  constructor(private http: HttpClient) {
+  constructor() {
   }
 
   ngOnInit(): void {
+
     this.form = new FormGroup(
       {
         productName: new FormControl(''),
@@ -88,41 +89,16 @@ export class ModalCreateProductComponent implements OnInit, OnDestroy {
             }
           }) as Subscription)
       } else {
-        this.subscriptions.push(this.form.get(key)?.valueChanges
-          .subscribe(value => {
-            this.product.productName = value
-          }) as Subscription
+        this.subscriptions.push(this.form.get(key)?.valueChanges.subscribe(
+            {
+              next: (v: string) => this.product.productName = v,
+              error: (e) => console.log(e),
+              complete: () => console.info('complete')
+            }
+          ) as Subscription
         )
       }
     })
-  }
-
-  submit() {
-    const formData = {...this.form.value}
-    this.http.post('http://localhost:8080/product/create',
-      {
-        messageType: "CreateProductRequest",
-        requestId: "id:0001",
-        createProduct: this.product,
-        debug: {
-          mode: "test"
-        }
-        // debug: {
-        //   mode: "stub",
-        //   stubCase: "success"
-        // }
-      }
-      , {
-        responseType: 'json'
-      })
-      .subscribe(value => {
-        Object.entries(value).find(([key, value]) => {
-          if (key === 'createProduct') {
-            console.log(value)
-          }
-        })
-        this.close.emit()
-      })
   }
 
   focusout(val: string, field: string) {

@@ -1,12 +1,14 @@
+<ng-template dynamicModalLoader></ng-template>
 <div class="products-page">
   <p-toolbar>
     <ng-template pTemplate="left">
       <button
         pButton
         pRipple
-        label="Добавить"
+        label="Новый"
         icon="pi pi-plus"
         class="p-button-raised"
+        (click)="showModalCreateProduct()"
       ></button>
     </ng-template>
   </p-toolbar>
@@ -32,7 +34,7 @@
         <td [ngClass.lt-md]="{'product-info-stack':true}">
           <div>
             <div class="product-stack">
-              <span fxHide.gt-sm>№{{rowIndex + 1}}</span>
+<!--              <span fxHide.gt-sm>№{{rowIndex + 1}}</span>-->
               <span [ngClass.lt-md]="{'product-name-stack':true}">{{product.productName}}</span>
             </div>
             <div fxHide.gt-sm class="product-stack">
@@ -44,19 +46,30 @@
             <hr fxHide.gt-sm>
           </div>
           <div fxHide.gt-sm class="button-block">
-            <button pButton
-                    pRipple
-                    class="
+            <button
+              pButton
+              pRipple
+              class="
                     p-button-rounded
                     p-button-sm
                     button-action
                     p-button-success
                     "
-                    icon="pi pi-plus"></button>
-            <button pButton pRipple class="p-button-rounded p-button-sm button-action p-button-warning"
-                    icon="pi pi-pencil"></button>
+              icon="pi pi-plus"
+            ></button>
+            <button
+              pButton
+              pRipple
+              class="
+              p-button-rounded
+              p-button-sm
+              button-action
+              p-button-warning
+              "
+              icon="pi pi-pencil"
+            ></button>
             <button pButton pRipple class="p-button-rounded p-button-sm button-action p-button-danger"
-                    icon="pi pi-trash"></button>
+                    icon="pi pi-trash" (click)="deleteProduct(product.productId)"></button>
           </div>
         </td>
         <td fxHide.lt-md>{{product.caloriesPerHundredGrams}}</td>
