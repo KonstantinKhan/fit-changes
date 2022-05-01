@@ -13,8 +13,19 @@
     </ng-template>
   </p-toolbar>
   <app-search-input></app-search-input>
+  <div fxShow fxHide.gt-sm *ngFor="let product of products; let i = index, let even = even">
+    <div *ngIf="even" class="row-products">
+      <div *ngIf="product" class="column-products">
+        <app-product-card-twin [product]="products[i]"></app-product-card-twin>
+      </div>
+      <div *ngIf="i < products.length - 1" class="column-products">
+        <app-product-card-twin [product]="products[i+1]"></app-product-card-twin>
+      </div>
+    </div>
+
+  </div>
   <p-table
-    responsiveLayout="stack"
+    responsiveLayout="stack" breakpoint="959px"
     [value]="products"
     styleClass="p-datatable-sm"
   >
@@ -29,49 +40,8 @@
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-product let-rowIndex="rowIndex">
-      <tr [ngClass.lt-md]="{'tr-stack':true}">
+      <tr>
         <td fxHide.lt-md>{{rowIndex + 1}}</td>
-        <td [ngClass.lt-md]="{'product-info-stack':true}">
-          <div>
-            <div class="product-stack">
-<!--              <span fxHide.gt-sm>№{{rowIndex + 1}}</span>-->
-              <span [ngClass.lt-md]="{'product-name-stack':true}">{{product.productName}}</span>
-            </div>
-            <div fxHide.gt-sm class="product-stack">
-              <span>К: {{product.caloriesPerHundredGrams | number: '1.1-1'}}</span>
-              <span>Б: {{product.proteinsPerHundredGrams | number: '1.1-1'}}</span>
-              <span>Ж: {{product.fatsPerHundredGrams | number: '1.1-1'}}</span>
-              <span>У: {{product.carbohydratesPerHundredGrams | number: '1.1-1'}}</span>
-            </div>
-            <hr fxHide.gt-sm>
-          </div>
-          <div fxHide.gt-sm class="button-block">
-            <button
-              pButton
-              pRipple
-              class="
-                    p-button-rounded
-                    p-button-sm
-                    button-action
-                    p-button-success
-                    "
-              icon="pi pi-plus"
-            ></button>
-            <button
-              pButton
-              pRipple
-              class="
-              p-button-rounded
-              p-button-sm
-              button-action
-              p-button-warning
-              "
-              icon="pi pi-pencil"
-            ></button>
-            <button pButton pRipple class="p-button-rounded p-button-sm button-action p-button-danger"
-                    icon="pi pi-trash" (click)="deleteProduct(product.productId)"></button>
-          </div>
-        </td>
         <td fxHide.lt-md>{{product.caloriesPerHundredGrams}}</td>
         <td fxHide.lt-md>{{product.proteinsPerHundredGrams}}</td>
         <td fxHide.lt-md>{{product.fatsPerHundredGrams}}</td>

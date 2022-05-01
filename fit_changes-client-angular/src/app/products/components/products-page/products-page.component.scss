@@ -2,6 +2,14 @@
   margin: 16px;
 }
 
+.row-products {
+  display: flex;
+}
+
+.column-products {
+  width: 50%;
+}
+
 .product-stack {
   display: flex;
   justify-content: space-between;
