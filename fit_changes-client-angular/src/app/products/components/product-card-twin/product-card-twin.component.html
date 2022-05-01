@@ -1,0 +1,32 @@
+<div class="product-card">
+  <div class="product-name">{{product.productName}}</div>
+  <div class="bottom-block">
+    <div class="info-block">
+      <div class="calories-info">
+        <span>{{product.caloriesPerHundredGrams | number: '1.1-1'}} ккал</span>
+      </div>
+      <div class="macro-block">
+        <div class="macro-info">
+          <div class="macro">Б</div>
+          <span>{{product.proteinsPerHundredGrams | number: '1.1-1' }}</span>
+        </div>
+        <div class="macro-info">
+          <div class="macro">Ж</div>
+          <span>{{product.fatsPerHundredGrams | number: '1.1-1'}}</span>
+        </div>
+        <div class="macro-info">
+          <div class="macro">У</div>
+          <span>{{product.carbohydratesPerHundredGrams | number: '1.1-1'}}</span>
+        </div>
+      </div>
+    </div>
+    <div class="buttons-block">
+      <button pButton pRipple type="button" icon="pi pi-arrow-up-right"
+              class="p-button-rounded p-button-success action-button"></button>
+      <button pButton pRipple type="button" icon="pi pi-refresh"
+              class="p-button-rounded p-button-warning action-button"></button>
+      <button pButton pRipple type="button" icon="pi pi-trash"
+              class="p-button-rounded p-button-danger action-button"></button>
+    </div>
+  </div>
+</div>

@@ -30,6 +30,7 @@ import {ButtonModule} from "primeng/button";
 import {RippleModule} from "primeng/ripple";
 import {TableModule} from "primeng/table";
 import {ToolbarModule} from "primeng/toolbar";
+import {ProductCardTwinComponent} from "./products/components/product-card-twin/product-card-twin.component";
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import {ToolbarModule} from "primeng/toolbar";
     SearchProductPipe,
     RationPageComponent,
     ModalCreateProductComponent,
-    DynamicModalLoader
+    DynamicModalLoader,
+    ProductCardTwinComponent
   ],
   imports: [
     BrowserModule,
