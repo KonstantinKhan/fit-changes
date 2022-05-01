@@ -22,7 +22,6 @@ export class RationPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // this.showModal()
     this.http.post('http://localhost:8080/product/search', {
         messageType: "SearchProductRequest",
         requestId: "rID:0006",
@@ -37,9 +36,6 @@ export class RationPageComponent implements OnInit {
       Object.entries(products).find(([key, value]) => {
         if (key === 'foundProducts') {
           this.products = value as Product[]
-          this.products.forEach(product => {
-            console.log(product.productName)
-          })
         }
       })
     })
@@ -63,25 +59,12 @@ export class RationPageComponent implements OnInit {
         Object.entries(products).find(([key, value]) => {
           if (key === 'foundProducts') {
             this.products = value as Product[]
-            this.products.forEach(product => {
-              console.log(product.productName)
-            })
           }
         })
       })
 
 
       this.dynamicModal.viewContainerRef.clear()
-      // component.instance.close.unsubscribe()
     })
-  }
-
-  testClick() {
-    this.http.get('http://localhost:8080', {responseType: 'text'}).subscribe(text => {
-      console.log(text)
-    })
-    this.http.post('http://localhost:8080/product/create',
-      {},
-    ).subscribe(response => console.log(response))
   }
 }

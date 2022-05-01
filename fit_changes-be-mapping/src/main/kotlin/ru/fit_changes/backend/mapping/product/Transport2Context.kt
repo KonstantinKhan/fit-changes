@@ -17,18 +17,21 @@ fun BeContext.setQuery(query: ReadProductRequest) = apply {
     requestId = query.requestId ?: ""
     requestProductId = ProductIdModel(query.readProductId ?: "")
     stubCase = query.debug?.stubCase.toModel()
+    workMode = query.debug?.mode.toModel()
 }
 
 fun BeContext.setQuery(query: UpdateProductRequest) = apply {
     requestId = query.requestId ?: ""
     requestProduct = query.updateProduct?.toModel() ?: ProductModel()
     stubCase = query.debug?.stubCase.toModel()
+    workMode = query.debug?.mode.toModel()
 }
 
 fun BeContext.setQuery(query: DeleteProductRequest) = apply {
     requestId = query.requestId ?: ""
     requestProductId = ProductIdModel(query.deleteProductId ?: "")
     stubCase = query.debug?.stubCase.toModel()
+    workMode = query.debug?.mode.toModel()
 }
 
 fun BeContext.setQuery(query: SearchProductRequest) = apply {

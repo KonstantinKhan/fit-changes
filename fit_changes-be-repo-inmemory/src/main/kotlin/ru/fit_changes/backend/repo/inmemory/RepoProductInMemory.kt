@@ -162,16 +162,31 @@ class RepoProductInMemory(
         }
     }
 
-    override suspend fun delete(req: DbProductIdRequest): DbProductResponse = cache.get(req.id.asString())?.let {
-        DbProductResponse(
-            it.toInternal(),
-            isSuccess = true
+    override suspend fun delete(req: DbProductIdRequest): DbProductResponse {
+
+        val key = req.id.takeIf { it != ProductIdModel.NONE }?.asString()
+            ?: return DbProductResponse(
+                isSuccess = false,
+                errors = listOf(
+                    CommonErrorModel(
+                        field = "id",
+                        message = "Id must not be null or empty"
+                    )
+                ),
+                result = null
+            )
+        val row = cache.get(key)
+            ?: return DbProductResponse(
+                isSuccess = false,
+                errors = listOf(CommonErrorModel(field = "id", message = "Id not found")),
+                result = null
+            )
+        cache.remove(key)
+        return DbProductResponse(
+            isSuccess = true,
+            result = row.toInternal()
         )
-    } ?: DbProductResponse(
-        isSuccess = false,
-        result = null,
-        errors = listOf(CommonErrorModel(field = "id", message = "Id not found"))
-    )
+    }
 
     override suspend fun search(req: DbProductFilterRequest): DbProductsResponse {
         val foundProducts = mutableListOf<ProductModel>()

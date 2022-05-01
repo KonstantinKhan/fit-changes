@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {PrimeNGConfig} from "primeng/api";
 
 @Component({
   selector: 'app-root',
@@ -8,9 +8,13 @@ import {HttpClient} from "@angular/common/http";
 })
 export class AppComponent {
 
-  constructor(private http: HttpClient) {
+  constructor(
+    private primengConfig: PrimeNGConfig,
+  ) {
   }
 
   ngOnInit() {
+    // Enable ripple
+    this.primengConfig.ripple = true
   }
 }

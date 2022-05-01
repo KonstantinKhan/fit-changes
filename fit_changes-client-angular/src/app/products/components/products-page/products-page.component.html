@@ -1,12 +1,14 @@
+<ng-template dynamicModalLoader></ng-template>
 <div class="products-page">
   <p-toolbar>
     <ng-template pTemplate="left">
       <button
         pButton
         pRipple
-        label="Добавить"
+        label="Новый"
         icon="pi pi-plus"
         class="p-button-raised"
+        (click)="showModalCreateProduct()"
       ></button>
     </ng-template>
   </p-toolbar>
@@ -40,7 +42,6 @@
     <ng-template pTemplate="body" let-product let-rowIndex="rowIndex">
       <tr>
         <td fxHide.lt-md>{{rowIndex + 1}}</td>
-        <td fxHide.lt-md>{{product.productName}}</td>
         <td fxHide.lt-md>{{product.caloriesPerHundredGrams}}</td>
         <td fxHide.lt-md>{{product.proteinsPerHundredGrams}}</td>
         <td fxHide.lt-md>{{product.fatsPerHundredGrams}}</td>

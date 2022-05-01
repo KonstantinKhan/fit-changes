@@ -3,7 +3,7 @@
 >
   <form
     [formGroup]="form"
-    (ngSubmit)="submit()"
+    (ngSubmit)=submitEvent.emit()
   >
     <div class="product-info">
       <mat-form-field class="form-field-product-name" appearance="outline">
@@ -87,7 +87,7 @@
         type="button"
         icon="pi pi-times"
         class="p-button-rounded p-button-danger p-button-outlined"
-        (click)="close.emit()"
+        (click)=close.emit()
       >
       </button>
     </div>
