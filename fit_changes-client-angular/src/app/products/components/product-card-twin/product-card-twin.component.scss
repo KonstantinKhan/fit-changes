@@ -1,0 +1,74 @@
+.card-row {
+  padding: 4px 0;
+  display: flex;
+  justify-content: space-around;
+}
+
+.product-card {
+  position: relative;
+  background-color: #fff;
+  padding: 8px;
+  margin: 4px;
+  height: 128px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0 3px 8px;
+  border-radius: 16px;
+}
+
+.bottom-block {
+  position: absolute;
+  right: 8px;
+  bottom: 8px;
+  left: 8px;
+}
+
+.info-block {
+  width: 100%;
+}
+
+.macro-block {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.calories-info {
+  font-size: 12px;
+  font-style: italic;
+  font-weight: 700;
+  padding-right: 4px;
+  text-align: right;
+}
+
+.macro-info {
+  width: 33%;
+  padding: 4px;
+  font-size: 12px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.macro {
+  display: flex;
+  overflow: hidden;
+
+  &:after {
+    content: '..............................................................';
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+}
+
+.buttons-block {
+  display: flex;
+  justify-content: space-around;
+  text-align: center;
+  padding-left: 3rem;
+}
+
+.action-button {
+  height: 1.5rem !important;
+  width: 1.5rem;
+  padding: 0.16rem 0;
+  font-size: 8px;
+}
