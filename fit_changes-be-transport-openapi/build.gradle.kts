@@ -39,6 +39,9 @@ dependencies {
     testImplementation(kotlin("test"))
 
     api("com.fasterxml.jackson.module:jackson-module-kotlin:$jacksonVersion")
+    // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind
+    api("com.fasterxml.jackson.core:jackson-databind:2.13.2.2")
+
     api("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:$jacksonVersion")
 
     implementation("org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion")

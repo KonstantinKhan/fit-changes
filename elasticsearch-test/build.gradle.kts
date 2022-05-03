@@ -7,6 +7,6 @@ dependencies {
 
     implementation(kotlin("stdlib"))
 
-    implementation("co.elastic.clients:elasticsearch-java:7.16.3")
-    implementation("com.fasterxml.jackson.core:jackson-databind:2.12.3")
+    implementation("co.elastic.clients:elasticsearch-java:8.1.3")
+    implementation("com.fasterxml.jackson.core:jackson-databind:2.13.2.2")
 }
