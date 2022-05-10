@@ -1,28 +1,55 @@
 package ru.fit_changes.backend.app.ktor.product
 
+import com.auth0.jwt.JWT
+import com.auth0.jwt.algorithms.Algorithm
 import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.databind.SerializationFeature
 import io.ktor.server.application.*
 import io.ktor.http.*
 import io.ktor.serialization.jackson.*
+import io.ktor.server.auth.*
+import io.ktor.server.auth.jwt.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import io.ktor.server.netty.*
 import io.ktor.server.plugins.contentnegotiation.ContentNegotiation
-import io.ktor.server.plugins.cors.CORS
+import io.ktor.server.plugins.cors.routing.*
 import ru.fit_changes.backend.product.service.ProductService
 import ru.fit_changes.backend.app.ktor.product.configs.AppKtorConfig
 import ru.fit_changes.backend.app.ktor.product.routes.registerProductRoutesHttp
 import ru.fit_changes.backend.product.logics.ProductCrud
 import ru.fit_changes.backend.repo.product.IRepoProduct
+import java.util.*
 
 fun main(args: Array<String>): Unit = EngineMain.main(args)
 
 fun Application.module(
     testing: Boolean = false,
-    config: AppKtorConfig = AppKtorConfig()
+    config: AppKtorConfig = AppKtorConfig(environment)
 ) {
     val productService = ProductService(ProductCrud(config.contextConfig))
+    install(Authentication) {
+        jwt("auth-jwt") {
+            realm = config.auth.realm
+            verifier(
+                JWT
+                    .require(Algorithm.HMAC256(config.auth.secret))
+                    .withAudience(config.auth.audience)
+                    .withIssuer(config.auth.issuer)
+                    .build()
+            )
+//            validate { credential ->
+//                println("credential: $credential")
+//                when {
+//                    !credential.payload.audience.contains(config.auth.audience) -> {
+//                        println("Unsupported audience in JWT token ${credential.payload.audience}")
+//                        JWTPrincipal(credential.payload)
+//                    }
+//                    else -> JWTPrincipal(credential.payload)
+//                }
+//            }
+        }
+    }
 
     println("repoProductTest is NONE: ${config.contextConfig.repoProductTest == IRepoProduct.NONE}")
     println("repoProductProd is NONE: ${config.contextConfig.repoProductProd == IRepoProduct.NONE}")
@@ -42,8 +69,20 @@ fun Application.module(
     }
 
     routing {
-        get("/") {
-            call.respondText("Hello, World")
+
+        post("/login") {
+            val token = JWT.create()
+                .withAudience(config.auth.audience)
+                .withIssuer(config.auth.issuer)
+                .withExpiresAt(Date(System.currentTimeMillis() + 6000))
+                .sign(Algorithm.HMAC256(config.auth.secret))
+            call.respond(hashMapOf("token" to token))
+        }
+
+        authenticate("auth-jwt") {
+            get("/") {
+                call.respondText("Hello, World")
+            }
         }
     }
 

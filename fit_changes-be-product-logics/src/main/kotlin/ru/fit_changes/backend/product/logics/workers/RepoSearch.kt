@@ -14,11 +14,11 @@ fun CorChainDsl<BeContext>.repoSearch(title: String) = addCorWorkerDsl {
     }
     handle {
         val result = productRepo.search(DbProductFilterRequest(requestProductFilter.searchStr))
-        println("result: ${result.result}")
         val resultValue = result.result
         if (result.isSuccess && resultValue != null) {
             foundProducts = resultValue as MutableList<ProductModel>
         } else {
+            status = CorStatus.FAILING
             result.errors.forEach { addError(it) }
         }
     }

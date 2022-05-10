@@ -5,9 +5,9 @@ data class CommonErrorModel(
     override var level: IError.Level = IError.Level.ERROR,
     override var message: String = "",
 ) : IError {
-    constructor(e: Throwable, level: IError.Level = IError.Level.ERROR, field: String = "") : this(
+    constructor(t: Throwable, level: IError.Level = IError.Level.ERROR, field: String = "") : this(
         field = field,
         level = level,
-        message = e.message ?: ""
+        message = t.message ?: ""
     )
 }

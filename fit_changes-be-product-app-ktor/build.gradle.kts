@@ -1,7 +1,3 @@
-val ktorVersion: String by project
-val kotlinVersion: String by project
-val logbackVersion: String by project
-
 plugins {
     application
     kotlin("jvm")
@@ -29,6 +25,9 @@ application {
 }
 
 dependencies {
+    val ktorVersion: String by project
+    val kotlinVersion: String by project
+    val logbackVersion: String by project
     val kafkaVersion: String by project
     val coroutinesVersion: String by project
 
@@ -44,6 +43,8 @@ dependencies {
     // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind
     implementation("com.fasterxml.jackson.core:jackson-databind:2.13.2.2")
 
+    implementation("io.ktor:ktor-server-auth:$ktorVersion")
+    implementation("io.ktor:ktor-server-auth-jwt:$ktorVersion")
 
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlinVersion")
 

@@ -2,6 +2,7 @@ package ru.fit_changes.backend.app.ktor.product.routes
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import io.ktor.server.application.*
+import io.ktor.server.auth.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
@@ -107,26 +108,29 @@ fun Application.registerProductRoutes() {
 }
 
 fun Route.productRoutingHttp(productService: ProductService) =
-    route("product") {
-        post("create") {
-            call.createProduct(productService)
-        }
-        post("read") {
-            call.readProduct(productService)
-        }
-        post("update") {
-            call.updateProduct(productService)
-        }
-        post("delete") {
-            call.deleteProduct(productService)
-        }
-        post("search") {
-            call.searchProduct(productService)
-        }
-        get("all_products") {
-            call.getAllProducts(productService)
+    authenticate("auth-jwt") {
+        route("product") {
+            post("create") {
+                call.createProduct(productService)
+            }
+            post("read") {
+                call.readProduct(productService)
+            }
+            post("update") {
+                call.updateProduct(productService)
+            }
+            post("delete") {
+                call.deleteProduct(productService)
+            }
+            post("search") {
+                call.searchProduct(productService)
+            }
+            get("all_products") {
+                call.getAllProducts(productService)
+            }
         }
     }
+
 
 fun Application.registerProductRoutesHttp(productService: ProductService) {
     routing {
