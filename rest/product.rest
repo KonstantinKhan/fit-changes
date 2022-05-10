@@ -1,5 +1,17 @@
+GET http://localhost:8080/
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJwcm9kdWN0LXVzZXJzIiwiaXNzIjoiaHR0cDovLzAuMC4wLjA6ODA4MC8iLCJleHAiOjE2NTIxODQzOTR9.OUDqdKD5ppDakRN9BNOeOEf9vNooShN6RaexCKukda8
+
+
+###
+
+GET http://localhost:8080/
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJwcm9kdWN0LXVzZXJzIiwiaXNzIjoiaHR0cDovLzAuMC4wLjA6ODA4MC8iLCJleHAiOjE2NTE2ODc4MTB9.r6k5b6H-AxM5qhCtJrEAc-_g6C6CQsLrZ21dNd07F58
+
+###
+
 POST http://127.0.0.1:8080/product/create
 Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJwcm9kdWN0LXVzZXJzIiwiaXNzIjoiaHR0cDovLzAuMC4wLjA6ODA4MC8iLCJleHAiOjE2NTIxODQzOTR9.OUDqdKD5ppDakRN9BNOeOEf9vNooShN6RaexCKukda8
 
 {
   "messageType": "CreateProductRequest",

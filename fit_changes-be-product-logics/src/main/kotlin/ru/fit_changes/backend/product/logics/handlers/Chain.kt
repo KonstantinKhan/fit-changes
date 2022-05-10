@@ -2,7 +2,7 @@ package ru.fit_changes.backend.product.logics.handlers
 
 import ru.fit_changes.backend.product.logics.*
 
-fun <T> CorChainDsl<T>.chain(function: CorChainDsl<T>.() -> Unit) {
+fun <T> ICorChain<T>.chain(function: CorChainDsl<T>.() -> Unit) {
     add(CorChainDsl<T>().apply(function))
 }
 

@@ -1,7 +1,8 @@
 package ru.fit_changes.backend.common.models.enums
 
-enum class PrincipalRelations {
+enum class BePrincipalRelations {
     NONE,
     AUTHOR,
-    PUBLIC
+    PUBLIC,
+    MODERATOR
 }

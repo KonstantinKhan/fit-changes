@@ -12,11 +12,12 @@ fun CorChainDsl<BeContext>.repoCreate(title: String) = addCorWorkerDsl {
         status == CorStatus.RUNNING
     }
     handle {
-        val result = productRepo.create(DbProductModelRequest(requestProduct))
+        val result = productRepo.create(DbProductModelRequest(dbProduct))
         val resultValue = result.result
         if (result.isSuccess && resultValue != null) {
-            responseProduct = resultValue
+            dbProduct = resultValue
         } else {
+            status = CorStatus.FAILING
             result.errors.forEach { addError(it) }
         }
     }

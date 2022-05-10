@@ -5,8 +5,12 @@ import ru.fit_changes.openapi.models.CreatableProduct
 import ru.fit_changes.openapi.models.UpdatableProduct
 
 const val REQUEST_ID_0001 = "requestID:0001"
+
 const val PRODUCT_ID_0001 = "productID:0001"
 const val PRODUCT_ID_0002 = "productID:0002"
+
+const val AUTHOR_ID_0001 = "authorID:0001"
+const val AUTHOR_ID_0002 = "authorID:0002"
 
 val BEEF_FILLED_CREATABLE_PRODUCT = CreatableProduct(
     productName = "Говядина",

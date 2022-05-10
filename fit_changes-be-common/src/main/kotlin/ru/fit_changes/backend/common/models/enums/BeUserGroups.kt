@@ -1,6 +1,6 @@
 package ru.fit_changes.backend.common.models.enums
 
-enum class UserGroups {
+enum class BeUserGroups {
     USER,
     ADMIN,
     TEST,

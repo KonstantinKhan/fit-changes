@@ -6,9 +6,23 @@ fun <T> ICorChain<T>.addCorWorkerDsl(function: CorWorkerDsl<T>.() -> Unit) {
     add(CorWorkerDsl<T>().apply(function))
 }
 
+fun <T> ICorChain<T>.worker(
+    title: String,
+    description: String = "",
+    function: suspend T.() -> Unit
+) {
+    add(
+        CorWorkerDsl(
+            title = title,
+            description = description,
+            blockHandle = function
+        )
+    )
+}
+
 class CorWorkerDsl<T>(
     override var title: String = "",
-    override val description: String = "",
+    override var description: String = "",
     private var blockHandle: suspend T.() -> Unit = {}
 
 ) : ICorHandler<T>, CorComponentDsl<T>() {

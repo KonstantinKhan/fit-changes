@@ -52,6 +52,15 @@ class RepoProductInMemory(
                 )
             )
         }
+        if (row.authorId.isNullOrEmpty()) {
+            errors.add(
+                CommonErrorModel(
+                    field = "authorId",
+                    message = "authorId cannot be null or empty"
+                )
+            )
+        }
+
         if (row.productName == null) {
             errors.add(
                 CommonErrorModel(
@@ -60,7 +69,7 @@ class RepoProductInMemory(
                 )
             )
         }
-        if (row.caloriesPerHundredGrams == null) {
+        if (row.caloriesPerHundredGrams == null || row.caloriesPerHundredGrams.isNaN()) {
             errors.add(
                 CommonErrorModel(
                     field = "caloriesPerHundredGrams",
@@ -142,13 +151,9 @@ class RepoProductInMemory(
                 ),
                 result = null
             )
-        return if (cache.containsKey(key)) {
+        return if (cache.containsKey(key))
             save(req.product)
-            DbProductResponse(
-                isSuccess = true,
-                result = req.product
-            )
-        } else {
+        else {
             DbProductResponse(
                 isSuccess = false,
                 errors = listOf(

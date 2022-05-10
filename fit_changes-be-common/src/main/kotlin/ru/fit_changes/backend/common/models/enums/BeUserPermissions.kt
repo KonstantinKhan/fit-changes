@@ -1,6 +1,6 @@
 package ru.fit_changes.backend.common.models.enums
 
-enum class UserPermissions {
+enum class BeUserPermissions {
     CREATE_OWN,
     CREATE_PUBLIC,
 
