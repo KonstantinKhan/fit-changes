@@ -36,7 +36,6 @@ suspend fun ApplicationCall.createProduct(productService: ProductService) {
 //            createProduct = null,
 //            debug = null
 //        )
-
         productService.createProduct(this, request)
     }
 }

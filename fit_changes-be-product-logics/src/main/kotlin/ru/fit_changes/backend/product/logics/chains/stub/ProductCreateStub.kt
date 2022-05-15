@@ -10,6 +10,7 @@ import ru.fit_changes.backend.product.logics.handlers.CorChainDsl
 import ru.fit_changes.backend.product.logics.handlers.addCorWorkerDsl
 import ru.fit_changes.backend.product.logics.handlers.chain
 import ru.fit_changes.backend.product.logics.workers.noMatchingStubs
+import ru.fit_changes.backend.utils.product.AUTHOR_ID_0001
 
 internal fun CorChainDsl<BeContext>.productCreateStub(title: String) = chain {
     this.title = title
@@ -29,7 +30,7 @@ internal fun CorChainDsl<BeContext>.productCreateStub(title: String) = chain {
         handle {
             responseProduct = requestProduct.copy(
                 productId = ProductIdModel(PRODUCT_ID_0001),
-                authorId = AuthorIdModel("aID:0001")
+                authorId = AuthorIdModel(AUTHOR_ID_0001)
             )
             status = CorStatus.FINISHING
         }

@@ -12,6 +12,7 @@ import ru.fit_changes.backend.utils.product.CHICKEN_THIGH_FILLED_MODEL
 import java.util.*
 
 data class AppKtorConfig(
+    val testing: Boolean = true,
     val contextConfig: ContextConfig = ContextConfig(
         repoProductTest = RepoProductInMemory(
             listOf(
@@ -21,14 +22,23 @@ data class AppKtorConfig(
             )
         ),
         repoProductProd = try {
-            CassandraObject.createRepo()
+            if (!testing) {
+                CassandraObject.createRepo()
+            } else {
+                IRepoProduct.NONE
+            }
         } catch (e: Exception) {
             IRepoProduct.NONE
         }
     ),
-    val auth: KtorAuthConfig = KtorAuthConfig.TEST
+    var auth: KtorAuthConfig = KtorAuthConfig.TEST
 ) {
     constructor(environment: ApplicationEnvironment) : this(
+        auth = KtorAuthConfig(environment)
+    )
+
+    constructor(testing: Boolean, environment: ApplicationEnvironment) : this(
+        testing = true,
         auth = KtorAuthConfig(environment)
     )
 }

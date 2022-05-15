@@ -16,10 +16,12 @@ data class KtorAuthConfig(
     )
 
     companion object {
+        const val GROUPS_CLAIM = "groups"
+
         val TEST = KtorAuthConfig(
             secret = "secret",
-            issuer = "issuer",
-            audience = "audience",
+            issuer = "http://0.0.0.0:8080/",
+            audience = "product-users",
             realm = "products"
         )
     }
