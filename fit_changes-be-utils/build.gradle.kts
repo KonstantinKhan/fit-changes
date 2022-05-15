@@ -10,4 +10,5 @@ dependencies {
 
     implementation(project(":fit_changes-be-transport-openapi"))
     implementation(project(":fit_changes-be-common"))
+    implementation(project(":fit_changes-be-mapping"))
 }

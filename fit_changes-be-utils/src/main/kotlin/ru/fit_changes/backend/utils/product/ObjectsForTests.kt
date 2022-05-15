@@ -1,6 +1,7 @@
 package ru.fit_changes.backend.utils.product
 
 import ru.fit_changes.backend.common.product.models.*
+import ru.fit_changes.backend.mapping.product.toTransport
 import ru.fit_changes.openapi.models.CreatableProduct
 import ru.fit_changes.openapi.models.UpdatableProduct
 
@@ -68,3 +69,5 @@ val CHICKEN_THIGH_FILLED_MODEL = ProductModel(
     fatsPerHundredGrams = FatsModel(11.0),
     carbohydratesPerHundredGrams = CarbohydratesModel(0.0),
 )
+
+val BEEF_FILLED_RESPONSE = BEEF_FILLED_MODEL.toTransport()

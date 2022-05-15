@@ -1,12 +1,14 @@
 package ru.fit_changes.backend.mapping.product
 
 import ru.fit_changes.backend.common.context.BeContext
+import ru.fit_changes.backend.common.context.Operations
 import ru.fit_changes.backend.common.models.StubCases
 import ru.fit_changes.backend.common.models.WorkMode
 import ru.fit_changes.backend.common.product.models.*
 import ru.fit_changes.openapi.models.*
 
 fun BeContext.setQuery(query: CreateProductRequest) = apply {
+    operation = Operations.CREATE
     requestId = query.requestId ?: ""
     requestProduct = query.createProduct?.toModel() ?: ProductModel()
     stubCase = query.debug?.stubCase.toModel()
@@ -14,6 +16,7 @@ fun BeContext.setQuery(query: CreateProductRequest) = apply {
 }
 
 fun BeContext.setQuery(query: ReadProductRequest) = apply {
+    operation = Operations.READ
     requestId = query.requestId ?: ""
     requestProductId = ProductIdModel(query.readProductId ?: "")
     stubCase = query.debug?.stubCase.toModel()
@@ -21,6 +24,7 @@ fun BeContext.setQuery(query: ReadProductRequest) = apply {
 }
 
 fun BeContext.setQuery(query: UpdateProductRequest) = apply {
+    operation = Operations.UPDATE
     requestId = query.requestId ?: ""
     requestProduct = query.updateProduct?.toModel() ?: ProductModel()
     stubCase = query.debug?.stubCase.toModel()
@@ -28,6 +32,7 @@ fun BeContext.setQuery(query: UpdateProductRequest) = apply {
 }
 
 fun BeContext.setQuery(query: DeleteProductRequest) = apply {
+    operation = Operations.DELETE
     requestId = query.requestId ?: ""
     requestProductId = ProductIdModel(query.deleteProductId ?: "")
     stubCase = query.debug?.stubCase.toModel()
@@ -35,6 +40,7 @@ fun BeContext.setQuery(query: DeleteProductRequest) = apply {
 }
 
 fun BeContext.setQuery(query: SearchProductRequest) = apply {
+    operation = Operations.SEARCH
     requestId = query.requestId ?: ""
     requestProductFilter = query.query?.let { ProductSearchFilter(searchStr = it) } ?: ProductSearchFilter()
     stubCase = query.debug?.stubCase.toModel()
