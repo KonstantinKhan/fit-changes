@@ -39,6 +39,9 @@ class RepoProductInMemory(
         initObjects.forEach {
             save(it)
         }
+        cache.forEach {
+            println("В базу добавлена запись: ${it.value} ")
+        }
     }
 
     private fun save(item: ProductModel): DbProductResponse {
@@ -102,6 +105,7 @@ class RepoProductInMemory(
             )
         }
         if (errors.size > 0) {
+            errors.forEach { println(it.message) }
             return DbProductResponse(
                 result = null,
                 isSuccess = false,
