@@ -1,4 +1,4 @@
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Injectable} from "@angular/core";
 import {map, Observable} from "rxjs";
 import {Product} from "../shared/interfaces/product";
@@ -20,7 +20,11 @@ export class ProductService {
         },
       },
       {
-        responseType: "json"
+        responseType: "json",
+        // todo temporary token for testing
+        headers: new HttpHeaders({
+          Authorization: "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJwcm9kdWN0LXVzZXJzIiwiaXNzIjoiaHR0cDovLzAuMC4wLjA6ODA4MC8iLCJncm91cHMiOlsiVVNFUiIsIlRFU1QiXSwiZXhwIjoxNjcyNTMxMjAwfQ.Nhxc4RGba6ppuGfM_wIrejRSoS5K6_1C9604n-7LF_o"
+        })
       }).pipe(
       map(response => {
         let products: Product[] = []
