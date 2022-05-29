@@ -55,6 +55,7 @@ fun Application.module(
         allowHost("localhost:4200")
         allowHeader(HttpHeaders.AccessControlAllowOrigin)
         allowHeader(HttpHeaders.ContentType)
+        allowHeader(HttpHeaders.Authorization)
     }
 
     install(ContentNegotiation) {
