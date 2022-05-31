@@ -1,7 +1,6 @@
 package ru.fit_changes.backend.app.ktor.product
 
-import com.auth0.jwt.JWT
-import com.auth0.jwt.algorithms.Algorithm
+import com.auth0.jwk.JwkProviderBuilder
 import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.databind.SerializationFeature
 import io.ktor.server.application.*
@@ -18,6 +17,8 @@ import ru.fit_changes.backend.app.ktor.product.configs.KtorAuthConfig.Companion.
 import ru.fit_changes.backend.app.ktor.product.routes.registerProductRoutesHttp
 import ru.fit_changes.backend.product.logics.ProductCrud
 import ru.fit_changes.backend.repo.product.IRepoProduct
+import java.net.URL
+import java.util.concurrent.TimeUnit
 
 fun main(args: Array<String>): Unit = EngineMain.main(args)
 
@@ -26,16 +27,20 @@ fun Application.module(
     config: AppKtorConfig = AppKtorConfig(environment)
 ) {
     val productService = ProductService(ProductCrud(config.contextConfig))
+
+    val jwkProvider = JwkProviderBuilder(URL("http://localhost:8080/realms/products/protocol/openid-connect/certs"))
+        .cached(10, 24, TimeUnit.HOURS)
+        .rateLimited(10, 1, TimeUnit.MINUTES)
+        .build()
+
     install(Authentication) {
         jwt("auth-jwt") {
             realm = config.auth.realm
             verifier(
-                JWT
-                    .require(Algorithm.HMAC256(config.auth.secret))
-                    .withAudience(config.auth.audience)
-                    .withIssuer(config.auth.issuer)
-                    .build()
-            )
+                jwkProvider, config.auth.issuer
+            ) {
+                acceptLeeway(3)
+            }
             validate { credential ->
                 when {
                     credential.payload.getClaim(GROUPS_CLAIM).asList(String::class.java).isNullOrEmpty() -> {
