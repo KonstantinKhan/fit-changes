@@ -7,6 +7,7 @@ import org.ehcache.config.builders.CacheManagerBuilder
 import org.ehcache.config.builders.ExpiryPolicyBuilder
 import org.ehcache.config.builders.ResourcePoolsBuilder
 import ru.fit_changes.backend.common.models.CommonErrorModel
+import ru.fit_changes.backend.common.product.models.AuthorIdModel
 import ru.fit_changes.backend.common.product.models.ProductIdModel
 import ru.fit_changes.backend.common.product.models.ProductModel
 import ru.fit_changes.backend.repo.product.*
@@ -38,6 +39,9 @@ class RepoProductInMemory(
     init {
         initObjects.forEach {
             save(it)
+        }
+        cache.forEach {
+            println("В базу добавлена запись: ${it.value} ")
         }
     }
 
@@ -102,6 +106,7 @@ class RepoProductInMemory(
             )
         }
         if (errors.size > 0) {
+            errors.forEach { println(it.message) }
             return DbProductResponse(
                 result = null,
                 isSuccess = false,
@@ -118,7 +123,8 @@ class RepoProductInMemory(
     override suspend fun create(req: DbProductModelRequest): DbProductResponse {
         return save(
             req.product.copy(
-                productId = ProductIdModel(UUID.randomUUID())
+                productId = ProductIdModel(UUID.randomUUID()),
+                authorId = AuthorIdModel(UUID.randomUUID())
             )
         )
     }

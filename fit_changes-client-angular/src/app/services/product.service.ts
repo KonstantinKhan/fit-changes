@@ -11,7 +11,7 @@ export class ProductService {
   }
 
   searchProducts(): Observable<Product[]> {
-    return this.http.post('http://localhost:8080/product/search', {
+    return this.http.post('http://localhost:8081/product/search', {
         messageType: "SearchProductRequest",
         requestId: "rID:0006",
         query: "",
@@ -20,7 +20,7 @@ export class ProductService {
         },
       },
       {
-        responseType: "json"
+        responseType: "json",
       }).pipe(
       map(response => {
         let products: Product[] = []
@@ -35,7 +35,7 @@ export class ProductService {
   }
 
   createProduct(product: Product): Observable<Product> {
-    return this.http.post<Product>('http://localhost:8080/product/create', {
+    return this.http.post<Product>('http://localhost:8081/product/create', {
       messageType: "CreateProductRequest",
       requestId: "rID:0001",
       createProduct: product,
@@ -47,7 +47,7 @@ export class ProductService {
   }
 
   deleteProduct(productId: string): Observable<Product> {
-    return this.http.post<Product>('http://localhost:8080/product/delete', {
+    return this.http.post<Product>('http://localhost:8081/product/delete', {
       messageType: "DeleteProductRequest",
       requestId: "rID:0002",
       deleteProductId: productId,

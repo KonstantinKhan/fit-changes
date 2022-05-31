@@ -1,4 +1,4 @@
-import {NgModule} from '@angular/core';
+import {APP_INITIALIZER, NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 
 import {AppRoutingModule} from './app-routing.module';
@@ -31,6 +31,8 @@ import {RippleModule} from "primeng/ripple";
 import {TableModule} from "primeng/table";
 import {ToolbarModule} from "primeng/toolbar";
 import {ProductCardTwinComponent} from "./products/components/product-card-twin/product-card-twin.component";
+import {initializeKeycloak} from "./init/keycloak-init.factory";
+import {KeycloakAngularModule, KeycloakService} from "keycloak-angular";
 
 @NgModule({
   declarations: [
@@ -52,6 +54,7 @@ import {ProductCardTwinComponent} from "./products/components/product-card-twin/
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    KeycloakAngularModule,
     BrowserAnimationsModule,
     MatToolbarModule,
     FlexLayoutModule,
@@ -69,7 +72,14 @@ import {ProductCardTwinComponent} from "./products/components/product-card-twin/
     TableModule,
     ToolbarModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: APP_INITIALIZER,
+      useFactory: initializeKeycloak,
+      multi: true,
+      deps: [KeycloakService]
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {
