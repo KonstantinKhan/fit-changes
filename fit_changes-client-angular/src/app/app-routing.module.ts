@@ -4,10 +4,11 @@ import {MainLayoutComponent} from "./shared/components/main-layout/main-layout.c
 import {HomePageComponent} from "./home-page/home-page.component";
 import {ProductsPageComponent} from "./products/components/products-page/products-page.component";
 import {DishesPageComponent} from "./dishes-page/dishes-page.component";
+import {AuthGuard} from "./guard/auth.guard";
 
 const routes: Routes = [
   {
-    path: '', component: MainLayoutComponent, children: [
+    path: '', component: MainLayoutComponent, canActivate: [AuthGuard], children: [
       {path: '', redirectTo: 'home', pathMatch: 'full'},
       {path: 'home', component: HomePageComponent},
       {path: 'products', component: ProductsPageComponent},
