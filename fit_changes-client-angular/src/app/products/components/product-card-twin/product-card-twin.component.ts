@@ -1,5 +1,6 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Product} from "../../../shared/interfaces/product";
+import {ProductService} from "../../../services/product.service";
 
 @Component({
   selector: 'app-product-card-twin',
@@ -9,6 +10,7 @@ import {Product} from "../../../shared/interfaces/product";
 export class ProductCardTwinComponent implements OnInit {
 
   @Input() product!: Product
+  @Output() deleteEvent = new EventEmitter<string>()
 
   constructor() {
   }
@@ -16,4 +18,7 @@ export class ProductCardTwinComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  deleteProduct() {
+    this.deleteEvent.emit(this.product.productId)
+  }
 }
