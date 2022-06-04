@@ -18,7 +18,6 @@ import {MatInputModule} from "@angular/material/input";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import {SearchInputComponent} from './shared/components/search-input/search-input.component';
-import {ProductCardComponent} from './products/components/product-card/product-card.component';
 import {MatCardModule} from "@angular/material/card";
 import {ChartModule} from "primeng/chart";
 import {EnergyStatisticComponent} from './shared/components/energy-statistic/energy-statistic.component'
@@ -42,7 +41,6 @@ import {KeycloakAngularModule, KeycloakService} from "keycloak-angular";
     ProductsPageComponent,
     DishesPageComponent,
     SearchInputComponent,
-    ProductCardComponent,
     EnergyStatisticComponent,
     SearchProductPipe,
     RationPageComponent,
