@@ -1,6 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Product} from "../../../shared/interfaces/product";
-import {ProductService} from "../../../services/product.service";
 
 @Component({
   selector: 'app-product-card-twin',
@@ -10,7 +9,8 @@ import {ProductService} from "../../../services/product.service";
 export class ProductCardTwinComponent implements OnInit {
 
   @Input() product!: Product
-  @Output() deleteEvent = new EventEmitter<string>()
+  @Output() deleteProductEvent = new EventEmitter<string>()
+  @Output() editProductEvent = new EventEmitter<Product>()
 
   constructor() {
   }
@@ -19,6 +19,10 @@ export class ProductCardTwinComponent implements OnInit {
   }
 
   deleteProduct() {
-    this.deleteEvent.emit(this.product.productId)
+    this.deleteProductEvent.emit(this.product.productId)
+  }
+
+  updateProduct() {
+    this.editProductEvent.emit(this.product)
   }
 }
