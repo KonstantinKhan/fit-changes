@@ -26,7 +26,6 @@ export class SearchInputComponent implements OnInit {
 
   testProducts: Product[] = [
     {
-      id: '0001',
       productName: "Филе куриное",
       caloriesPerHundredGrams: 110.0,
       proteinsPerHundredGrams: 21.0,
@@ -34,7 +33,6 @@ export class SearchInputComponent implements OnInit {
       carbohydratesPerHundredGrams: 0.0
     },
     {
-      id: '0002',
       productName: "Помидор",
       caloriesPerHundredGrams: 20.0,
       proteinsPerHundredGrams: 1.1,
@@ -42,7 +40,6 @@ export class SearchInputComponent implements OnInit {
       carbohydratesPerHundredGrams: 3.7
     },
     {
-      id: '0003',
       productName: "Гречка",
       caloriesPerHundredGrams: 313.0,
       proteinsPerHundredGrams: 12.6,
