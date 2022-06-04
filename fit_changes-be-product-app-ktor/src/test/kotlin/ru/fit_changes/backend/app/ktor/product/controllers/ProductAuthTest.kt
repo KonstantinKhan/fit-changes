@@ -62,9 +62,7 @@ class ProductAuthTest : RouterTest() {
         testPostRequest<CreateProductResponse>(
             body = request,
             uri = "product/create",
-            authConfig = KtorAuthConfig.TEST.copy(
-                secret = "other"
-            ),
+            authConfig = KtorAuthConfig.TEST.copy(),
             result = Unauthorized
         )
     }
