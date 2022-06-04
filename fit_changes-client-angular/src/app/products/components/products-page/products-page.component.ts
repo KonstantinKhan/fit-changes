@@ -104,7 +104,6 @@ export class ProductsPageComponent implements OnInit, OnDestroy {
     this.productService.deleteProduct(productId).subscribe(() => {
       this.productService.searchProducts().subscribe(products => {
         this.products = products
-        console.log("Deleted")
       })
     })
   }
