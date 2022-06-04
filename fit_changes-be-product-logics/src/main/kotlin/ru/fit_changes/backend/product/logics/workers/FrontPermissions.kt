@@ -15,7 +15,7 @@ fun ICorChain<BeContext>.frontPermissions(title: String) = chain {
     }
     addCorWorkerDsl {
         on {
-            responseProduct.authorId == principal.id
+            responseProduct.authorId == principal.authorId
         }
         handle {
             val addPermissions: Set<ProductPermissions> = principal.groups.map {
@@ -52,7 +52,7 @@ fun ICorChain<BeContext>.frontPermissions(title: String) = chain {
 
     addCorWorkerDsl {
         on {
-            responseProduct.authorId != principal.id
+            responseProduct.authorId != principal.authorId
         }
         handle {
             val addPermissions: Set<ProductPermissions> = principal.groups.map {
