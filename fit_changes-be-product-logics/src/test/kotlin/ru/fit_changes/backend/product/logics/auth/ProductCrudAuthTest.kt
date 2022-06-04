@@ -379,7 +379,7 @@ class ProductCrudAuthTest {
             workMode = WorkMode.TEST,
             requestProductId = ProductIdModel(PRODUCT_ID_0001),
             operation = Operations.DELETE,
-            principal = testUser().copy(id = AuthorIdModel(AUTHOR_ID_0002))
+            principal = testUser().copy(authorId = AuthorIdModel(AUTHOR_ID_0002))
         )
         runBlocking {
             crud.delete(context)
