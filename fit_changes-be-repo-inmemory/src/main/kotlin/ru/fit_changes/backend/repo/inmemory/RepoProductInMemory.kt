@@ -124,7 +124,7 @@ class RepoProductInMemory(
         return save(
             req.product.copy(
                 productId = ProductIdModel(UUID.randomUUID()),
-                authorId = AuthorIdModel(UUID.randomUUID())
+                authorId = req.product.authorId
             )
         )
     }
