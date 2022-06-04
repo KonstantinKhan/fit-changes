@@ -18,13 +18,15 @@
       <div *ngIf="product" class="column-products">
         <app-product-card-twin
           [product]="products[i]"
-          (deleteEvent)="deleteProduct($event)"
+          (deleteProductEvent)="deleteProduct($event)"
+          (editProductEvent)="editProduct($event)"
         ></app-product-card-twin>
       </div>
       <div *ngIf="i < products.length - 1" class="column-products">
         <app-product-card-twin
           [product]="products[i+1]"
-          (deleteEvent)="deleteProduct($event)"
+          (deleteProductEvent)="deleteProduct($event)"
+          (editProductEvent)="editProduct($event)"
         ></app-product-card-twin>
       </div>
     </div>
@@ -48,10 +50,16 @@
     <ng-template pTemplate="body" let-product let-rowIndex="rowIndex">
       <tr>
         <td fxHide.lt-md>{{rowIndex + 1}}</td>
+        <td fxHide.lt-md>{{product.productName}}</td>
         <td fxHide.lt-md>{{product.caloriesPerHundredGrams}}</td>
         <td fxHide.lt-md>{{product.proteinsPerHundredGrams}}</td>
         <td fxHide.lt-md>{{product.fatsPerHundredGrams}}</td>
         <td fxHide.lt-md>{{product.carbohydratesPerHundredGrams}}</td>
+        <div>
+          <p-button></p-button>
+          <p-button></p-button>
+          <p-button></p-button>
+        </div>
       </tr>
     </ng-template>
   </p-table>

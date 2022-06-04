@@ -28,36 +28,18 @@ export class ProductsPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-
     this.unSubs.push(this.productService.searchProducts().subscribe(products => this.products = products))
-
-    // this.products = [{
-    //   productName: "Куриное филе",
-    //   caloriesPerHundredGrams: 110.13,
-    //   proteinsPerHundredGrams: 231.111,
-    //   fatsPerHundredGrams: 200.50,
-    //   carbohydratesPerHundredGrams: 100.13
-    // },
-    //   {
-    //     productName: "Chicken",
-    //     caloriesPerHundredGrams: 110.0,
-    //     proteinsPerHundredGrams: 21.0,
-    //     fatsPerHundredGrams: 3.0,
-    //     carbohydratesPerHundredGrams: 0.0
-    //   },
-    //   {
-    //     productName: "Chicken",
-    //     caloriesPerHundredGrams: 110.0,
-    //     proteinsPerHundredGrams: 21.0,
-    //     fatsPerHundredGrams: 3.0,
-    //     carbohydratesPerHundredGrams: 0.0
-    //   }
-    // ]
-
   }
 
-  showModalCreateProduct() {
+  showModalCreateProduct(product: Product = {
+    productName: "",
+    caloriesPerHundredGrams: 0,
+    proteinsPerHundredGrams: 0,
+    fatsPerHundredGrams: 0,
+    carbohydratesPerHundredGrams: 0
+  }) {
     const component = this.dynamicModal.viewContainerRef.createComponent(ModalCreateProductComponent)
+    component.instance.product = product
     this.modalSubscriptions.push(component.instance.close
 
       // delay(250) добавлена, чтобы отображалась анимация перед закрытием модального окна.
@@ -96,10 +78,6 @@ export class ProductsPageComponent implements OnInit, OnDestroy {
       }))
   }
 
-
-  addProduct() {
-  }
-
   deleteProduct(productId: string) {
     this.productService.deleteProduct(productId).subscribe(() => {
       this.productService.searchProducts().subscribe(products => {
@@ -108,8 +86,8 @@ export class ProductsPageComponent implements OnInit, OnDestroy {
     })
   }
 
-  editProduct() {
-
+  editProduct(product: Product) {
+    this.showModalCreateProduct(product)
   }
 
   private modalUnsub() {
