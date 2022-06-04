@@ -7,6 +7,6 @@ import ru.fit_changes.backend.common.product.models.ProductModel
 
 fun ProductModel.resolveRelationsTo(principal: BePrincipalModel) = listOfNotNull(
     BePrincipalRelations.NONE.takeIf { productId == ProductIdModel.NONE },
-    BePrincipalRelations.AUTHOR.takeIf { principal.id == authorId },
-    BePrincipalRelations.PUBLIC.takeIf { principal.id != authorId }
+    BePrincipalRelations.AUTHOR.takeIf { principal.authorId == authorId },
+    BePrincipalRelations.PUBLIC.takeIf { principal.authorId != authorId }
 ).toSet()

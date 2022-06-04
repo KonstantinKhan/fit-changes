@@ -16,10 +16,16 @@
   <div fxShow fxHide.gt-sm *ngFor="let product of products; let i = index, let even = even">
     <div *ngIf="even" class="row-products">
       <div *ngIf="product" class="column-products">
-        <app-product-card-twin [product]="products[i]"></app-product-card-twin>
+        <app-product-card-twin
+          [product]="products[i]"
+          (deleteEvent)="deleteProduct($event)"
+        ></app-product-card-twin>
       </div>
       <div *ngIf="i < products.length - 1" class="column-products">
-        <app-product-card-twin [product]="products[i+1]"></app-product-card-twin>
+        <app-product-card-twin
+          [product]="products[i+1]"
+          (deleteEvent)="deleteProduct($event)"
+        ></app-product-card-twin>
       </div>
     </div>
 

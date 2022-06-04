@@ -18,7 +18,7 @@ private fun testToken(authConfig: KtorAuthConfig, year: Int, vararg groups: Stri
     .withAudience(authConfig.audience)
     .withIssuer(authConfig.issuer)
     .withArrayClaim(KtorAuthConfig.GROUPS_CLAIM, groups)
-    .sign(Algorithm.HMAC256(authConfig.secret))
+    .sign(Algorithm.HMAC256(""))
     .apply {
         println("Test JWT token: $this")
     }
