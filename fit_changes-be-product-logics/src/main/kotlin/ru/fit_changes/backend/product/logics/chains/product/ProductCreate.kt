@@ -22,7 +22,7 @@ object ProductCreate : ICorExecutor<BeContext> by chain<BeContext>({
             status == CorStatus.RUNNING
         }
         handle {
-            dbProduct.authorId = principal.id
+            dbProduct.authorId = principal.authorId
         }
     }
     accessCalculation("Calculating access")
