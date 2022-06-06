@@ -6,11 +6,13 @@ import {DynamicModalLoader} from "../../../shared/directives/load-modal.directiv
 import {
   ModalCreateProductComponent
 } from "../../../shared/components/modal-create-product/modal-create-product.component";
+import {MessageService} from "primeng/api";
 
 @Component({
   selector: 'app-products-page',
   templateUrl: './products-page.component.html',
-  styleUrls: ['./products-page.component.scss']
+  styleUrls: ['./products-page.component.scss'],
+  providers: [MessageService]
 })
 export class ProductsPageComponent implements OnInit, OnDestroy {
 
@@ -23,7 +25,8 @@ export class ProductsPageComponent implements OnInit, OnDestroy {
   modalSubscriptions: Subscription[] = [];
 
   constructor(
-    private productService: ProductService
+    private productService: ProductService,
+    private messageService: MessageService
   ) {
   }
 
@@ -79,10 +82,17 @@ export class ProductsPageComponent implements OnInit, OnDestroy {
   }
 
   deleteProduct(productId: string) {
-    this.productService.deleteProduct(productId).subscribe(() => {
-      this.productService.searchProducts().subscribe(products => {
-        this.products = products
-      })
+    this.productService.deleteProduct(productId).subscribe({
+      next: (value) => {
+        this.productService.searchProducts().subscribe(products => {
+          this.products = products
+        })
+      },
+      error: (err) => {
+        console.log(err)
+        this.messageService.add({key: 'bc', severity: 'error', summary: 'Error', detail: err.error.errors[0].message})
+        // todo Добавить уведомление о запрете на удаление публичных записей.
+      }
     })
   }
 
