@@ -32,6 +32,7 @@ import {ToolbarModule} from "primeng/toolbar";
 import {ProductCardTwinComponent} from "./products/components/product-card-twin/product-card-twin.component";
 import {initializeKeycloak} from "./init/keycloak-init.factory";
 import {KeycloakAngularModule, KeycloakService} from "keycloak-angular";
+import {ToastModule} from "primeng/toast";
 
 @NgModule({
   declarations: [
@@ -68,7 +69,8 @@ import {KeycloakAngularModule, KeycloakService} from "keycloak-angular";
     ButtonModule,
     RippleModule,
     TableModule,
-    ToolbarModule
+    ToolbarModule,
+    ToastModule
   ],
   providers: [
     {
