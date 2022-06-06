@@ -1,5 +1,6 @@
 package ru.fit_changes.backend.app.ktor.product.helpers
 
+import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.auth.*
 import io.ktor.server.auth.jwt.*
@@ -18,7 +19,8 @@ suspend inline fun <reified T : BaseMessage, reified U : BaseMessage> Applicatio
     )
     try {
         val response = context.block(request)
-        respond(response)
+        val status: HttpStatusCode = if (context.errors.isEmpty()) HttpStatusCode.OK else HttpStatusCode.Forbidden
+        respond(status, response)
     } catch (e: Exception) {
         println("Exception: ${e.message}")
     }
