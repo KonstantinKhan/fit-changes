@@ -11,6 +11,7 @@ export class ProductCardTwinComponent implements OnInit {
   @Input() product!: Product
   @Output() deleteProductEvent = new EventEmitter<string>()
   @Output() editProductEvent = new EventEmitter<Product>()
+  @Output() addToDietEvent = new EventEmitter<void>()
 
   constructor() {
   }
@@ -18,11 +19,17 @@ export class ProductCardTwinComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  deleteProduct() {
-    this.deleteProductEvent.emit(this.product.productId)
+  addToDiet() {
+    console.log("addToDiet()")
   }
 
   updateProduct() {
     this.editProductEvent.emit(this.product)
   }
+
+  deleteProduct() {
+    this.deleteProductEvent.emit(this.product.productId)
+  }
+
+
 }
