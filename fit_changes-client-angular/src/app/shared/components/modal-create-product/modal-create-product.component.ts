@@ -11,7 +11,6 @@ import {map, Subscription} from "rxjs";
 })
 export class ModalCreateProductComponent implements OnInit, OnDestroy {
 
-
   form!: FormGroup
   product: Product = {
     productName: "",
@@ -33,23 +32,31 @@ export class ModalCreateProductComponent implements OnInit, OnDestroy {
 
     this.form = new FormGroup(
       {
-        productName: new FormControl(''),
-        productCalories: new FormControl('', [
-          Validators.required,
-          ProductValidators.maxValue(900),
-        ]),
-        productProteins: new FormControl('', [
-          Validators.required,
-          ProductValidators.maxValue(100),
-        ]),
-        productFats: new FormControl('', [
-          Validators.required,
-          ProductValidators.maxValue(100),
-        ]),
-        productCarbohydrates: new FormControl('', [
-          Validators.required,
-          ProductValidators.maxValue(100),
-        ])
+        productName: new FormControl(this.product.productName),
+        productCalories: new FormControl(
+          ModalCreateProductComponent.calculateValue(this.product.productId, this.product.caloriesPerHundredGrams),
+          [
+            Validators.required,
+            ProductValidators.maxValue(900),
+          ]),
+        productProteins: new FormControl(
+          ModalCreateProductComponent.calculateValue(this.product.productId, this.product.proteinsPerHundredGrams),
+          [
+            Validators.required,
+            ProductValidators.maxValue(100),
+          ]),
+        productFats: new FormControl(
+          ModalCreateProductComponent.calculateValue(this.product.productId, this.product.fatsPerHundredGrams),
+          [
+            Validators.required,
+            ProductValidators.maxValue(100),
+          ]),
+        productCarbohydrates: new FormControl(
+          ModalCreateProductComponent.calculateValue(this.product.productId, this.product.carbohydratesPerHundredGrams),
+          [
+            Validators.required,
+            ProductValidators.maxValue(100),
+          ])
       },
       [ProductValidators.calculating(this.product, 0.05)]
     )
@@ -128,7 +135,6 @@ export class ModalCreateProductComponent implements OnInit, OnDestroy {
 
   private static handleCommaBeginning(value: string): string {
     if (value.length == 1 && value.includes(',')) {
-      console.log('exist comma')
       return '0' + value
     }
     return value
@@ -189,6 +195,18 @@ export class ModalCreateProductComponent implements OnInit, OnDestroy {
       .replace(/[^\d,.]/g, '')
       .replace('.', ',')
       .replace(/(^[^,]*,)|,+/g, '$1')
+  }
+
+  private static calculateValue(productId: string | undefined, value: number): string {
+    if (productId == null) {
+      return ''
+    } else {
+      let result = value.toString().replace('.', ',')
+      if (!result.includes(',')) {
+        result = result + ',0'
+      }
+      return result
+    }
   }
 
   ngOnDestroy(): void {

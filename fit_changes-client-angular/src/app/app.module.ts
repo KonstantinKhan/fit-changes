@@ -18,7 +18,6 @@ import {MatInputModule} from "@angular/material/input";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import {SearchInputComponent} from './shared/components/search-input/search-input.component';
-import {ProductCardComponent} from './products/components/product-card/product-card.component';
 import {MatCardModule} from "@angular/material/card";
 import {ChartModule} from "primeng/chart";
 import {EnergyStatisticComponent} from './shared/components/energy-statistic/energy-statistic.component'
@@ -33,6 +32,7 @@ import {ToolbarModule} from "primeng/toolbar";
 import {ProductCardTwinComponent} from "./products/components/product-card-twin/product-card-twin.component";
 import {initializeKeycloak} from "./init/keycloak-init.factory";
 import {KeycloakAngularModule, KeycloakService} from "keycloak-angular";
+import {ToastModule} from "primeng/toast";
 
 @NgModule({
   declarations: [
@@ -42,7 +42,6 @@ import {KeycloakAngularModule, KeycloakService} from "keycloak-angular";
     ProductsPageComponent,
     DishesPageComponent,
     SearchInputComponent,
-    ProductCardComponent,
     EnergyStatisticComponent,
     SearchProductPipe,
     RationPageComponent,
@@ -70,7 +69,8 @@ import {KeycloakAngularModule, KeycloakService} from "keycloak-angular";
     ButtonModule,
     RippleModule,
     TableModule,
-    ToolbarModule
+    ToolbarModule,
+    ToastModule
   ],
   providers: [
     {

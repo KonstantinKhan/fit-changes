@@ -6,11 +6,13 @@ import {DynamicModalLoader} from "../../../shared/directives/load-modal.directiv
 import {
   ModalCreateProductComponent
 } from "../../../shared/components/modal-create-product/modal-create-product.component";
+import {MessageService} from "primeng/api";
 
 @Component({
   selector: 'app-products-page',
   templateUrl: './products-page.component.html',
-  styleUrls: ['./products-page.component.scss']
+  styleUrls: ['./products-page.component.scss'],
+  providers: [MessageService]
 })
 export class ProductsPageComponent implements OnInit, OnDestroy {
 
@@ -23,41 +25,24 @@ export class ProductsPageComponent implements OnInit, OnDestroy {
   modalSubscriptions: Subscription[] = [];
 
   constructor(
-    private productService: ProductService
+    private productService: ProductService,
+    private messageService: MessageService
   ) {
   }
 
   ngOnInit(): void {
-
     this.unSubs.push(this.productService.searchProducts().subscribe(products => this.products = products))
-
-    // this.products = [{
-    //   productName: "Куриное филе",
-    //   caloriesPerHundredGrams: 110.13,
-    //   proteinsPerHundredGrams: 231.111,
-    //   fatsPerHundredGrams: 200.50,
-    //   carbohydratesPerHundredGrams: 100.13
-    // },
-    //   {
-    //     productName: "Chicken",
-    //     caloriesPerHundredGrams: 110.0,
-    //     proteinsPerHundredGrams: 21.0,
-    //     fatsPerHundredGrams: 3.0,
-    //     carbohydratesPerHundredGrams: 0.0
-    //   },
-    //   {
-    //     productName: "Chicken",
-    //     caloriesPerHundredGrams: 110.0,
-    //     proteinsPerHundredGrams: 21.0,
-    //     fatsPerHundredGrams: 3.0,
-    //     carbohydratesPerHundredGrams: 0.0
-    //   }
-    // ]
-
   }
 
-  showModalCreateProduct() {
+  showModalCreateProduct(product: Product = {
+    productName: "",
+    caloriesPerHundredGrams: 0,
+    proteinsPerHundredGrams: 0,
+    fatsPerHundredGrams: 0,
+    carbohydratesPerHundredGrams: 0
+  }) {
     const component = this.dynamicModal.viewContainerRef.createComponent(ModalCreateProductComponent)
+    component.instance.product = product
     this.modalSubscriptions.push(component.instance.close
 
       // delay(250) добавлена, чтобы отображалась анимация перед закрытием модального окна.
@@ -96,20 +81,23 @@ export class ProductsPageComponent implements OnInit, OnDestroy {
       }))
   }
 
-
-  addProduct() {
-  }
-
   deleteProduct(productId: string) {
-    this.productService.deleteProduct(productId).subscribe(() => {
-      this.productService.searchProducts().subscribe(products => {
-        this.products = products
-      })
+    this.productService.deleteProduct(productId).subscribe({
+      next: (value) => {
+        this.productService.searchProducts().subscribe(products => {
+          this.products = products
+        })
+      },
+      error: (err) => {
+        console.log(err)
+        this.messageService.add({key: 'bc', severity: 'error', summary: 'Error', detail: err.error.errors[0].message})
+        // todo Добавить уведомление о запрете на удаление публичных записей.
+      }
     })
   }
 
-  editProduct() {
-
+  editProduct(product: Product) {
+    this.showModalCreateProduct(product)
   }
 
   private modalUnsub() {

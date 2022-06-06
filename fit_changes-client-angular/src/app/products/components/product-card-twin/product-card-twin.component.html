@@ -22,9 +22,13 @@
     </div>
     <div class="buttons-block">
       <button pButton pRipple type="button" icon="pi pi-arrow-up-right"
-              class="p-button-rounded p-button-success action-button"></button>
+              class="p-button-rounded p-button-success action-button"
+              (click)="addToDiet()"
+      ></button>
       <button pButton pRipple type="button" icon="pi pi-refresh"
-              class="p-button-rounded p-button-warning action-button"></button>
+              class="p-button-rounded p-button-warning action-button"
+              (click)="updateProduct()"
+      ></button>
       <button pButton pRipple type="button" icon="pi pi-trash"
               class="p-button-rounded p-button-danger action-button"
               (click)="deleteProduct()"
