@@ -10,11 +10,11 @@ export class ProductService {
   constructor(private http: HttpClient) {
   }
 
-  searchProducts(): Observable<Product[]> {
+  searchProducts(query: string = ""): Observable<Product[]> {
     return this.http.post('http://localhost:8081/product/search', {
         messageType: "SearchProductRequest",
         requestId: "rID:0006",
-        query: "",
+        query: query,
         debug: {
           mode: "test"
         },
