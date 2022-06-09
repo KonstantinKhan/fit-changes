@@ -17,7 +17,9 @@
       ></button>
     </ng-template>
   </p-toolbar>
-  <app-search-input></app-search-input>
+  <app-search-input
+    (queryEvent)="searchProduct($event)"
+  ></app-search-input>
   <div fxShow fxHide.gt-sm *ngFor="let product of products; let i = index, let even = even">
     <div *ngIf="even" class="row-products">
       <div *ngIf="product" class="column-products">

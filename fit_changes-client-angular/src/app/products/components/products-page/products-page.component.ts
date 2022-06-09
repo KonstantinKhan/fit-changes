@@ -126,4 +126,8 @@ export class ProductsPageComponent implements OnInit, OnDestroy {
       }
     })
   }
+
+  searchProduct(query: string) {
+    this.unSubs.push(this.productService.searchProducts(query).subscribe(products => this.products = products))
+  }
 }
