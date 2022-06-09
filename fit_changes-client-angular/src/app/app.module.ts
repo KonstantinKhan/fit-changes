@@ -33,6 +33,7 @@ import {ProductCardTwinComponent} from "./products/components/product-card-twin/
 import {initializeKeycloak} from "./init/keycloak-init.factory";
 import {KeycloakAngularModule, KeycloakService} from "keycloak-angular";
 import {ToastModule} from "primeng/toast";
+import {InputTextModule} from "primeng/inputtext";
 
 @NgModule({
   declarations: [
@@ -70,7 +71,8 @@ import {ToastModule} from "primeng/toast";
     RippleModule,
     TableModule,
     ToolbarModule,
-    ToastModule
+    ToastModule,
+    InputTextModule
   ],
   providers: [
     {
