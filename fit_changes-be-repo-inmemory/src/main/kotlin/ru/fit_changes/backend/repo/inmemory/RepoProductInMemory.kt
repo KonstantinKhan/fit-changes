@@ -203,7 +203,7 @@ class RepoProductInMemory(
         val foundProducts = mutableListOf<ProductModel>()
         cache.forEach { it ->
             it.takeIf {
-                it.value.productName?.lowercase()?.contains(req.query) == true
+                it.value.productName?.lowercase()?.contains(req.query.lowercase()) == true
             }?.let {
                 foundProducts.add(it.value.toInternal())
             }
