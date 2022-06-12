@@ -1,5 +1,9 @@
 package ru.fit_changes.backend.utils.product
 
+import ru.fit_changes.backend.common.models.CaloriesModel
+import ru.fit_changes.backend.common.models.CarbohydratesModel
+import ru.fit_changes.backend.common.models.FatsModel
+import ru.fit_changes.backend.common.models.ProteinsModel
 import ru.fit_changes.backend.common.product.models.*
 import ru.fit_changes.backend.mapping.product.toTransport
 import ru.fit_changes.openapi.models.*
@@ -12,6 +16,8 @@ const val PRODUCT_ID_0002 = "productID:0002"
 
 const val AUTHOR_ID_0001 = "authorID:0001"
 const val AUTHOR_ID_0002 = "authorID:0002"
+
+const val DATE_RATION = "2022-06-12T15:00:00.0Z"
 
 val BEEF_FILLED_CREATABLE_PRODUCT = CreatableProduct(
     productName = "Говядина",
@@ -72,33 +78,32 @@ val CHICKEN_THIGH_FILLED_MODEL = ProductModel(
 
 val BEEF_FILLED_RESPONSE = BEEF_FILLED_MODEL.toTransport()
 
+val CHICKEN_USED_PRODUCT = UsedProduct(
+    authorId = UUID.randomUUID().toString(),
+    category = null,
+    productName = "Филе куриной грудки",
+    caloriesPerHundredGrams = 110.0,
+    proteinsPerHundredGrams = 21.0,
+    fatsPerHundredGrams = 3.0,
+    carbohydratesPerHundredGrams = 0.0,
+    weight = 200.0,
+    parentProductId = UUID.randomUUID().toString(),
+    caloriesFact = 220.0,
+    proteinsFact = 42.0,
+    fatsFact = 6.0,
+    carbohydratesFact = 0.0
+)
+
 val MEAL = Meal(
     mealName = Meal.MealName.BREAKFAST,
     products = listOf(
-        UsedProduct(
-            authorId = UUID.randomUUID().toString(),
-            category = null,
-            productName = "Филе куриной грудки",
-            caloriesPerHundredGrams = 110.0,
-            proteinsPerHundredGrams = 21.0,
-            fatsPerHundredGrams = 3.0,
-            carbohydratesPerHundredGrams = 0.0,
-            productId = UUID.randomUUID().toString(),
-            weight = 200.0,
-            parentProductId = UUID.randomUUID().toString(),
-            caloriesFact = 220.0,
-            proteinsFact = 42.0,
-            fatsFact = 6.0,
-            carbohydratesFact = 0.0
-
-        )
+        CHICKEN_USED_PRODUCT
     )
-
 )
 
-val RATION = CreatableRation(
-    authorId = UUID.randomUUID().toString(),
-    dateRation = "12.06.2022",
+val CREATABLE_RATION_FILLED = CreatableRation(
+    authorId = AUTHOR_ID_0001,
+    dateRation = DATE_RATION,
     caloriesNorm = 2000.0,
     proteinsNorm = 100.0,
     fatsNorm = 50.0,
@@ -108,4 +113,26 @@ val RATION = CreatableRation(
     fatsFact = 56.0,
     carbohydratesFact = 240.0,
     meals = listOf(MEAL)
+)
+
+val CREATABLE_RATION_WITHOUT_CARBOHYDRATES = CreatableRation(
+    authorId = AUTHOR_ID_0001,
+    dateRation = DATE_RATION,
+    caloriesNorm = 2000.0,
+    proteinsNorm = 100.0,
+    fatsNorm = 50.0,
+    carbohydratesNorm = 200.0,
+    caloriesFact = 2200.0,
+    proteinsFact = 120.0,
+    fatsFact = 56.0,
+    carbohydratesFact = 240.0,
+    meals = listOf(
+        MEAL.copy(
+            products = listOf(
+                CHICKEN_USED_PRODUCT.copy(
+                    carbohydratesFact = null
+                )
+            )
+        )
+    )
 )
