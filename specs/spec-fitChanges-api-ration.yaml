@@ -123,11 +123,6 @@ components:
         dateRation:
           type: string
           format: date
-        products:
-          type: array
-          uniqueItems: false
-          items:
-            $ref: './spec-fitChanges-api-product.yaml#/components/schemas/CreatableProduct'
         caloriesNorm:
           type: number
           format: double
@@ -156,7 +151,8 @@ components:
           type: array
           uniqueItems: false
           items:
-            $ref: '#/components/schemas/Meals'
+            $ref: '#/components/schemas/Meal'
+
 
     UpdatableRation:
       type: object
@@ -169,13 +165,44 @@ components:
               type: string
               description: ID of the updated ration
 
-    Meals:
-      type: string
-      enum:
-        - breakfast
-        - lunch
-        - dinner
-        - snack
+    Meal:
+      type: object
+      properties:
+        mealName:
+          type: string
+          enum:
+            - breakfast
+            - lunch
+            - dinner
+            - snack
+        products:
+          type: array
+          uniqueItems: false
+          items:
+            $ref: '#/components/schemas/UsedProduct'
+
+    UsedProduct:
+      allOf:
+        - $ref: './spec-fitChanges-api-product.yaml#/components/schemas/UpdatableProduct'
+        - type: object
+          properties:
+            weight:
+              type: number
+              format: double
+            caloriesFact:
+              type: number
+              format: double
+            proteinsFact:
+              type: number
+              format: double
+            fatsFact:
+              type: number
+              format: double
+            carbohydratesFact:
+              type: number
+              format: double
+            parentProductId:
+              type: string
 
     CreateRationRequest:
       description: The structure to request for ration create
