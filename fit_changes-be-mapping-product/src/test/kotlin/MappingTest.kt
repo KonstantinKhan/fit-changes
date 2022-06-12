@@ -55,13 +55,13 @@ class MappingTest {
         assertEquals(REQUEST_ID_0001, response.requestId)
         assertEquals(CreateProductResponse.Result.SUCCESS, response.result)
         assertTrue(response.errors.isNullOrEmpty())
-        assertTrue(response.createProduct?.productName?.isNotBlank() ?: false)
-        assertEquals(187.0, response.createProduct?.caloriesPerHundredGrams)
-        assertEquals(18.9, response.createProduct?.proteinsPerHundredGrams)
-        assertEquals(12.4, response.createProduct?.fatsPerHundredGrams)
-        assertEquals(0.0, response.createProduct?.carbohydratesPerHundredGrams)
-        assertEquals(BEEF_FILLED_MODEL.productId.asString(), response.createProduct?.productId)
-        response.createProduct?.permissions?.let { assertContains(it, Permissions.CREATE) }
+        assertTrue(response.createdProduct?.productName?.isNotBlank() ?: false)
+        assertEquals(187.0, response.createdProduct?.caloriesPerHundredGrams)
+        assertEquals(18.9, response.createdProduct?.proteinsPerHundredGrams)
+        assertEquals(12.4, response.createdProduct?.fatsPerHundredGrams)
+        assertEquals(0.0, response.createdProduct?.carbohydratesPerHundredGrams)
+        assertEquals(BEEF_FILLED_MODEL.productId.asString(), response.createdProduct?.productId)
+        response.createdProduct?.permissions?.let { assertContains(it, Permissions.CREATE) }
     }
 
     @Test
@@ -75,7 +75,7 @@ class MappingTest {
         beContext.errors.add(CommonErrorModel())
         val response = beContext.toCreateProductResponse()
         println(response)
-        assertNull(response.createProduct)
+        assertNull(response.createdProduct)
     }
 
     @Test
