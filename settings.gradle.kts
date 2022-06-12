@@ -15,7 +15,8 @@ pluginManagement {
 
 include("fit_changes-be-transport-openapi-product")
 include("fit_changes-be-common")
-include("fit_changes-be-mapping")
+include("fit_changes-be-mapping-product")
+include("fit_changes-be-mapping-ration")
 include("fit_changes-be-utils")
 include("fit_changes-be-product-app-ktor")
 include("test_kafka")
