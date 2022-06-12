@@ -13,7 +13,7 @@ pluginManagement {
     }
 }
 
-include("fit_changes-be-transport-openapi")
+include("fit_changes-be-transport-openapi-product")
 include("fit_changes-be-common")
 include("fit_changes-be-mapping")
 include("fit_changes-be-utils")
@@ -25,3 +25,4 @@ include("fit_changes-be-cassandra")
 include("elasticsearch-test")
 include("fit_changes-be-repo-inmemory")
 include("fit_changes-be-repo-test")
+include("fit_changes-be-transport-openapi-ration")

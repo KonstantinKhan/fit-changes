@@ -2,8 +2,8 @@ package ru.fit_changes.backend.utils.product
 
 import ru.fit_changes.backend.common.product.models.*
 import ru.fit_changes.backend.mapping.product.toTransport
-import ru.fit_changes.openapi.models.CreatableProduct
-import ru.fit_changes.openapi.models.UpdatableProduct
+import ru.fit_changes.openapi.models.*
+import java.util.*
 
 const val REQUEST_ID_0001 = "requestID:0001"
 
@@ -71,3 +71,41 @@ val CHICKEN_THIGH_FILLED_MODEL = ProductModel(
 )
 
 val BEEF_FILLED_RESPONSE = BEEF_FILLED_MODEL.toTransport()
+
+val MEAL = Meal(
+    mealName = Meal.MealName.BREAKFAST,
+    products = listOf(
+        UsedProduct(
+            authorId = UUID.randomUUID().toString(),
+            category = null,
+            productName = "Филе куриной грудки",
+            caloriesPerHundredGrams = 110.0,
+            proteinsPerHundredGrams = 21.0,
+            fatsPerHundredGrams = 3.0,
+            carbohydratesPerHundredGrams = 0.0,
+            productId = UUID.randomUUID().toString(),
+            weight = 200.0,
+            parentProductId = UUID.randomUUID().toString(),
+            caloriesFact = 220.0,
+            proteinsFact = 42.0,
+            fatsFact = 6.0,
+            carbohydratesFact = 0.0
+
+        )
+    )
+
+)
+
+val RATION = CreatableRation(
+    authorId = UUID.randomUUID().toString(),
+    dateRation = "12.06.2022",
+    caloriesNorm = 2000.0,
+    proteinsNorm = 100.0,
+    fatsNorm = 50.0,
+    carbohydratesNorm = 200.0,
+    caloriesFact = 2200.0,
+    proteinsFact = 120.0,
+    fatsFact = 56.0,
+    carbohydratesFact = 240.0,
+    meals = listOf(MEAL)
+)

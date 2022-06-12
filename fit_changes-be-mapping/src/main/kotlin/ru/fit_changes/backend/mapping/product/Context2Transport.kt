@@ -11,7 +11,7 @@ fun BeContext.toCreateProductResponse() = CreateProductResponse(
     result = if (errors.find { it.level == IError.Level.ERROR } == null) CreateProductResponse.Result.SUCCESS
     else CreateProductResponse.Result.ERROR,
     errors = errors.takeIf { it.isNotEmpty() }?.map { it.toTransport() },
-    createProduct = responseProduct.takeIf {
+    createdProduct = responseProduct.takeIf {
         errors.isEmpty() &&
                 it != ProductModel()
     }?.toTransport()
@@ -47,7 +47,7 @@ fun BeContext.toDeleteProductResponse() = DeleteProductResponse(
     result = if (errors.find { it.level == IError.Level.ERROR } == null) DeleteProductResponse.Result.SUCCESS
     else DeleteProductResponse.Result.ERROR,
     errors = errors.takeIf { it.isNotEmpty() }?.map { it.toTransport() },
-    deleteProduct = responseProduct.takeIf {
+    deletedProduct = responseProduct.takeIf {
         errors.isEmpty() && it != ProductModel()
     }?.toTransport()
 )

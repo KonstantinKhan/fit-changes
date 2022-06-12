@@ -41,7 +41,7 @@ dependencies {
     implementation("io.ktor:ktor-server-content-negotiation-jvm:$ktorVersion")
     implementation("io.ktor:ktor-serialization-jackson:$ktorVersion")
     // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind
-    implementation("com.fasterxml.jackson.core:jackson-databind:2.13.2.2")
+    implementation("com.fasterxml.jackson.core:jackson-databind:2.13.3")
 
     implementation("io.ktor:ktor-server-auth:$ktorVersion")
     implementation("io.ktor:ktor-server-auth-jwt:$ktorVersion")
@@ -50,7 +50,7 @@ dependencies {
 
     implementation("org.apache.kafka:kafka-clients:$kafkaVersion")
 
-    implementation(project(":fit_changes-be-transport-openapi"))
+    implementation(project(":fit_changes-be-transport-openapi-product"))
     implementation(project(":fit_changes-be-common"))
     implementation(project(":fit_changes-be-product-service"))
     implementation(project(":fit_changes-be-product-logics"))

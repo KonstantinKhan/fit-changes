@@ -1,21 +1,21 @@
 openapi: 3.0.3
 info:
-  title: Product
-  description: 'Description of the transport model of the product'
+  title: Ration
+  description: Description of the transport model ot the ration
   version: 0.0.1
 paths:
   /create:
     post:
       tags:
-        - product
-      summary: Create a new product
-      operationId: createProduct
+        - ration
+      summary: Create a new ration
+      operationId: createRation
       requestBody:
-        description: The request object to create a new product
+        description: The request object to create a new ration
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/CreateProductRequest'
+              $ref: '#/components/schemas/CreateRationRequest'
         required: true
       responses:
         200:
@@ -23,19 +23,20 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CreateProductResponse'
+                $ref: '#/components/schemas/CreateRationResponse'
+
   /read:
     post:
       tags:
-        - product
-      summary: Get information about the product
-      operationId: readProduct
+        - ration
+      summary: Get information about the ration
+      operationId: readRation
       requestBody:
-        description: The request object to obtain information about the product
+        description: The request object to obtain information about the ration
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/ReadProductRequest'
+              $ref: '#/components/schemas/ReadRationRequest'
         required: true
       responses:
         200:
@@ -43,20 +44,20 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ReadProductResponse'
+                $ref: '#/components/schemas/ReadRationResponse'
 
   /update:
     post:
       tags:
-        - product
-      summary: Update the product
-      operationId: updateProduct
+        - ration
+      summary: Update the ration
+      operationId: updateRation
       requestBody:
-        description: The request object for product updating
+        description: The request object for ration updating
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/UpdateProductRequest'
+              $ref: '#/components/schemas/UpdateRationRequest'
         required: true
       responses:
         200:
@@ -64,102 +65,154 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/UpdateProductResponse'
+                $ref: '#/components/schemas/UpdateRationResponse'
 
   /delete:
     post:
       tags:
-        - product
-      summary: Delete the product
-      operationId: deleteProduct
+        - ration
+      summary: Delete the ration
+      operationId: deleteRation
       requestBody:
-        description: The request object to delete the product
+        description: The request object for delete ration
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/DeleteProductRequest'
-        required: true
+              $ref: '#/components/schemas/DeleteRationRequest'
       responses:
         200:
           description: All responses
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DeleteProductResponse'
+                $ref: '#/components/schemas/DeleteRationResponse'
+
 
   /search:
     post:
       tags:
-        - product
-      summary: Search the products
-      operationId: searchProducts
+        - ration
+      summary: Search the ration
+      operationId: searchRation
       requestBody:
-        description: The request object to search the products
+        description: The request object for search ration
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/SearchProductRequest'
-        required: true
+              $ref: '#/components/schemas/SearchRationRequest'
       responses:
         200:
           description: All responses
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SearchProductResponse'
+                $ref: '#/components/schemas/SearchRationResponse'
+
+
 
 components:
   schemas:
 
-    CreatableProduct:
+    CreatableRation:
       type: object
-      description: The structure with data about the product for a request to create
+      description: The structure with data about the ration for request to create
       properties:
         authorId:
           type: string
           description: Author ID
-        category:
+        dateRation:
           type: string
-          description: Category of product
-        productName:
-          type: string
-          description: Product name
-        caloriesPerHundredGrams:
+          format: date
+        caloriesNorm:
           type: number
           format: double
-          description: Product calorie content
-        proteinsPerHundredGrams:
+        proteinsNorm:
           type: number
           format: double
-          description: Product protein content
-        fatsPerHundredGrams:
+        fatsNorm:
           type: number
           format: double
-          description: Product fat content
-        carbohydratesPerHundredGrams:
+        carbohydratesNorm:
           type: number
           format: double
-          description: Product carbohydrate content
+        caloriesFact:
+          type: number
+          format: double
+        proteinsFact:
+          type: number
+          format: double
+        fatsFact:
+          type: number
+          format: double
+        carbohydratesFact:
+          type: number
+          format: double
+        meals:
+          type: array
+          uniqueItems: false
+          items:
+            $ref: '#/components/schemas/Meal'
 
-    UpdatableProduct:
-      description: Structure for a data about the product for a request to update
+
+    UpdatableRation:
+      type: object
+      description: The structure for data about the ration to request for a request to update
       allOf:
-        - $ref: '#/components/schemas/CreatableProduct'
+        - $ref: '#/components/schemas/CreatableRation'
         - type: object
           properties:
-            productId:
+            rationId:
               type: string
-              description: ID of the updated object
+              description: ID of the updated ration
 
-    CreateProductRequest:
-      description: The structure to request for product create
+    Meal:
+      type: object
+      properties:
+        mealName:
+          type: string
+          enum:
+            - breakfast
+            - lunch
+            - dinner
+            - snack
+        products:
+          type: array
+          uniqueItems: false
+          items:
+            $ref: '#/components/schemas/UsedProduct'
+
+    UsedProduct:
+      allOf:
+        - $ref: './spec-fitChanges-api-product.yaml#/components/schemas/UpdatableProduct'
+        - type: object
+          properties:
+            weight:
+              type: number
+              format: double
+            caloriesFact:
+              type: number
+              format: double
+            proteinsFact:
+              type: number
+              format: double
+            fatsFact:
+              type: number
+              format: double
+            carbohydratesFact:
+              type: number
+              format: double
+            parentProductId:
+              type: string
+
+    CreateRationRequest:
+      description: The structure to request for ration create
       allOf:
         - $ref: './spec-fitChanges-api.yaml#/components/schemas/BaseMessage'
         - $ref: './spec-fitChanges-api.yaml#/components/schemas/BaseRequest'
         - type: object
           properties:
-            createProduct:
-              $ref: '#/components/schemas/CreatableProduct'
+            createRation:
+              $ref: '#/components/schemas/CreatableRation'
             debug:
               allOf:
                 - $ref: './spec-fitChanges-api.yaml#/components/schemas/BaseDebugRequest'
@@ -171,20 +224,20 @@ components:
                         - success
                         - error
 
-    CreateProductResponse:
-      description: The structure for responding to a request to create a product.
+    CreateRationResponse:
+      description: The structure for responding to a request to create a ration.
       allOf:
         - $ref: './spec-fitChanges-api.yaml#/components/schemas/BaseMessage'
         - $ref: './spec-fitChanges-api.yaml#/components/schemas/BaseResponse'
         - type: object
           properties:
-            createdProduct:
-              $ref: '#/components/schemas/ResponseProduct'
+            createdRation:
+              $ref: '#/components/schemas/ResponseRation'
 
-    ResponseProduct:
-      description: The structure describing the product in the response
+    ResponseRation:
+      description: The structure describing the ration in the response
       allOf:
-        - $ref: '#/components/schemas/UpdatableProduct'
+        - $ref: '#/components/schemas/UpdatableRation'
         - type: object
           properties:
             permissions:
@@ -193,14 +246,14 @@ components:
               items:
                 $ref: './spec-fitChanges-api.yaml#/components/schemas/Permissions'
 
-    ReadProductRequest:
-      description: The structure for get product information.
+    ReadRationRequest:
+      description: The structure for get ration information.
       allOf:
         - $ref: './spec-fitChanges-api.yaml#/components/schemas/BaseMessage'
         - $ref: './spec-fitChanges-api.yaml#/components/schemas/BaseRequest'
         - type: object
           properties:
-            readProductId:
+            readRationId:
               type: string
             debug:
               allOf:
@@ -211,27 +264,27 @@ components:
                       type: string
                       enum:
                         - success
-                        - emptyId
-                        - errorDb
-    ReadProductResponse:
-      description: The structure for responding to a request to read a product.
+                        - error
+
+    ReadRationResponse:
+      description: The structure for responding to a request to read a ration.
       allOf:
         - $ref: './spec-fitChanges-api.yaml#/components/schemas/BaseMessage'
         - $ref: './spec-fitChanges-api.yaml#/components/schemas/BaseResponse'
         - type: object
           properties:
-            readProduct:
-              $ref: '#/components/schemas/ResponseProduct'
+            readRation:
+              $ref: '#/components/schemas/ResponseRation'
 
-    UpdateProductRequest:
-      description: The structure to update the product information
+    UpdateRationRequest:
+      description: The structure to update the ration information
       allOf:
         - $ref: './spec-fitChanges-api.yaml#/components/schemas/BaseMessage'
         - $ref: './spec-fitChanges-api.yaml#/components/schemas/BaseRequest'
         - type: object
           properties:
-            updateProduct:
-              $ref: '#/components/schemas/UpdatableProduct'
+            updateRation:
+              $ref: '#/components/schemas/UpdatableRation'
             debug:
               allOf:
                 - $ref: './spec-fitChanges-api.yaml#/components/schemas/BaseDebugRequest'
@@ -241,27 +294,26 @@ components:
                       type: string
                       enum:
                         - success
-                        - emptyId
-                        - errorDb
+                        - error
 
-    UpdateProductResponse:
-      description: The structure for responding to a request to read a product.
+    UpdateRationResponse:
+      description: The structure for responding to a request to update a ration.
       allOf:
         - $ref: './spec-fitChanges-api.yaml#/components/schemas/BaseMessage'
         - $ref: './spec-fitChanges-api.yaml#/components/schemas/BaseResponse'
         - type: object
           properties:
-            updateProduct:
-              $ref: '#/components/schemas/ResponseProduct'
+            updatedRation:
+              $ref: '#/components/schemas/ResponseRation'
 
-    DeleteProductRequest:
-      description: The structure to request for delete product
+    DeleteRationRequest:
+      description: The structure for delete the ration
       allOf:
         - $ref: './spec-fitChanges-api.yaml#/components/schemas/BaseMessage'
         - $ref: './spec-fitChanges-api.yaml#/components/schemas/BaseRequest'
         - type: object
           properties:
-            deleteProductId:
+            deleteRationId:
               type: string
             debug:
               allOf:
@@ -272,21 +324,20 @@ components:
                       type: string
                       enum:
                         - success
-                        - emptyId
-                        - errorDb
+                        - error
 
-    DeleteProductResponse:
-      description: The structure for responding to a request to update the product
+    DeleteRationResponse:
+      description: The structure for responding to a request to delete the ration
       allOf:
         - $ref: './spec-fitChanges-api.yaml#/components/schemas/BaseMessage'
         - $ref: './spec-fitChanges-api.yaml#/components/schemas/BaseResponse'
         - type: object
           properties:
-            deletedProduct:
-              $ref: '#/components/schemas/ResponseProduct'
+            deletedRation:
+              $ref: '#/components/schemas/ResponseRation'
 
-    SearchProductRequest:
-      description: The structure for product search
+    SearchRationRequest:
+      description: The structure for ration search
       allOf:
         - $ref: './spec-fitChanges-api.yaml#/components/schemas/BaseMessage'
         - $ref: './spec-fitChanges-api.yaml#/components/schemas/BaseRequest'
@@ -303,17 +354,17 @@ components:
                       type: string
                       enum:
                         - success
-                        - emptyId
-                        - errorDb
+                        - error
 
-    SearchProductResponse:
-      description: The structure to respond to a request with query string
+    SearchRationResponse:
+      description: The structure for responding to a request to search the ration
       allOf:
         - $ref: './spec-fitChanges-api.yaml#/components/schemas/BaseMessage'
         - $ref: './spec-fitChanges-api.yaml#/components/schemas/BaseResponse'
         - type: object
           properties:
-            foundProducts:
+            foundRations:
               type: array
               items:
-                $ref: '#/components/schemas/ResponseProduct'
+                $ref: '#/components/schemas/ResponseRation'
+
