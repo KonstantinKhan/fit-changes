@@ -34,6 +34,10 @@ import {initializeKeycloak} from "./init/keycloak-init.factory";
 import {KeycloakAngularModule, KeycloakService} from "keycloak-angular";
 import {ToastModule} from "primeng/toast";
 import {InputTextModule} from "primeng/inputtext";
+import {CalendarModule} from "primeng/calendar";
+import {MomentPipe} from "./shared/pipes/moment.pipe";
+import { SelectorDateComponent } from './shared/components/selector-date/selector-date.component';
+import { CalendarComponent } from './shared/components/calendar/calendar.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +52,10 @@ import {InputTextModule} from "primeng/inputtext";
     RationPageComponent,
     ModalCreateProductComponent,
     DynamicModalLoader,
-    ProductCardTwinComponent
+    ProductCardTwinComponent,
+    MomentPipe,
+    SelectorDateComponent,
+    CalendarComponent
   ],
   imports: [
     BrowserModule,
@@ -72,7 +79,8 @@ import {InputTextModule} from "primeng/inputtext";
     TableModule,
     ToolbarModule,
     ToastModule,
-    InputTextModule
+    InputTextModule,
+    CalendarModule
   ],
   providers: [
     {
