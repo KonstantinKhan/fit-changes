@@ -1,0 +1,343 @@
+openapi: 3.0.3
+info:
+  title: Ration
+  description: Description of the transport model ot the ration
+  version: 0.0.1
+paths:
+  /create:
+    post:
+      tags:
+        - ration
+      summary: Create a new ration
+      operationId: createRation
+      requestBody:
+        description: The request object to create a new ration
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateRationRequest'
+        required: true
+      responses:
+        200:
+          description: All responses
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateRationResponse'
+
+  /read:
+    post:
+      tags:
+        - ration
+      summary: Get information about the ration
+      operationId: readRation
+      requestBody:
+        description: The request object to obtain information about the ration
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReadRationRequest'
+        required: true
+      responses:
+        200:
+          description: All responses
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReadRationResponse'
+
+  /update:
+    post:
+      tags:
+        - ration
+      summary: Update the ration
+      operationId: updateRation
+      requestBody:
+        description: The request object for ration updating
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateRationRequest'
+        required: true
+      responses:
+        200:
+          description: All responses
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateRationResponse'
+
+  /delete:
+    post:
+      tags:
+        - ration
+      summary: Delete the ration
+      operationId: deleteRation
+      requestBody:
+        description: The request object for delete ration
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeleteRationRequest'
+      responses:
+        200:
+          description: All responses
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteRationResponse'
+
+
+  /search:
+    post:
+      tags:
+        - ration
+      summary: Search the ration
+      operationId: searchRation
+      requestBody:
+        description: The request object for search ration
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SearchRationRequest'
+      responses:
+        200:
+          description: All responses
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SearchRationResponse'
+
+
+
+components:
+  schemas:
+
+    CreatableRation:
+      type: object
+      description: The structure with data about the ration for request to create
+      properties:
+        authorId:
+          type: string
+          description: Author ID
+        dateRation:
+          type: string
+          format: date
+        products:
+          type: array
+          uniqueItems: false
+          items:
+            $ref: './spec-fitChanges-api-product.yaml#/components/schemas/CreatableProduct'
+        caloriesNorm:
+          type: number
+          format: double
+        proteinsNorm:
+          type: number
+          format: double
+        fatsNorm:
+          type: number
+          format: double
+        carbohydratesNorm:
+          type: number
+          format: double
+        caloriesFact:
+          type: number
+          format: double
+        proteinsFact:
+          type: number
+          format: double
+        fatsFact:
+          type: number
+          format: double
+        carbohydratesFact:
+          type: number
+          format: double
+        meals:
+          type: array
+          uniqueItems: false
+          items:
+            $ref: '#/components/schemas/Meals'
+
+    UpdatableRation:
+      type: object
+      description: The structure for data about the ration to request for a request to update
+      allOf:
+        - $ref: '#/components/schemas/CreatableRation'
+        - type: object
+          properties:
+            rationId:
+              type: string
+              description: ID of the updated ration
+
+    Meals:
+      type: string
+      enum:
+        - breakfast
+        - lunch
+        - dinner
+        - snack
+
+    CreateRationRequest:
+      description: The structure to request for ration create
+      allOf:
+        - $ref: './spec-fitChanges-api.yaml#/components/schemas/BaseMessage'
+        - $ref: './spec-fitChanges-api.yaml#/components/schemas/BaseRequest'
+        - type: object
+          properties:
+            createRation:
+              $ref: '#/components/schemas/CreatableRation'
+            debug:
+              allOf:
+                - $ref: './spec-fitChanges-api.yaml#/components/schemas/BaseDebugRequest'
+                - type: object
+                  properties:
+                    stub:
+                      type: string
+                      enum:
+                        - success
+                        - error
+
+    CreateRationResponse:
+      description: The structure for responding to a request to create a ration.
+      allOf:
+        - $ref: './spec-fitChanges-api.yaml#/components/schemas/BaseMessage'
+        - $ref: './spec-fitChanges-api.yaml#/components/schemas/BaseResponse'
+        - type: object
+          properties:
+            createdRation:
+              $ref: '#/components/schemas/ResponseRation'
+
+    ResponseRation:
+      description: The structure describing the ration in the response
+      allOf:
+        - $ref: '#/components/schemas/UpdatableRation'
+        - type: object
+          properties:
+            permissions:
+              type: array
+              uniqueItems: true
+              items:
+                $ref: './spec-fitChanges-api.yaml#/components/schemas/Permissions'
+
+    ReadRationRequest:
+      description: The structure for get ration information.
+      allOf:
+        - $ref: './spec-fitChanges-api.yaml#/components/schemas/BaseMessage'
+        - $ref: './spec-fitChanges-api.yaml#/components/schemas/BaseRequest'
+        - type: object
+          properties:
+            readRationId:
+              type: string
+            debug:
+              allOf:
+                - $ref: './spec-fitChanges-api.yaml#/components/schemas/BaseDebugRequest'
+                - type: object
+                  properties:
+                    stub:
+                      type: string
+                      enum:
+                        - success
+                        - error
+
+    ReadRationResponse:
+      description: The structure for responding to a request to read a ration.
+      allOf:
+        - $ref: './spec-fitChanges-api.yaml#/components/schemas/BaseMessage'
+        - $ref: './spec-fitChanges-api.yaml#/components/schemas/BaseResponse'
+        - type: object
+          properties:
+            readRation:
+              $ref: '#/components/schemas/ResponseRation'
+
+    UpdateRationRequest:
+      description: The structure to update the ration information
+      allOf:
+        - $ref: './spec-fitChanges-api.yaml#/components/schemas/BaseMessage'
+        - $ref: './spec-fitChanges-api.yaml#/components/schemas/BaseRequest'
+        - type: object
+          properties:
+            updateRation:
+              $ref: '#/components/schemas/UpdatableRation'
+            debug:
+              allOf:
+                - $ref: './spec-fitChanges-api.yaml#/components/schemas/BaseDebugRequest'
+                - type: object
+                  properties:
+                    stub:
+                      type: string
+                      enum:
+                        - success
+                        - error
+
+    UpdateRationResponse:
+      description: The structure for responding to a request to update a ration.
+      allOf:
+        - $ref: './spec-fitChanges-api.yaml#/components/schemas/BaseMessage'
+        - $ref: './spec-fitChanges-api.yaml#/components/schemas/BaseResponse'
+        - type: object
+          properties:
+            updatedRation:
+              $ref: '#/components/schemas/ResponseRation'
+
+    DeleteRationRequest:
+      description: The structure for delete the ration
+      allOf:
+        - $ref: './spec-fitChanges-api.yaml#/components/schemas/BaseMessage'
+        - $ref: './spec-fitChanges-api.yaml#/components/schemas/BaseRequest'
+        - type: object
+          properties:
+            deleteRationId:
+              type: string
+            debug:
+              allOf:
+                - $ref: './spec-fitChanges-api.yaml#/components/schemas/BaseDebugRequest'
+                - type: object
+                  properties:
+                    stub:
+                      type: string
+                      enum:
+                        - success
+                        - error
+
+    DeleteRationResponse:
+      description: The structure for responding to a request to delete the ration
+      allOf:
+        - $ref: './spec-fitChanges-api.yaml#/components/schemas/BaseMessage'
+        - $ref: './spec-fitChanges-api.yaml#/components/schemas/BaseResponse'
+        - type: object
+          properties:
+            deletedRation:
+              $ref: '#/components/schemas/ResponseRation'
+
+    SearchRationRequest:
+      description: The structure for ration search
+      allOf:
+        - $ref: './spec-fitChanges-api.yaml#/components/schemas/BaseMessage'
+        - $ref: './spec-fitChanges-api.yaml#/components/schemas/BaseRequest'
+        - type: object
+          properties:
+            query:
+              type: string
+            debug:
+              allOf:
+                - $ref: './spec-fitChanges-api.yaml#/components/schemas/BaseDebugRequest'
+                - type: object
+                  properties:
+                    stub:
+                      type: string
+                      enum:
+                        - success
+                        - error
+
+    SearchRationResponse:
+      description: The structure for responding to a request to search the ration
+      allOf:
+        - $ref: './spec-fitChanges-api.yaml#/components/schemas/BaseMessage'
+        - $ref: './spec-fitChanges-api.yaml#/components/schemas/BaseResponse'
+        - type: object
+          properties:
+            foundRations:
+              type: array
+              items:
+                $ref: '#/components/schemas/ResponseRation'
+
