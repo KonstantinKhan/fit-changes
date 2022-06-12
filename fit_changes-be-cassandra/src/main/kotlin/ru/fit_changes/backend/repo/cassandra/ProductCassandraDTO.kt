@@ -5,6 +5,7 @@ import com.datastax.oss.driver.api.mapper.annotations.CqlName
 import com.datastax.oss.driver.api.mapper.annotations.Entity
 import com.datastax.oss.driver.api.mapper.annotations.PartitionKey
 import com.datastax.oss.driver.api.querybuilder.SchemaBuilder
+import ru.fit_changes.backend.common.models.*
 import ru.fit_changes.backend.common.product.models.*
 
 @Entity

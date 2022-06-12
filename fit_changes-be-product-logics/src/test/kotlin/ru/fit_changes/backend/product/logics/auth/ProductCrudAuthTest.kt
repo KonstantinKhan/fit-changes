@@ -5,6 +5,9 @@ import ru.fit_changes.backend.common.context.BeContext
 import ru.fit_changes.backend.common.context.ContextConfig
 import ru.fit_changes.backend.common.context.CorStatus
 import ru.fit_changes.backend.common.context.Operations
+import ru.fit_changes.backend.common.models.AuthorIdModel
+import ru.fit_changes.backend.common.models.CaloriesModel
+import ru.fit_changes.backend.common.models.ProteinsModel
 import ru.fit_changes.backend.common.models.WorkMode
 import ru.fit_changes.backend.common.models.enums.BePrincipalRelations
 import ru.fit_changes.backend.common.product.models.*

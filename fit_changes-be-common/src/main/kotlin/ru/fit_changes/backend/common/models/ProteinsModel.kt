@@ -1,4 +1,4 @@
-package ru.fit_changes.backend.common.product.models
+package ru.fit_changes.backend.common.models
 
 @JvmInline
 value class ProteinsModel(private val proteins: Double) {

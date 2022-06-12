@@ -1,5 +1,6 @@
 package ru.fit_changes.backend.common.product.models
 
+import ru.fit_changes.backend.common.models.*
 import ru.fit_changes.backend.common.models.enums.BePrincipalRelations
 
 data class ProductModel(

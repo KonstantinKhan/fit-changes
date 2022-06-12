@@ -1,7 +1,7 @@
 package ru.fit_changes.backend.repo.cassandra
 
 import kotlinx.coroutines.future.await
-import ru.fit_changes.backend.common.models.CommonErrorModel
+import ru.fit_changes.backend.common.models.*
 import ru.fit_changes.backend.common.product.models.*
 import ru.fit_changes.backend.repo.product.*
 import java.util.*

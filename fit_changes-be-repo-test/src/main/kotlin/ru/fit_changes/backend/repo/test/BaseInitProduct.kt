@@ -1,5 +1,6 @@
 package ru.fit_changes.backend.repo.test
 
+import ru.fit_changes.backend.common.models.*
 import ru.fit_changes.backend.common.product.models.*
 import java.util.*
 

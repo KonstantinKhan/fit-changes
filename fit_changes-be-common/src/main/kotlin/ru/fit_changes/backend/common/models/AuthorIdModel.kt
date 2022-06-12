@@ -1,4 +1,4 @@
-package ru.fit_changes.backend.common.product.models
+package ru.fit_changes.backend.common.models
 
 import java.util.UUID
 

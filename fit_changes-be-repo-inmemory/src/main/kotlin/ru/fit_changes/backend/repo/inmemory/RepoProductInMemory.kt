@@ -7,7 +7,6 @@ import org.ehcache.config.builders.CacheManagerBuilder
 import org.ehcache.config.builders.ExpiryPolicyBuilder
 import org.ehcache.config.builders.ResourcePoolsBuilder
 import ru.fit_changes.backend.common.models.CommonErrorModel
-import ru.fit_changes.backend.common.product.models.AuthorIdModel
 import ru.fit_changes.backend.common.product.models.ProductIdModel
 import ru.fit_changes.backend.common.product.models.ProductModel
 import ru.fit_changes.backend.repo.product.*
