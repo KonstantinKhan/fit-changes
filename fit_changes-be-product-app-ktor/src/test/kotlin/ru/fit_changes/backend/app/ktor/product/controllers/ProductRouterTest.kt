@@ -23,9 +23,9 @@ class ProductRouterTest : RouterTest() {
             assertEquals(request.requestId, requestId)
             assertEquals(
                 BEEF_FILLED_RESPONSE.copy(
-                    productId = createProduct?.productId,
-                    authorId = createProduct?.authorId
-                ), createProduct
+                    productId = createdProduct?.productId,
+                    authorId = createdProduct?.authorId
+                ), createdProduct
             )
         }
     }
@@ -92,8 +92,8 @@ class ProductRouterTest : RouterTest() {
             assertEquals(request.requestId, requestId)
             assertEquals(
                 BEEF_FILLED_RESPONSE.copy(
-                    productId = deleteProduct?.productId
-                ), deleteProduct
+                    productId = deletedProduct?.productId
+                ), deletedProduct
             )
         }
     }
