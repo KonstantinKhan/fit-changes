@@ -1,0 +1,19 @@
+<div class="date-block">
+  <div class="selector">
+    <i class="pi pi-angle-left"
+       (click)="previousValue()"
+    ></i>
+    <span
+      (click)="showCalendar()"
+    >{{date | async | moment}}</span>
+    <i class="pi pi-angle-right"
+       (click)="nextValue()"
+    ></i>
+  </div>
+  <!--  <div class="calendar-block">-->
+  <app-calendar *ngIf="isShowCalendar" (selectEvent)="isShowCalendar = $event"></app-calendar>
+  <!--  </div>-->
+</div>
+
+
+
