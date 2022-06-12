@@ -28,10 +28,10 @@ paths:
     post:
       tags:
         - product
-      summary: Get information about an product
+      summary: Get information about the product
       operationId: readProduct
       requestBody:
-        description: The request object to obtain a product information
+        description: The request object to obtain information about the product
         content:
           application/json:
             schema:
@@ -113,11 +113,8 @@ components:
 
     CreatableProduct:
       type: object
-      description: The structure with data about the product to request about creation
+      description: The structure with data about the product for a request to create
       properties:
-        productId:
-          type: string
-          description: Product ID
         authorId:
           type: string
           description: Author ID
@@ -145,7 +142,7 @@ components:
           description: Product carbohydrate content
 
     UpdatableProduct:
-      description: Structure for a data about the product in request to update
+      description: Structure for a data about the product for a request to update
       allOf:
         - $ref: '#/components/schemas/CreatableProduct'
         - type: object
@@ -155,7 +152,7 @@ components:
               description: ID of the updated object
 
     CreateProductRequest:
-      description: The structure to request for create product
+      description: The structure to request for product create
       allOf:
         - $ref: './spec-fitChanges-api.yaml#/components/schemas/BaseMessage'
         - $ref: './spec-fitChanges-api.yaml#/components/schemas/BaseRequest'
@@ -175,13 +172,13 @@ components:
                         - error
 
     CreateProductResponse:
-      description: The structure to respond to a request about the declaration an product
+      description: The structure for responding to a request to create a product.
       allOf:
         - $ref: './spec-fitChanges-api.yaml#/components/schemas/BaseMessage'
         - $ref: './spec-fitChanges-api.yaml#/components/schemas/BaseResponse'
         - type: object
           properties:
-            createProduct:
+            createdProduct:
               $ref: '#/components/schemas/ResponseProduct'
 
     ResponseProduct:
@@ -197,7 +194,7 @@ components:
                 $ref: './spec-fitChanges-api.yaml#/components/schemas/Permissions'
 
     ReadProductRequest:
-      description: The structure to get product
+      description: The structure for get product information.
       allOf:
         - $ref: './spec-fitChanges-api.yaml#/components/schemas/BaseMessage'
         - $ref: './spec-fitChanges-api.yaml#/components/schemas/BaseRequest'
@@ -217,7 +214,7 @@ components:
                         - emptyId
                         - errorDb
     ReadProductResponse:
-      description: The structure to respond to a request with a product information
+      description: The structure for responding to a request to read a product.
       allOf:
         - $ref: './spec-fitChanges-api.yaml#/components/schemas/BaseMessage'
         - $ref: './spec-fitChanges-api.yaml#/components/schemas/BaseResponse'
@@ -227,7 +224,7 @@ components:
               $ref: '#/components/schemas/ResponseProduct'
 
     UpdateProductRequest:
-      description: The structure to update the product
+      description: The structure to update the product information
       allOf:
         - $ref: './spec-fitChanges-api.yaml#/components/schemas/BaseMessage'
         - $ref: './spec-fitChanges-api.yaml#/components/schemas/BaseRequest'
@@ -248,7 +245,7 @@ components:
                         - errorDb
 
     UpdateProductResponse:
-      description: The structure to respond to a request with an updating product information
+      description: The structure for responding to a request to read a product.
       allOf:
         - $ref: './spec-fitChanges-api.yaml#/components/schemas/BaseMessage'
         - $ref: './spec-fitChanges-api.yaml#/components/schemas/BaseResponse'
@@ -279,17 +276,17 @@ components:
                         - errorDb
 
     DeleteProductResponse:
-      description: The structure to respond to a request with a deleting product
+      description: The structure for responding to a request to update the product
       allOf:
         - $ref: './spec-fitChanges-api.yaml#/components/schemas/BaseMessage'
         - $ref: './spec-fitChanges-api.yaml#/components/schemas/BaseResponse'
         - type: object
           properties:
-            deleteProduct:
+            deletedProduct:
               $ref: '#/components/schemas/ResponseProduct'
 
     SearchProductRequest:
-      description: The structure to request for search products
+      description: The structure for product search
       allOf:
         - $ref: './spec-fitChanges-api.yaml#/components/schemas/BaseMessage'
         - $ref: './spec-fitChanges-api.yaml#/components/schemas/BaseRequest'

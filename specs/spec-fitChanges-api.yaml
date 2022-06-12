@@ -10,6 +10,8 @@ servers:
 tags:
   - name: product
     description: CRUDS for an product
+  - name: ration
+    description: CRUDS for a ration
 paths:
   /product/create:
     $ref: 'spec-fitChanges-api-product.yaml#/paths/~1create'
@@ -21,6 +23,16 @@ paths:
     $ref: 'spec-fitChanges-api-product.yaml#/paths/~1delete'
   /product/search:
     $ref: 'spec-fitChanges-api-product.yaml#/paths/~1search'
+  /ration/create:
+    $ref: '/spec-fitChanges-api-ration.yaml#/paths/~1create'
+  /ration/read:
+    $ref: '/spec-fitChanges-api-ration.yaml#/paths/~1read'
+  /ration/update:
+    $ref: '/spec-fitChanges-api-ration.yaml#/paths/~1create'
+  /ration/delete:
+    $ref: '/spec-fitChanges-api-ration.yaml#/paths/~1delete'
+  /ration/search:
+    $ref: '/spec-fitChanges-api-ration.yaml#/paths/~1search'
 
 components:
   schemas:
