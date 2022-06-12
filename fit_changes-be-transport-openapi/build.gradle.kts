@@ -8,7 +8,7 @@ openApiGenerate {
     generatorName.set("kotlin")
     packageName.set(openapiGroup)
     modelPackage.set("$openapiGroup.models")
-    inputSpec.set("$rootDir/specs/spec-fitChanges-api.yaml")
+    inputSpec.set("$rootDir/specs/spec-fitChanges-api-product.yaml")
 
     globalProperties.apply {
         put("models", "")
