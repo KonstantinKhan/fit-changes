@@ -50,7 +50,7 @@ dependencies {
 
     implementation("org.apache.kafka:kafka-clients:$kafkaVersion")
 
-    implementation(project(":fit_changes-be-transport-openapi"))
+    implementation(project(":fit_changes-be-transport-openapi-product"))
     implementation(project(":fit_changes-be-common"))
     implementation(project(":fit_changes-be-product-service"))
     implementation(project(":fit_changes-be-product-logics"))
