@@ -4,6 +4,7 @@ import ru.fit_changes.backend.common.models.*
 import ru.fit_changes.backend.common.product.models.ProductIdModel
 
 data class BeUsedProduct(
+    // todo Есть мнение, что id для продуктов внутри рациона вовсе не нужен
     val authorId: AuthorIdModel,
     val category: String,
     val productName: String,
