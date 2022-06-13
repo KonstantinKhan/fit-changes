@@ -1,6 +1,7 @@
 package ru.fit_changes.backend.mapping.product
 
 import ru.fit_changes.backend.common.context.BeContext
+import ru.fit_changes.backend.common.mappers.toTransport
 import ru.fit_changes.backend.common.models.*
 import ru.fit_changes.backend.common.product.models.*
 import ru.fit_changes.openapi.models.*
@@ -59,20 +60,4 @@ fun BeContext.toSearchProductResponse() = SearchProductResponse(
     else SearchProductResponse.Result.ERROR,
     errors = errors.takeIf { it.isNotEmpty() }?.map { it.toTransport() },
     foundProducts = foundProducts.takeIf { it.isNotEmpty() }?.map { it.toTransport() }
-)
-
-private fun IError.toTransport() = RequestError(
-    message = message.takeIf { it.isNotBlank() },
-    field = field.takeIf { it.isNotBlank() }
-)
-
-fun ProductModel.toTransport() = ResponseProduct(
-    productName = productName.takeIf { it.isNotBlank() },
-    caloriesPerHundredGrams = caloriesPerHundredGrams.takeIf { it != CaloriesModel.NONE }?.value,
-    proteinsPerHundredGrams = proteinsPerHundredGrams.takeIf { it != ProteinsModel.NONE }?.value,
-    fatsPerHundredGrams = fatsPerHundredGrams.takeIf { it != FatsModel.NONE }?.value,
-    carbohydratesPerHundredGrams = carbohydratesPerHundredGrams.takeIf { it != CarbohydratesModel.NONE }?.value,
-    productId = productId.takeIf { it != ProductIdModel.NONE }?.asString(),
-    permissions = permissions.takeIf { it.isNotEmpty() }?.map { Permissions.valueOf(it.name) }?.toSet(),
-    authorId = authorId.takeIf { it != AuthorIdModel.NONE }?.asString(),
 )
