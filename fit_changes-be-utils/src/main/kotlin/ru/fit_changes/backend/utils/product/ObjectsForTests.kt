@@ -1,12 +1,14 @@
 package ru.fit_changes.backend.utils.product
 
-import ru.fit_changes.backend.common.models.CaloriesModel
-import ru.fit_changes.backend.common.models.CarbohydratesModel
-import ru.fit_changes.backend.common.models.FatsModel
-import ru.fit_changes.backend.common.models.ProteinsModel
+import ru.fit_changes.backend.common.mappers.toTransport
+import ru.fit_changes.backend.common.models.*
+import ru.fit_changes.backend.common.models.enums.BeMealName
+import ru.fit_changes.backend.common.models.ration.BeMeal
+import ru.fit_changes.backend.common.models.ration.BeUsedProduct
+import ru.fit_changes.backend.common.models.ration.RationModel
 import ru.fit_changes.backend.common.product.models.*
-import ru.fit_changes.backend.mapping.product.toTransport
 import ru.fit_changes.openapi.models.*
+import java.time.Instant
 import java.util.*
 
 const val REQUEST_ID_0001 = "requestID:0001"
@@ -18,6 +20,7 @@ const val AUTHOR_ID_0001 = "authorID:0001"
 const val AUTHOR_ID_0002 = "authorID:0002"
 
 const val DATE_RATION = "2022-06-12T15:00:00.0Z"
+const val RATION_ID = "rationID:0001"
 
 val BEEF_FILLED_CREATABLE_PRODUCT = CreatableProduct(
     productName = "Говядина",
@@ -131,6 +134,57 @@ val CREATABLE_RATION_WITHOUT_CARBOHYDRATES = CreatableRation(
             products = listOf(
                 CHICKEN_USED_PRODUCT.copy(
                     carbohydratesFact = null
+                )
+            )
+        )
+    )
+)
+
+val UPDATABLE_RATION_FILLED = UpdatableRation(
+    authorId = AUTHOR_ID_0001,
+    dateRation = DATE_RATION,
+    caloriesNorm = 2000.0,
+    proteinsNorm = 100.0,
+    fatsNorm = 50.0,
+    carbohydratesNorm = 200.0,
+    caloriesFact = 2200.0,
+    proteinsFact = 120.0,
+    fatsFact = 56.0,
+    carbohydratesFact = 240.0,
+    meals = listOf(MEAL),
+    rationId = RATION_ID
+)
+
+val RATION_FILLED_MODEL = RationModel(
+    authorId = AuthorIdModel(AUTHOR_ID_0001),
+    dateRation = Instant.parse(DATE_RATION),
+    caloriesNorm = CaloriesModel(calories = 2000.0),
+    proteinsNorm = ProteinsModel(proteins = 100.0),
+    fatsNorm = FatsModel(fats = 50.0),
+    carbohydratesNorm = CarbohydratesModel(carbohydrates = 200.0),
+    caloriesFact = CaloriesModel(calories = 2200.0),
+    proteinsFact = ProteinsModel(proteins = 120.0),
+    fatsFact = FatsModel(fats = 56.0),
+    carbohydratesFact = CarbohydratesModel(carbohydrates = 240.0),
+    meals = mutableListOf(
+        BeMeal(
+            mealName = BeMealName.BREAKFAST,
+            usedProducts = mutableListOf(
+                BeUsedProduct(
+                    authorId = AuthorIdModel(AUTHOR_ID_0001),
+                    category = "",
+                    productName = "Филе куриной грудки",
+                    caloriesPerHundredGrams = CaloriesModel(calories = 110.0),
+                    proteinsPerHundredGrams = ProteinsModel(proteins = 21.0),
+                    fatsPerHundredGrams = FatsModel(fats = 3.0),
+                    carbohydratesPerHundredGrams = CarbohydratesModel(carbohydrates = 0.0),
+                    productId = ProductIdModel(PRODUCT_ID_0001),
+                    weight = 200.0,
+                    caloriesFact = CaloriesModel(calories = 220.0),
+                    proteinsFact = ProteinsModel(proteins = 42.0),
+                    fatsFact = FatsModel(fats = 6.0),
+                    carbohydratesFact = CarbohydratesModel(carbohydrates = 0.0),
+                    parentProductId = ProductIdModel(id = PRODUCT_ID_0002)
                 )
             )
         )
