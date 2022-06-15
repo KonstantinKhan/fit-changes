@@ -11,6 +11,7 @@ data class BeContextRation(
     var requestRation: RationModel = RationModel(),
     var requestRationId: RationIdModel = RationIdModel.NONE,
     var responseRation: RationModel = RationModel(),
+    var foundRations: List<RationModel> = mutableListOf(),
 
     var requestRationFilter: RationSearchFilter = RationSearchFilter(),
 
