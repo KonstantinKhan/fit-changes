@@ -40,7 +40,7 @@ fun UpdatableRation.toModel() = RationModel(
 )
 
 fun Meal.toModel() = BeMeal(
-    mealName = mealName?.value?.let { BeMealName.valueOf(it) } ?: BeMealName.NONE,
+    mealName = mealName?.name?.let { BeMealName.valueOf(it) } ?: BeMealName.NONE,
     usedProducts = products.takeIf { !it.isNullOrEmpty() }?.map { it.toModel() }?.toMutableList() ?: mutableListOf()
 )
 
@@ -68,7 +68,7 @@ fun RationModel.toTransport() = ResponseRation(
     caloriesNorm = caloriesNorm.takeIf { it != CaloriesModel.NONE }?.value,
     proteinsNorm = proteinsNorm.takeIf { it != ProteinsModel.NONE }?.value,
     fatsNorm = fatsNorm.takeIf { it != FatsModel.NONE }?.value,
-    carbohydratesNorm = caloriesNorm.takeIf { it != CaloriesModel.NONE }?.value,
+    carbohydratesNorm = carbohydratesNorm.takeIf { it != CarbohydratesModel.NONE }?.value,
     caloriesFact = caloriesFact.takeIf { it != CaloriesModel.NONE }?.value,
     proteinsFact = proteinsFact.takeIf { it != ProteinsModel.NONE }?.value,
     fatsFact = fatsFact.takeIf { it != FatsModel.NONE }?.value,
