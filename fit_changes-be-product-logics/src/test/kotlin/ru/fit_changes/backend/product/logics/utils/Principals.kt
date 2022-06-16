@@ -2,7 +2,7 @@ package ru.fit_changes.backend.product.logics.utils
 
 import ru.fit_changes.backend.common.models.BePrincipalModel
 import ru.fit_changes.backend.common.models.enums.BeUserGroups
-import ru.fit_changes.backend.common.product.models.AuthorIdModel
+import ru.fit_changes.backend.common.models.AuthorIdModel
 import ru.fit_changes.backend.utils.product.AUTHOR_ID_0001
 
 fun testUser(): BePrincipalModel = BePrincipalModel(

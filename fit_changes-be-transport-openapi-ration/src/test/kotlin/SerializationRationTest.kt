@@ -1,5 +1,5 @@
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
-import ru.fit_changes.backend.utils.product.RATION
+import ru.fit_changes.backend.utils.product.CREATABLE_RATION_FILLED
 import ru.fit_changes.backend.utils.product.REQUEST_ID_0001
 import ru.fit_changes.openapi.models.BaseMessage
 import ru.fit_changes.openapi.models.CreateRationRequest
@@ -12,7 +12,7 @@ class SerializationRationTest {
 
     private val createRation = CreateRationRequest(
         requestId = REQUEST_ID_0001,
-        createRation = RATION
+        createRation = CREATABLE_RATION_FILLED
     )
 
     private val readRation = ReadRationRequest(
