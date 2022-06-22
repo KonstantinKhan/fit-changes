@@ -1,6 +1,4 @@
-package ru.fit_changes.backend.product.logics
-
-import ru.fit_changes.backend.product.logics.handlers.CorChainDsl
+package ru.fit_changes.cor
 
 fun <T> chain(function: CorChainDsl<T>.() -> Unit) = CorChainDsl<T>().apply(function)
 

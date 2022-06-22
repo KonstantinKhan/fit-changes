@@ -4,8 +4,8 @@ import ru.fit_changes.backend.common.context.BeContext
 import ru.fit_changes.backend.common.context.CorStatus
 import ru.fit_changes.backend.common.models.enums.BeUserGroups
 import ru.fit_changes.backend.common.models.enums.BeUserPermissions
-import ru.fit_changes.backend.product.logics.ICorChain
-import ru.fit_changes.backend.product.logics.handlers.addCorWorkerDsl
+import ru.fit_changes.cor.ICorChain
+import ru.fit_changes.cor.addCorWorkerDsl
 
 fun ICorChain<BeContext>.permissionsCalculation(title: String) = addCorWorkerDsl {
     this.title = title

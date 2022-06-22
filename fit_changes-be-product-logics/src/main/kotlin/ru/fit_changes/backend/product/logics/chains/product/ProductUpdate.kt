@@ -2,10 +2,10 @@ package ru.fit_changes.backend.product.logics.chains.product
 
 import ru.fit_changes.backend.common.context.BeContext
 import ru.fit_changes.backend.common.context.Operations
-import ru.fit_changes.backend.product.logics.ICorExecutor
-import ru.fit_changes.backend.product.logics.chain
+import ru.fit_changes.cor.ICorExecutor
+import ru.fit_changes.cor.chain
 import ru.fit_changes.backend.product.logics.chains.stub.productUpdateStub
-import ru.fit_changes.backend.product.logics.handlers.worker
+import ru.fit_changes.cor.worker
 import ru.fit_changes.backend.product.logics.workers.*
 import ru.fit_changes.backend.product.logics.workers.chooseDb
 

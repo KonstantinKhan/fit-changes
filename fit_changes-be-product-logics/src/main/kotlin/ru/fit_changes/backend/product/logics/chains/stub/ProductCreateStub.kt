@@ -6,9 +6,9 @@ import ru.fit_changes.backend.common.context.CorStatus
 import ru.fit_changes.backend.common.models.StubCases
 import ru.fit_changes.backend.common.models.AuthorIdModel
 import ru.fit_changes.backend.common.product.models.ProductIdModel
-import ru.fit_changes.backend.product.logics.handlers.CorChainDsl
-import ru.fit_changes.backend.product.logics.handlers.addCorWorkerDsl
-import ru.fit_changes.backend.product.logics.handlers.chain
+import ru.fit_changes.cor.CorChainDsl
+import ru.fit_changes.cor.addCorWorkerDsl
+import ru.fit_changes.cor.chain
 import ru.fit_changes.backend.product.logics.workers.noMatchingStubs
 import ru.fit_changes.backend.utils.product.AUTHOR_ID_0001
 
