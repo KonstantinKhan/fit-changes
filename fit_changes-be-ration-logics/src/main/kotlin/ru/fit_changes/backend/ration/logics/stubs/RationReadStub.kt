@@ -18,7 +18,7 @@ fun CorChainDsl<BeContextRation>.rationReadStub(title: String) = addCorWorkerDsl
 
     handle {
         responseRation = RATION_FILLED_MODEL.copy(
-            rationId = RationIdModel(RATION_ID)
+            rationId = requestRationId
         )
     }
 }
