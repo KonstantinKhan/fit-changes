@@ -2,6 +2,7 @@ package ru.fit_changes.backend.common.context
 
 import ru.fit_changes.backend.common.models.*
 import ru.fit_changes.backend.common.models.enums.BeUserPermissions
+import ru.fit_changes.backend.common.models.enums.StubCases
 import ru.fit_changes.backend.common.product.models.ProductIdModel
 import ru.fit_changes.backend.common.product.models.ProductModel
 import ru.fit_changes.backend.common.product.models.ProductSearchFilter

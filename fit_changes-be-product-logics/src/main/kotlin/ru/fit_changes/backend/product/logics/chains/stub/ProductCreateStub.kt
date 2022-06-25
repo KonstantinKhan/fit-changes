@@ -3,7 +3,7 @@ package ru.fit_changes.backend.product.logics.chains.stub
 import ru.fit_changes.backend.utils.product.PRODUCT_ID_0001
 import ru.fit_changes.backend.common.context.BeContext
 import ru.fit_changes.backend.common.context.CorStatus
-import ru.fit_changes.backend.common.models.StubCases
+import ru.fit_changes.backend.common.models.enums.StubCases
 import ru.fit_changes.backend.common.models.AuthorIdModel
 import ru.fit_changes.backend.common.product.models.ProductIdModel
 import ru.fit_changes.cor.CorChainDsl
