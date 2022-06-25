@@ -6,14 +6,16 @@ import ru.fit_changes.backend.common.context.Operations
 import ru.fit_changes.cor.ICorChain
 import ru.fit_changes.cor.addCorWorkerDsl
 
-fun ICorChain<BeContext>.checkOperationWorker(title: String, targetOperation: Operations) = addCorWorkerDsl {
-    on {
-        operation != targetOperation
+fun ICorChain<BeContext>.checkOperationWorker(title: String, targetOperation: Operations) =
+    addCorWorkerDsl {
+        this.title = title
+        on {
+            operation != targetOperation
+        }
+        handle {
+            status = CorStatus.FAILING
+            addError(
+                t = Exception("Excepted $targetOperation but was $operation")
+            )
+        }
     }
-    handle {
-        status = CorStatus.FAILING
-        addError(
-            t = Exception("Excepted $targetOperation but was $operation")
-        )
-    }
-}
