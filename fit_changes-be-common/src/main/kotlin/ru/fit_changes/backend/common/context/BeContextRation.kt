@@ -22,9 +22,7 @@ data class BeContextRation(
     var requestRationFilter: RationSearchFilter = RationSearchFilter(),
 
     val errors: MutableList<IError> = mutableListOf(),
-
-
-    ) {
+) {
 
     fun addError(
         e: IError,
