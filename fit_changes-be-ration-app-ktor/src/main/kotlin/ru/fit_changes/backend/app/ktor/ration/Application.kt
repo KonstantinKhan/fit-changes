@@ -7,6 +7,7 @@ import io.ktor.server.application.*
 import io.ktor.server.netty.*
 import io.ktor.server.plugins.contentnegotiation.*
 import ru.fit_changes.backend.app.ktor.ration.routes.rationRoutes
+import ru.fit_changes.backend.ration.logics.RationCrud
 import ru.fit_changes.backend.ration.service.RationService
 
 fun main(args: Array<String>): Unit = EngineMain.main(args)
@@ -21,7 +22,7 @@ fun Application.module() {
         }
     }
 
-    val rationService = RationService()
+    val rationService = RationService(crud = RationCrud())
 
     rationRoutes(rationService)
 }
