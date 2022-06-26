@@ -11,6 +11,6 @@ dependencies {
     implementation("org.ehcache:ehcache:$ehcacheVersion")
 
     implementation(project(":fit_changes-be-common"))
-    implementation(project(":fit_changes-be-repo-test"))
+    implementation(project(":fit_changes-be-ration-repo-test"))
 
 }
