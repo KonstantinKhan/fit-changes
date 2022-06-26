@@ -3,6 +3,7 @@ package ru.fit_changes.backend.ration.repo.test
 import kotlinx.coroutines.runBlocking
 import ru.fit_changes.backend.common.models.AuthorIdModel
 import ru.fit_changes.backend.common.models.ration.RationIdModel
+import ru.fit_changes.backend.common.models.ration.RationModel
 import ru.fit_changes.backend.repo.ration.DbRationModelRequest
 import ru.fit_changes.backend.repo.ration.IRepoRation
 import ru.fit_changes.backend.utils.product.RATION_FILLED_MODEL
@@ -28,8 +29,6 @@ abstract class RepoRationCreateTest {
 
         val createObject = RATION_FILLED_MODEL
 
-        override val initObjects = listOf(
-            RATION_FILLED_MODEL
-        )
+        override val initObjects: List<RationModel> = emptyList()
     }
 }
