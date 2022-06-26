@@ -54,6 +54,7 @@ dependencies {
 
     implementation(project(":fit_changes-be-transport-openapi-ration"))
     implementation(project(":fit_changes-be-common"))
+    implementation(project(":fit_changes-be-ration-logics"))
 
     implementation(project(":fit_changes-be-utils"))
     testImplementation("io.ktor:ktor-server-tests-jvm:$ktorVersion")

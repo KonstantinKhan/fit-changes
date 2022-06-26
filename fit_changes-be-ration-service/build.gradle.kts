@@ -12,5 +12,6 @@ dependencies {
     implementation(project(":fit_changes-be-transport-openapi-ration"))
     implementation(project(":fit_changes-be-common"))
     implementation(project(":fit_changes-be-mapping-ration"))
+    implementation(project(":fit_changes-be-ration-logics"))
 
 }
