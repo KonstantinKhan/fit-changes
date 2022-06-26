@@ -10,11 +10,8 @@ suspend inline fun <reified T : BaseMessage, reified U : BaseMessage> Applicatio
     block: BeContextRation.(T) -> U
 ) {
     val request = receive<BaseMessage>() as T
-    println("request: $request")
     val context = BeContextRation()
 
     val response = context.block(request)
-    println("createdRation: ${context.responseRation}")
-    println("response: $response")
     respond(response)
 }
