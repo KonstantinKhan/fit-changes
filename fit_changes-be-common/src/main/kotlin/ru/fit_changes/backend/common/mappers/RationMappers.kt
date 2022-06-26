@@ -2,6 +2,7 @@ package ru.fit_changes.backend.common.mappers
 
 import ru.fit_changes.backend.common.models.*
 import ru.fit_changes.backend.common.models.enums.BeMealName
+import ru.fit_changes.backend.common.models.enums.StubCases
 import ru.fit_changes.backend.common.models.ration.BeMeal
 import ru.fit_changes.backend.common.models.ration.BeUsedProduct
 import ru.fit_changes.backend.common.models.ration.RationIdModel
@@ -99,3 +100,9 @@ fun BeUsedProduct.toTransport() = UsedProduct(
     carbohydratesFact = carbohydratesFact.takeIf { it != CarbohydratesModel.NONE }?.value,
     parentProductId = parentProductId.takeIf { it != ProductIdModel.NONE }?.asString()
 )
+
+fun BaseDebugRequest.StubCase?.toModel(): StubCases = when (this) {
+    BaseDebugRequest.StubCase.SUCCESS -> StubCases.SUCCESS
+    BaseDebugRequest.StubCase.DATABASE_ERROR -> StubCases.DATABASE_ERROR
+    null -> StubCases.NONE
+}
