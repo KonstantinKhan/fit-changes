@@ -33,3 +33,4 @@ include("fit_changes-be-transport-openapi-ration")
 include("fit_changes-cor")
 
 include("fit_changes-be-ration-repo-inmemory")
+include("fit_changes-be-ration-repo-test")
