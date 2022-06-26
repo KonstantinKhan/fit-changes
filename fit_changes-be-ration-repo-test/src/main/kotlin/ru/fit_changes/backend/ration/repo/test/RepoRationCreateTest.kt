@@ -16,7 +16,7 @@ abstract class RepoRationCreateTest {
 
     @Test
     fun createRationSuccess() {
-        val result = runBlocking { repo.create(DbRationModelRequest(createInitTestModel("create"))) }
+        val result = runBlocking { repo.create(DbRationModelRequest(createInitTestModel())) }
         val expected = createObject.copy(
             rationId = result.result?.rationId ?: RationIdModel.NONE,
             authorId = result.result?.authorId ?: AuthorIdModel.NONE
