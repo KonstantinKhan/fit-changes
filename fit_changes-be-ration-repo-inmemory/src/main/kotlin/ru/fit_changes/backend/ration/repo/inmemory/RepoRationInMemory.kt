@@ -74,4 +74,31 @@ class RepoRationInMemory(
         ),
         result = null
     )
+
+    override suspend fun update(req: DbRationModelRequest): DbRationResponse {
+        val key = req.ration.rationId.takeIf { it != RationIdModel.NONE }?.asString() ?: return DbRationResponse(
+            isSuccess = false,
+            errors = listOf(
+                CommonErrorModel(
+                    field = "id",
+                    message = "Id must not be null or blank"
+                )
+            ),
+            result = null
+        )
+        return if (cache.containsKey(key))
+            save(req.ration)
+        else {
+            DbRationResponse(
+                isSuccess = false,
+                errors = listOf(
+                    CommonErrorModel(
+                        field = "id",
+                        message = "Id not found"
+                    )
+                ),
+                result = null
+            )
+        }
+    }
 }
