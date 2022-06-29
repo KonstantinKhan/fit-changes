@@ -9,10 +9,7 @@ import org.ehcache.config.builders.ResourcePoolsBuilder
 import ru.fit_changes.backend.common.models.CommonErrorModel
 import ru.fit_changes.backend.common.models.ration.RationIdModel
 import ru.fit_changes.backend.common.models.ration.RationModel
-import ru.fit_changes.backend.repo.ration.DbRationIdRequest
-import ru.fit_changes.backend.repo.ration.DbRationModelRequest
-import ru.fit_changes.backend.repo.ration.DbRationResponse
-import ru.fit_changes.backend.repo.ration.IRepoRation
+import ru.fit_changes.backend.repo.ration.*
 import java.time.Duration
 import java.util.*
 
@@ -128,5 +125,9 @@ class RepoRationInMemory(
             isSuccess = true,
             result = row.toInternal()
         )
+    }
+
+    override suspend fun search(req: DbRationFilterRequest): DbRationsResponse {
+        TODO("Not yet implemented")
     }
 }
