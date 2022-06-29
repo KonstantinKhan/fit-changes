@@ -101,4 +101,32 @@ class RepoRationInMemory(
             )
         }
     }
+
+    override suspend fun delete(req: DbRationIdRequest): DbRationResponse {
+        val key = req.id.takeIf { it != RationIdModel.NONE }?.asString() ?: return DbRationResponse(
+            isSuccess = false,
+            errors = listOf(
+                CommonErrorModel(
+                    field = "id",
+                    message = "Id must not be null or empty"
+                )
+            ),
+            result = null
+        )
+        val row = cache.get(key) ?: return DbRationResponse(
+            isSuccess = false,
+            errors = listOf(
+                CommonErrorModel(
+                    field = "id",
+                    message = "Id not found"
+                )
+            ),
+            result = null
+        )
+        cache.remove(key)
+        return DbRationResponse(
+            isSuccess = true,
+            result = row.toInternal()
+        )
+    }
 }
