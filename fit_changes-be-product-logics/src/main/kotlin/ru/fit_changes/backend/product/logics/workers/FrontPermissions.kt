@@ -5,7 +5,7 @@ import ru.fit_changes.backend.common.context.CorStatus
 import ru.fit_changes.backend.common.models.enums.BeUserGroups
 import ru.fit_changes.backend.common.product.models.ProductPermissions
 import ru.fit_changes.cor.ICorChain
-import ru.fit_changes.cor.addCorWorkerDsl
+import ru.fit_changes.cor.worker
 import ru.fit_changes.cor.chain
 
 fun ICorChain<BeContext>.frontPermissions(title: String) = chain {
@@ -13,7 +13,7 @@ fun ICorChain<BeContext>.frontPermissions(title: String) = chain {
     on {
         status == CorStatus.RUNNING
     }
-    addCorWorkerDsl {
+    worker {
         on {
             responseProduct.authorId == principal.authorId
         }
@@ -50,7 +50,7 @@ fun ICorChain<BeContext>.frontPermissions(title: String) = chain {
         }
     }
 
-    addCorWorkerDsl {
+    worker {
         on {
             responseProduct.authorId != principal.authorId
         }

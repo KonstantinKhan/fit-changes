@@ -5,7 +5,7 @@ import ru.fit_changes.backend.common.context.CorStatus
 import ru.fit_changes.backend.common.models.enums.StubCases
 import ru.fit_changes.backend.common.product.models.ProductModel
 import ru.fit_changes.cor.CorChainDsl
-import ru.fit_changes.cor.addCorWorkerDsl
+import ru.fit_changes.cor.worker
 import ru.fit_changes.cor.chain
 import ru.fit_changes.backend.product.logics.workers.noMatchingStubs
 
@@ -16,7 +16,7 @@ fun CorChainDsl<BeContext>.productUpdateStub(title: String) = chain {
                 &&
                 stubCase != StubCases.NONE
     }
-    addCorWorkerDsl {
+    worker {
         this.title = "Successful stubCase for UPDATE"
         on {
             status == CorStatus.RUNNING

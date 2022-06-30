@@ -7,7 +7,7 @@ import ru.fit_changes.backend.common.models.enums.StubCases
 import ru.fit_changes.backend.common.models.AuthorIdModel
 import ru.fit_changes.backend.common.product.models.ProductIdModel
 import ru.fit_changes.cor.CorChainDsl
-import ru.fit_changes.cor.addCorWorkerDsl
+import ru.fit_changes.cor.worker
 import ru.fit_changes.cor.chain
 import ru.fit_changes.backend.product.logics.workers.noMatchingStubs
 import ru.fit_changes.backend.utils.product.AUTHOR_ID_0001
@@ -20,7 +20,7 @@ internal fun CorChainDsl<BeContext>.productCreateStub(title: String) = chain {
                 stubCase != StubCases.NONE
     }
 
-    addCorWorkerDsl {
+    worker {
         this.title = "Successful stubCase for CREATE"
         on {
             status == CorStatus.RUNNING

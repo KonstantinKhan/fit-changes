@@ -1,6 +1,6 @@
 package ru.fit_changes.cor
 
-fun <T> ICorChain<T>.addCorWorkerDsl(function: CorWorkerDsl<T>.() -> Unit) {
+fun <T> ICorChain<T>.worker(function: CorWorkerDsl<T>.() -> Unit) {
     add(CorWorkerDsl<T>().apply(function))
 }
 

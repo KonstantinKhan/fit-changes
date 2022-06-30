@@ -6,7 +6,7 @@ import ru.fit_changes.backend.common.models.enums.StubCases
 import ru.fit_changes.backend.common.models.ration.RationIdModel
 import ru.fit_changes.backend.utils.product.RATION_ID
 import ru.fit_changes.cor.CorChainDsl
-import ru.fit_changes.cor.addCorWorkerDsl
+import ru.fit_changes.cor.worker
 import ru.fit_changes.cor.chain
 
 fun CorChainDsl<BeContextRation>.rationCreateStub(title: String) = chain {
@@ -15,7 +15,7 @@ fun CorChainDsl<BeContextRation>.rationCreateStub(title: String) = chain {
         status == CorStatus.RUNNING &&
                 stubCase != StubCases.NONE
     }
-    addCorWorkerDsl {
+    worker {
         this.title = "Successful stub case CREATE"
         on {
             stubCase == StubCases.SUCCESS

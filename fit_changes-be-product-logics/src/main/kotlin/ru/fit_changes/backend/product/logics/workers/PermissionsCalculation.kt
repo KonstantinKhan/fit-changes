@@ -5,9 +5,9 @@ import ru.fit_changes.backend.common.context.CorStatus
 import ru.fit_changes.backend.common.models.enums.BeUserGroups
 import ru.fit_changes.backend.common.models.enums.BeUserPermissions
 import ru.fit_changes.cor.ICorChain
-import ru.fit_changes.cor.addCorWorkerDsl
+import ru.fit_changes.cor.worker
 
-fun ICorChain<BeContext>.permissionsCalculation(title: String) = addCorWorkerDsl {
+fun ICorChain<BeContext>.permissionsCalculation(title: String) = worker {
     this.title = title
     description = "Permissions calculation for user"
     on {

@@ -7,9 +7,9 @@ import ru.fit_changes.backend.common.models.ration.RationIdModel
 import ru.fit_changes.backend.utils.product.RATION_FILLED_MODEL
 import ru.fit_changes.backend.utils.product.RATION_ID
 import ru.fit_changes.cor.CorChainDsl
-import ru.fit_changes.cor.addCorWorkerDsl
+import ru.fit_changes.cor.worker
 
-fun CorChainDsl<BeContextRation>.rationSearchStub(title: String) = addCorWorkerDsl {
+fun CorChainDsl<BeContextRation>.rationSearchStub(title: String) = worker {
     this.title = title
     on {
         status == CorStatus.RUNNING &&

@@ -4,9 +4,9 @@ import ru.fit_changes.backend.common.context.BeContextRation
 import ru.fit_changes.backend.common.context.CorStatus
 import ru.fit_changes.backend.common.models.enums.StubCases
 import ru.fit_changes.cor.CorChainDsl
-import ru.fit_changes.cor.addCorWorkerDsl
+import ru.fit_changes.cor.worker
 
-fun CorChainDsl<BeContextRation>.rationUpdateStub(title: String) = addCorWorkerDsl {
+fun CorChainDsl<BeContextRation>.rationUpdateStub(title: String) = worker {
     this.title = title
     on {
         status == CorStatus.RUNNING &&
