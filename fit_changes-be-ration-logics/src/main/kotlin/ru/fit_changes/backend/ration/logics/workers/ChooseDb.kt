@@ -11,8 +11,8 @@ fun CorChainDsl<BeContextRation>.chooseDb(title: String) = worker {
     handle {
         rationRepo = when (workMode) {
             WorkMode.PROD -> config.repoRationProd
-            WorkMode.STUB -> IRepoRation.NONE
             WorkMode.TEST -> config.repoRationTest
+            WorkMode.STUB -> IRepoRation.NONE
         }
     }
 }
