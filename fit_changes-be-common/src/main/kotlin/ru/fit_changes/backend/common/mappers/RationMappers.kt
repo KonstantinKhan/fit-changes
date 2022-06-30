@@ -106,3 +106,9 @@ fun BaseDebugRequest.StubCase?.toModel(): StubCases = when (this) {
     BaseDebugRequest.StubCase.DATABASE_ERROR -> StubCases.DATABASE_ERROR
     null -> StubCases.NONE
 }
+
+fun BaseDebugRequest.Mode?.toModel(): WorkMode = when (this) {
+    BaseDebugRequest.Mode.TEST -> WorkMode.TEST
+    BaseDebugRequest.Mode.STUB -> WorkMode.STUB
+    else -> WorkMode.PROD
+}
