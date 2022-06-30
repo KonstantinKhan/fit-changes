@@ -37,6 +37,9 @@ class RepoRationInMemory(
 
     init {
         initObjects.forEach { save(it) }
+        cache.forEach {
+            println("Был добавлен рацион: ${it.value.dateRation}")
+        }
     }
 
     private fun save(item: RationModel): DbRationResponse {
