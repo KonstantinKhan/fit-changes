@@ -3,6 +3,7 @@ package ru.fit_changes.backend.ration.repo.inmemory
 import ru.fit_changes.backend.common.models.*
 import ru.fit_changes.backend.common.models.ration.RationIdModel
 import ru.fit_changes.backend.common.models.ration.RationModel
+import java.io.Serializable
 import java.time.Instant
 
 data class RationRow(
@@ -18,7 +19,7 @@ data class RationRow(
     val fatsFact: Double? = null,
     val carbohydratesFact: Double? = null,
     val meals: List<RepoInMemoryMeal> = mutableListOf()
-) {
+): Serializable {
     constructor(internal: RationModel) : this(
         rationId = internal.rationId.takeIf { it != RationIdModel.NONE }?.asString(),
         authorId = internal.authorId.takeIf { it != AuthorIdModel.NONE }?.asString(),
