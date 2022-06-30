@@ -12,7 +12,12 @@ import ru.fit_changes.backend.ration.service.RationService
 
 fun main(args: Array<String>): Unit = EngineMain.main(args)
 
-fun Application.module() {
+fun Application.module(
+    config: AppKtorConfig = AppKtorConfig()
+) {
+    val rationService = RationService(crud = RationCrud())
+
+    rationRoutes(rationService)
 
     install(ContentNegotiation) {
         jackson {
@@ -21,8 +26,14 @@ fun Application.module() {
             writerWithDefaultPrettyPrinter()
         }
     }
+}
 
-    val rationService = RationService(crud = RationCrud())
-
-    rationRoutes(rationService)
+fun Application.contentNegotiation() {
+    install(ContentNegotiation) {
+        jackson {
+            disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES)
+            enable(SerializationFeature.INDENT_OUTPUT)
+            writerWithDefaultPrettyPrinter()
+        }
+    }
 }
