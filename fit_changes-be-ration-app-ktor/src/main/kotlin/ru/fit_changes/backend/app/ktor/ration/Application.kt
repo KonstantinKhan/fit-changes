@@ -16,16 +16,7 @@ fun Application.module(
     config: AppKtorConfig = AppKtorConfig()
 ) {
     val rationService = RationService(crud = RationCrud())
-
     rationRoutes(rationService)
-
-    install(ContentNegotiation) {
-        jackson {
-            disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES)
-            enable(SerializationFeature.INDENT_OUTPUT)
-            writerWithDefaultPrettyPrinter()
-        }
-    }
 }
 
 fun Application.contentNegotiation() {
