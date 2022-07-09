@@ -5,14 +5,15 @@ import io.ktor.client.request.*
 import io.ktor.http.*
 import io.ktor.server.config.*
 import io.ktor.server.testing.*
+import ru.fit_changes.backend.app.ktor.ration.test
 import ru.fit_changes.backend.common.mappers.toModel
 import ru.fit_changes.backend.common.models.ration.RationIdModel
 import ru.fit_changes.backend.utils.product.CREATABLE_RATION_FILLED
-import ru.fit_changes.openapi.models.BaseDebugRequest
-import ru.fit_changes.openapi.models.CreateRationRequest
-import ru.fit_changes.openapi.models.CreateRationResponse
+import ru.fit_changes.openapi.models.*
+import java.util.*
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertFalse
 import kotlin.test.assertTrue
 
 class RationRepoTest {
@@ -22,6 +23,10 @@ class RationRepoTest {
 
         environment {
             config = ApplicationConfig("test.conf")
+        }
+
+        application {
+            test(UUID.randomUUID().toString())
         }
 
         val expected = CREATABLE_RATION_FILLED.toModel()
@@ -38,10 +43,68 @@ class RationRepoTest {
             setBody(requestObject)
         }
         val responseObject = response.body<CreateRationResponse>()
+        println(responseObject)
         expected.rationId = responseObject.createdRation?.rationId?.let { RationIdModel(it) } ?: RationIdModel.NONE
         assertTrue(responseObject.errors.isNullOrEmpty())
         assertEquals(CreateRationResponse.Result.SUCCESS, responseObject.result)
         assertEquals(HttpStatusCode.OK, response.status)
         assertEquals(expected.rationId.asString(), responseObject.createdRation?.rationId)
+    }
+
+    @Test
+    fun addToDbFailure() = testApplication {
+        environment {
+            config = ApplicationConfig("test.conf")
+        }
+
+        val client = testClient()
+        val response = client.post("/ration/create") {
+            val requestObject = CreateRationRequest(
+                requestId = "rID:0001",
+                createRation = CREATABLE_RATION_FILLED.copy(
+                    caloriesFact = null
+                ),
+                debug = BaseDebugRequest(
+                    mode = BaseDebugRequest.Mode.TEST
+                )
+            )
+            contentType(ContentType.Application.Json)
+            setBody(requestObject)
+        }
+        val responseObject = response.body<CreateRationResponse>()
+        println(responseObject)
+        assertFalse(responseObject.errors.isNullOrEmpty())
+    }
+
+    @Test
+    fun readFromDb() = testApplication {
+
+        val requestRationId = UUID.randomUUID().toString()
+
+        environment {
+            config = ApplicationConfig("test.conf")
+        }
+
+        application {
+            test(requestRationId)
+        }
+
+        val client = testClient()
+        val response = client.post("/ration/read") {
+            val requestObject = ReadRationRequest(
+                requestId = "rID:0001",
+                readRationId = requestRationId,
+                debug = BaseDebugRequest(
+                    mode = BaseDebugRequest.Mode.TEST
+                )
+            )
+            contentType(ContentType.Application.Json)
+            setBody(requestObject)
+        }
+        val responseObject = response.body<ReadRationResponse>()
+
+        assertTrue(responseObject.errors.isNullOrEmpty())
+        assertEquals(HttpStatusCode.OK, response.status)
+        assertEquals(requestRationId, responseObject.readRation?.rationId)
     }
 }
