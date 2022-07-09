@@ -8,9 +8,10 @@ import io.ktor.server.netty.*
 import io.ktor.server.plugins.contentnegotiation.*
 import ru.fit_changes.backend.app.ktor.ration.routes.rationRoutes
 import ru.fit_changes.backend.common.context.RationContextConfig
+import ru.fit_changes.backend.common.models.ration.RationIdModel
 import ru.fit_changes.backend.ration.logics.RationCrud
-import ru.fit_changes.backend.ration.repo.inmemory.RepoRationInMemory
 import ru.fit_changes.backend.ration.service.RationService
+import ru.fit_changes.backend.utils.product.RATION_FILLED_MODEL
 
 fun main(args: Array<String>): Unit = EngineMain.main(args)
 
@@ -32,10 +33,18 @@ fun Application.contentNegotiation() {
 }
 
 fun Application.test(
-
+    requestRationId: String? = null
 ) {
     val config = RationContextConfig(
-        repoRationTest = RepoRationInMemory()
+        repoRationTest = testRepo {
+            rations {
+                ration {
+                    prototype = RATION_FILLED_MODEL.copy(
+                        rationId = requestRationId?.let { RationIdModel(it) }
+                            ?: RationIdModel.NONE)
+                }
+            }
+        }
     )
     val rationService = RationService(crud = RationCrud(config))
     rationRoutes(rationService)
