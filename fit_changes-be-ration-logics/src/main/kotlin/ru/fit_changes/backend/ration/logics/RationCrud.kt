@@ -10,19 +10,19 @@ class RationCrud(private val config: RationContextConfig = RationContextConfig()
     }
 
     suspend fun read(context: BeContextRation) {
-        RationRead.exec(context)
+        RationRead.exec(context.initSettings())
     }
 
     suspend fun update(context: BeContextRation) {
-        RationUpdate.exec(context)
+        RationUpdate.exec(context.initSettings())
     }
 
     suspend fun delete(context: BeContextRation) {
-        RationDelete.exec(context)
+        RationDelete.exec(context.initSettings())
     }
 
     suspend fun search(context: BeContextRation) {
-        RationSearch.exec(context)
+        RationSearch.exec(context.initSettings())
     }
 
     private fun BeContextRation.initSettings() = apply {
