@@ -1,11 +1,12 @@
 package ru.fit_changes.backend.ration.logics
 
 import ru.fit_changes.backend.common.context.BeContextRation
+import ru.fit_changes.backend.common.context.RationContextConfig
 import ru.fit_changes.backend.ration.logics.chains.*
 
-class RationCrud() {
+class RationCrud(private val config: RationContextConfig = RationContextConfig()) {
     suspend fun create(context: BeContextRation) {
-        RationCreate.exec(context)
+        RationCreate.exec(context.initSettings())
     }
 
     suspend fun read(context: BeContextRation) {
@@ -22,5 +23,9 @@ class RationCrud() {
 
     suspend fun search(context: BeContextRation) {
         RationSearch.exec(context)
+    }
+
+    private fun BeContextRation.initSettings() = apply {
+        config = this@RationCrud.config
     }
 }
