@@ -1,4 +1,4 @@
-package ru.fit_changes.repo
+package ru.fit_changes.backend.app.ktor.ration
 
 import ru.fit_changes.backend.common.models.AuthorIdModel
 import ru.fit_changes.backend.common.models.ration.RationIdModel
@@ -12,10 +12,11 @@ inline fun testRepo(block: RepoRationInMemoryBuilder.() -> Unit): IRepoRation =
 
 class RationBuilder {
 
+    var prototype: RationModel? = null
     var rationId: RationIdModel = RationIdModel(UUID.randomUUID())
     var authorId: AuthorIdModel = AuthorIdModel(UUID.randomUUID())
 
-    fun build(): RationModel = RationModel(rationId, authorId)
+    fun build(): RationModel = prototype ?: RationModel(rationId = rationId, authorId = authorId)
 }
 
 class RepoRationInMemoryBuilder {
