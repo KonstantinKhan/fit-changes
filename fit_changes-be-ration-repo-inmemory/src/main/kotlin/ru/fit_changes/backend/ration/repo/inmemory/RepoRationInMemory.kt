@@ -38,7 +38,7 @@ class RepoRationInMemory(
     init {
         initObjects.forEach { save(it) }
         cache.forEach {
-            println("Был добавлен рацион: ${it.value.dateRation}")
+            println("Был добавлен рацион: ${it.value.dateRation} ${it.value.rationId}")
         }
     }
 
