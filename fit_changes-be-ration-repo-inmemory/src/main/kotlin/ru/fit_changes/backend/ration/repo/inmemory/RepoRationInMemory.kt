@@ -11,6 +11,8 @@ import ru.fit_changes.backend.common.models.ration.RationIdModel
 import ru.fit_changes.backend.common.models.ration.RationModel
 import ru.fit_changes.backend.repo.ration.*
 import java.time.Duration
+import java.time.Instant
+import java.time.ZoneId
 import java.util.*
 
 class RepoRationInMemory(
@@ -131,6 +133,27 @@ class RepoRationInMemory(
     }
 
     override suspend fun search(req: DbRationFilterRequest): DbRationsResponse {
-        TODO("Not yet implemented")
+        val foundsRation = mutableListOf<RationModel>()
+        val reqDate = Instant.parse(req.query)
+        val reqYear = reqDate.atZone(ZoneId.systemDefault()).year
+        val reqMonth = reqDate.atZone(ZoneId.systemDefault()).month
+        val reqDay = reqDate.atZone(ZoneId.systemDefault()).dayOfMonth
+        println("reqYear: $reqYear, reqMonth: $reqMonth, reqDay: $reqDay")
+        cache.forEach {
+            val dbDate = Instant.parse(it.value.dateRation)
+            val dbYear = dbDate.atZone(ZoneId.systemDefault()).year
+            val dbMonth = dbDate.atZone(ZoneId.systemDefault()).month
+            val dbDay = dbDate.atZone(ZoneId.systemDefault()).dayOfMonth
+
+            println("dbYear: $dbYear, dbMonth: $dbMonth, dbDay: $dbDay")
+
+            if (reqYear == dbYear && reqMonth == dbMonth && reqDay == dbDay) {
+                foundsRation.add(it.value.toInternal())
+            }
+        }
+        return DbRationsResponse(
+            isSuccess = true,
+            result = foundsRation
+        )
     }
 }

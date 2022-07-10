@@ -6,6 +6,6 @@ import ru.fit_changes.backend.repo.IDbResponse
 
 data class DbRationsResponse(
     override val isSuccess: Boolean,
-    override val errors: List<CommonErrorModel>,
+    override val errors: List<CommonErrorModel> = emptyList(),
     override val result: List<RationModel>?,
 ) : IDbResponse<List<RationModel>>
