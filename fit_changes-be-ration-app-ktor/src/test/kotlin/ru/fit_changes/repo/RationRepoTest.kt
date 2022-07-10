@@ -144,4 +144,31 @@ class RationRepoTest {
         assertEquals(expected.rationId.asString(), responseObject.updatedRation?.rationId)
         assertEquals(expected.caloriesFact.value, responseObject.updatedRation?.caloriesFact)
     }
+
+    @Test
+    fun repoDeleteRation() = testApplication {
+        val requestRationId = UUID.randomUUID().toString()
+        environment {
+            config = ApplicationConfig("test.conf")
+        }
+        application {
+            test(requestRationId)
+        }
+        val client = testClient()
+        val response = client.post("/ration/delete") {
+            val requestObject = DeleteRationRequest(
+                requestId = "rID:0001",
+                deleteRationId = requestRationId,
+                debug = BaseDebugRequest(
+                    mode = BaseDebugRequest.Mode.TEST
+                )
+            )
+            contentType(ContentType.Application.Json)
+            setBody(requestObject)
+        }
+        val responseObject = response.body<DeleteRationResponse>()
+        assertTrue(responseObject.errors.isNullOrEmpty())
+        assertEquals(HttpStatusCode.OK, response.status)
+        assertEquals(requestRationId, responseObject.deletedRation?.rationId)
+    }
 }
