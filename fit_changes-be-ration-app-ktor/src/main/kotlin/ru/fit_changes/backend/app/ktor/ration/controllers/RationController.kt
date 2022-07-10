@@ -22,3 +22,9 @@ suspend fun ApplicationCall.updateRation(rationService: RationService) {
         rationService.updateRation(this, request)
     }
 }
+
+suspend fun ApplicationCall.deleteRation(rationService: RationService) {
+    handleRoutes<DeleteRationRequest, DeleteRationResponse> { request ->
+        rationService.deleteRation(this, request)
+    }
+}
