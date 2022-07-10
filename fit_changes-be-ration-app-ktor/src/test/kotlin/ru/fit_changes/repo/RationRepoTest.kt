@@ -9,6 +9,7 @@ import ru.fit_changes.backend.app.ktor.ration.test
 import ru.fit_changes.backend.common.mappers.toModel
 import ru.fit_changes.backend.common.models.ration.RationIdModel
 import ru.fit_changes.backend.utils.product.CREATABLE_RATION_FILLED
+import ru.fit_changes.backend.utils.product.UPDATABLE_RATION_FILLED
 import ru.fit_changes.openapi.models.*
 import java.util.*
 import kotlin.test.Test
@@ -43,7 +44,6 @@ class RationRepoTest {
             setBody(requestObject)
         }
         val responseObject = response.body<CreateRationResponse>()
-        println(responseObject)
         expected.rationId = responseObject.createdRation?.rationId?.let { RationIdModel(it) } ?: RationIdModel.NONE
         assertTrue(responseObject.errors.isNullOrEmpty())
         assertEquals(CreateRationResponse.Result.SUCCESS, responseObject.result)
@@ -106,5 +106,42 @@ class RationRepoTest {
         assertTrue(responseObject.errors.isNullOrEmpty())
         assertEquals(HttpStatusCode.OK, response.status)
         assertEquals(requestRationId, responseObject.readRation?.rationId)
+    }
+
+    @Test
+    fun repoUpdateRation() = testApplication {
+
+        val requestRationId = UUID.randomUUID().toString()
+        val expected = UPDATABLE_RATION_FILLED.copy(rationId = requestRationId).toModel()
+
+        environment {
+            config = ApplicationConfig("test.conf")
+        }
+
+        application {
+            test(requestRationId)
+        }
+
+        val client = testClient()
+
+        val response = client.post("/ration/update") {
+            val requestObject = UpdateRationRequest(
+                requestId = "rID:0001",
+                updateRation = UPDATABLE_RATION_FILLED.copy(rationId = requestRationId),
+                debug = BaseDebugRequest(
+                    mode = BaseDebugRequest.Mode.TEST
+                )
+            )
+            contentType(ContentType.Application.Json)
+            setBody(requestObject)
+        }
+
+        val responseObject = response.body<UpdateRationResponse>()
+
+        assertTrue(responseObject.errors.isNullOrEmpty())
+        assertEquals(UpdateRationResponse.Result.SUCCESS, responseObject.result)
+        assertEquals(HttpStatusCode.OK, response.status)
+        assertEquals(expected.rationId.asString(), responseObject.updatedRation?.rationId)
+        assertEquals(expected.caloriesFact.value, responseObject.updatedRation?.caloriesFact)
     }
 }
