@@ -171,4 +171,28 @@ class RationRepoTest {
         assertEquals(HttpStatusCode.OK, response.status)
         assertEquals(requestRationId, responseObject.deletedRation?.rationId)
     }
+
+    @Test
+    fun repoSearchRation() = testApplication {
+        environment {
+            config = ApplicationConfig("test.conf")
+        }
+        application {
+            test(UUID.randomUUID().toString())
+        }
+        val client = testClient()
+        val response = client.post("/ration/search") {
+            val requestObject = SearchRationRequest(
+                requestId = "rID:0001",
+                query = "2022-06-12T08:00:00.0Z",
+                debug = BaseDebugRequest(
+                    mode = BaseDebugRequest.Mode.TEST
+                )
+            )
+            contentType(ContentType.Application.Json)
+            setBody(requestObject)
+        }
+        val responseObject = response.body<SearchRationResponse>()
+        println(responseObject.foundRations)
+    }
 }
