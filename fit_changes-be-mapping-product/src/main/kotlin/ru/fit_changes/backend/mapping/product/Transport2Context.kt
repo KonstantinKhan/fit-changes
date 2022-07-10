@@ -3,6 +3,7 @@ package ru.fit_changes.backend.mapping.product
 import ru.fit_changes.backend.common.context.BeContext
 import ru.fit_changes.backend.common.context.Operations
 import ru.fit_changes.backend.common.models.*
+import ru.fit_changes.backend.common.models.enums.StubCases
 import ru.fit_changes.backend.common.product.models.*
 import ru.fit_changes.openapi.models.*
 

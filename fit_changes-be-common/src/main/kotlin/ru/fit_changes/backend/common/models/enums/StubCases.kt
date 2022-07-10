@@ -1,4 +1,4 @@
-package ru.fit_changes.backend.common.models
+package ru.fit_changes.backend.common.models.enums
 
 enum class StubCases {
     NONE,

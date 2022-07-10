@@ -1,8 +1,6 @@
-package ru.fit_changes.backend.product.logics.handlers
+package ru.fit_changes.cor
 
-import ru.fit_changes.backend.product.logics.*
-
-fun <T> ICorChain<T>.addCorWorkerDsl(function: CorWorkerDsl<T>.() -> Unit) {
+fun <T> ICorChain<T>.worker(function: CorWorkerDsl<T>.() -> Unit) {
     add(CorWorkerDsl<T>().apply(function))
 }
 

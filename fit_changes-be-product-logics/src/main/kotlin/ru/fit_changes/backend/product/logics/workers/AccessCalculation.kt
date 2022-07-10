@@ -3,10 +3,9 @@ package ru.fit_changes.backend.product.logics.workers
 import ru.fit_changes.backend.common.context.BeContext
 import ru.fit_changes.backend.common.context.CorStatus
 import ru.fit_changes.backend.common.models.CommonErrorModel
-import ru.fit_changes.backend.product.logics.ICorChain
-import ru.fit_changes.backend.product.logics.handlers.addCorWorkerDsl
-import ru.fit_changes.backend.product.logics.handlers.chain
-import ru.fit_changes.backend.product.logics.handlers.worker
+import ru.fit_changes.cor.ICorChain
+import ru.fit_changes.cor.worker
+import ru.fit_changes.cor.chain
 import ru.fit_changes.backend.product.logics.helpers.AccessTableConditions
 import ru.fit_changes.backend.product.logics.helpers.accessTable
 import ru.fit_changes.backend.product.logics.helpers.resolveRelationsTo
@@ -34,7 +33,7 @@ fun ICorChain<BeContext>.accessCalculation(title: String) = chain {
                 accessTable[it] ?: false
             }
     }
-    addCorWorkerDsl {
+    worker {
         this.title = "Access validation"
         on {
             !permitted

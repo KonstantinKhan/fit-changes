@@ -43,6 +43,10 @@ dependencies {
     // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind
     implementation("com.fasterxml.jackson.core:jackson-databind:2.13.3")
 
+    implementation(project(":fit_changes-be-ration-service"))
+
+    implementation(project(":fit_changes-be-ration-repo-inmemory"))
+
     implementation("io.ktor:ktor-server-auth:$ktorVersion")
     implementation("io.ktor:ktor-server-auth-jwt:$ktorVersion")
 
@@ -52,7 +56,12 @@ dependencies {
 
     implementation(project(":fit_changes-be-transport-openapi-ration"))
     implementation(project(":fit_changes-be-common"))
+    implementation(project(":fit_changes-be-ration-logics"))
 
     implementation(project(":fit_changes-be-utils"))
     testImplementation("io.ktor:ktor-server-tests-jvm:$ktorVersion")
+
+    testImplementation("io.ktor:ktor-server-test-host:$ktorVersion")
+    testImplementation("org.jetbrains.kotlin:kotlin-test:$kotlinVersion")
+    testImplementation("io.ktor:ktor-client-content-negotiation:$ktorVersion")
 }

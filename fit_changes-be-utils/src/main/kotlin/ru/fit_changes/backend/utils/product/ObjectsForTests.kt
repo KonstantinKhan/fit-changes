@@ -155,6 +155,23 @@ val UPDATABLE_RATION_FILLED = UpdatableRation(
     rationId = RATION_ID
 )
 
+val USED_CHICKEN_PRODUCT = BeUsedProduct(
+    authorId = AuthorIdModel(AUTHOR_ID_0001),
+    category = "",
+    productName = "Филе куриной грудки",
+    caloriesPerHundredGrams = CaloriesModel(calories = 110.0),
+    proteinsPerHundredGrams = ProteinsModel(proteins = 21.0),
+    fatsPerHundredGrams = FatsModel(fats = 3.0),
+    carbohydratesPerHundredGrams = CarbohydratesModel(carbohydrates = 0.0),
+    productId = ProductIdModel(PRODUCT_ID_0001),
+    weight = 200.0,
+    caloriesFact = CaloriesModel(calories = 220.0),
+    proteinsFact = ProteinsModel(proteins = 42.0),
+    fatsFact = FatsModel(fats = 6.0),
+    carbohydratesFact = CarbohydratesModel(carbohydrates = 0.0),
+    parentProductId = ProductIdModel(id = PRODUCT_ID_0002)
+)
+
 val RATION_FILLED_MODEL = RationModel(
     authorId = AuthorIdModel(AUTHOR_ID_0001),
     dateRation = Instant.parse(DATE_RATION),
@@ -170,22 +187,7 @@ val RATION_FILLED_MODEL = RationModel(
         BeMeal(
             mealName = BeMealName.BREAKFAST,
             usedProducts = mutableListOf(
-                BeUsedProduct(
-                    authorId = AuthorIdModel(AUTHOR_ID_0001),
-                    category = "",
-                    productName = "Филе куриной грудки",
-                    caloriesPerHundredGrams = CaloriesModel(calories = 110.0),
-                    proteinsPerHundredGrams = ProteinsModel(proteins = 21.0),
-                    fatsPerHundredGrams = FatsModel(fats = 3.0),
-                    carbohydratesPerHundredGrams = CarbohydratesModel(carbohydrates = 0.0),
-                    productId = ProductIdModel(PRODUCT_ID_0001),
-                    weight = 200.0,
-                    caloriesFact = CaloriesModel(calories = 220.0),
-                    proteinsFact = ProteinsModel(proteins = 42.0),
-                    fatsFact = FatsModel(fats = 6.0),
-                    carbohydratesFact = CarbohydratesModel(carbohydrates = 0.0),
-                    parentProductId = ProductIdModel(id = PRODUCT_ID_0002)
-                )
+                USED_CHICKEN_PRODUCT
             )
         )
     )

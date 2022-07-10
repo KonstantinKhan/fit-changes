@@ -4,7 +4,7 @@ import kotlinx.coroutines.runBlocking
 import ru.fit_changes.backend.common.context.BeContext
 import ru.fit_changes.backend.utils.product.BEEF_FILLED_MODEL
 import ru.fit_changes.backend.common.context.Operations
-import ru.fit_changes.backend.common.models.StubCases
+import ru.fit_changes.backend.common.models.enums.StubCases
 import ru.fit_changes.backend.common.product.models.ProductIdModel
 import ru.fit_changes.backend.common.product.models.ProductSearchFilter
 import ru.fit_changes.backend.utils.product.PRODUCT_ID_0001

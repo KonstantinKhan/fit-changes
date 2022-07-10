@@ -3,10 +3,10 @@ package ru.fit_changes.backend.product.logics.chains.product
 import ru.fit_changes.backend.common.context.BeContext
 import ru.fit_changes.backend.common.context.CorStatus
 import ru.fit_changes.backend.common.context.Operations
-import ru.fit_changes.backend.product.logics.ICorExecutor
-import ru.fit_changes.backend.product.logics.chain
+import ru.fit_changes.cor.ICorExecutor
+import ru.fit_changes.cor.chain
 import ru.fit_changes.backend.product.logics.chains.stub.productCreateStub
-import ru.fit_changes.backend.product.logics.handlers.addCorWorkerDsl
+import ru.fit_changes.cor.worker
 import ru.fit_changes.backend.product.logics.workers.*
 import ru.fit_changes.backend.product.logics.workers.chooseDb
 
@@ -16,7 +16,7 @@ object ProductCreate : ICorExecutor<BeContext> by chain<BeContext>({
     chooseDb(title = "Choose DB or STUB")
     productCreateStub("Processing of stub case CREATE")
     permissionsCalculation("Calculating permissions ")
-    addCorWorkerDsl {
+    worker {
         this.title = "dbProduct init"
         on {
             status == CorStatus.RUNNING
